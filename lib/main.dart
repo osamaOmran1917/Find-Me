@@ -1,5 +1,6 @@
-import 'package:find_me_ii/log_in/log_in_screen.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/log_in/log_in_screen.dart';
+import 'package:find_me_ii/ui/registeration/register_screen.dart';
 import 'package:flutter/material.dart';
 
 main() {
@@ -11,7 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: MyTheme.lightTheme,
-      home: LogInScreen(),
+      initialRoute: RegisterScreen.routeName,
+      routes: {
+        LogInScreen.routeName: (_) => LogInScreen(),
+        RegisterScreen.routeName: (_) => RegisterScreen()
+      },
+      home: RegisterScreen(),
     );
   }
 }

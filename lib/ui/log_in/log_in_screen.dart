@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LogInScreen extends StatelessWidget {
+  static const String routeName = 'LogIn Screen';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +16,11 @@ class LogInScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
           child: Column(
-        children: [
-          TextField(),
-          TextField(),
-        ],
-      )),
+            children: [
+              TextField(),
+              TextField(),
+            ],
+          )),
     );
   }
 }
