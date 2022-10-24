@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  static final Color primaryColor = Color(0xFFFFC5BB);
+  static final Color primaryColor = Color(0xFFFFA19F);
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
