@@ -1,4 +1,8 @@
+import 'package:find_me_ii/dialog_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import '../../validation_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'Register Screen';
@@ -11,15 +15,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool securePasswordI = true;
   bool securePasswordII = true;
   var formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * .05),
+        Size.fromHeight(MediaQuery
+            .of(context)
+            .size
+            .height * .05),
         child: AppBar(
-          shape: Theme.of(context).appBarTheme.shape,
+          shape: Theme
+              .of(context)
+              .appBarTheme
+              .shape,
           centerTitle: true,
           title: Text('Find Me'),
         ),
@@ -38,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
-                      return 'User Name Required';
+                      return 'User Name Is Required';
                     }
                     return null;
                   },
@@ -48,9 +60,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: MediaQuery.of(context).size.height * .02,
                 ),
                 TextFormField(
+                  controller: emailController,
                   validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'Please Enter User Name';
+                    if (text == null || text
+                        .trim()
+                        .isEmpty) {
+                      return 'E-mail Adress Is Required';
+                    }
+                    if (!ValidationUtils.isValidEmail(text)) {
+                      return 'Pleas Enter A Valid E-mail';
                     }
                     return null;
                   },
@@ -60,9 +78,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: MediaQuery.of(context).size.height * .02,
                 ),
                 TextFormField(
+                  controller: passwordController,
                   validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'Please Enter User Name';
+                    if (text == null || text
+                        .trim()
+                        .isEmpty) {
+                      return 'Please Enter Password';
+                    }
+                    if (text.length < 6) {
+                      return 'Passord Must Be At Least 6 Characters.';
                     }
                     return null;
                   },
@@ -83,8 +107,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 TextFormField(
                   validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'Please Enter User Name';
+                    if (text == null || text
+                        .trim()
+                        .isEmpty) {
+                      return 'Please Confirm Password';
+                    }
+                    if (text != passwordController.text) {
+                      return 'The Two Passwords Are Not Identical.';
                     }
                     return null;
                   },
@@ -130,9 +159,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  var authService = FirebaseAuth.instance;
+
   void createAccountClicked() {
     if (formKey.currentState?.validate() == false) {
       return;
     }
+    showLoading(context, 'Loading..');
+    authService.createUserWithEmailAndPassword(
+        email: emailController.text, password: passwordController.text).then((
+        userCredential) {
+      hideLoading(context);
+      showMessage(context, userCredential.user?.uid ?? '');
+    }).onError((error, stackTrace) {
+      hideLoading(context);
+      showMessage(context, error.toString());
+    });
   }
 }

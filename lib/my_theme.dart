@@ -5,7 +5,7 @@ class MyTheme {
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
-        backgroundColor: Color(0xFFFFC5BB),
+        backgroundColor: Color(0xFFFFA19F),
         elevation: 15,
         shape: RoundedRectangleBorder(
             side: BorderSide(color: Colors.red, width: 1),
