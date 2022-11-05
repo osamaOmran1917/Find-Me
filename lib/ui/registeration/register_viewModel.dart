@@ -1,16 +1,9 @@
+import 'package:find_me_ii/base/base.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-abstract class RegisterNavigator {
-  void showLoadingDialog({String message = 'Loading..'});
+abstract class RegisterNavigator extends BaseNavigator {}
 
-  void hideLoadinDialog();
-
-  void showMessageDialog(String message);
-}
-
-class RegisterViewModel extends ChangeNotifier {
-  RegisterNavigator? navigator;
+class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
   var auth = FirebaseAuth.instance;
 
   void register(String email, String password) async {
