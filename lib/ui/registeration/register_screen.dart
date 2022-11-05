@@ -1,7 +1,8 @@
 import 'package:find_me_ii/dialog_utils.dart';
+import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import '../../validation_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -151,6 +152,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                   ),
                 ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, LogInScreen.routeName);
+                    },
+                    child: Text('Already Have An Account?',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor)))
               ],
             ),
           ),
