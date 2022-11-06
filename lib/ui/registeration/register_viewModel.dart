@@ -1,18 +1,29 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/model/my_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class RegisterNavigator extends BaseNavigator {}
+abstract class RegisterNavigator extends BaseNavigator {
+  void goToHome();
+}
 
 class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
   var auth = FirebaseAuth.instance;
 
-  void register(String email, String password) async {
+  void register(String email, String password, String userName) async {
     navigator?.showLoadingDialog();
     try {
       var credentials = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      MyUser newUser =
+          MyUser(id: credentials.user?.uid, userName: userName, email: email);
+      var insertedUser = await MyDataBase.insertUser(newUser);
       navigator?.hideLoadinDialog();
-      navigator?.showMessageDialog(credentials.user?.uid ?? '');
+      if (insertedUser != null) {
+      } else {
+        navigator
+            ?.showMessageDialog('Something Went Wrong. Error With DataBase');
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         navigator?.showMessageDialog('Password Is Too Weak');

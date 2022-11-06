@@ -1,4 +1,5 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/registeration/register_viewModel.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
   bool securePasswordI = true;
   bool securePasswordII = true;
   var formKey = GlobalKey<FormState>();
+  final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -49,6 +51,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                   height: MediaQuery.of(context).size.height * .12,
                 ),
                 TextFormField(
+                  controller: userNameController,
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
                       return 'User Name Is Required';
@@ -169,6 +172,12 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
     if (formKey.currentState?.validate() == false) {
       return;
     }
-    viewModel.register(emailController.text, passwordController.text);
+    viewModel.register(
+        emailController.text, passwordController.text, userNameController.text);
+  }
+
+  @override
+  void goToHome() {
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 }
