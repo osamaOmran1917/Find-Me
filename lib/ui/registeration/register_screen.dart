@@ -43,124 +43,132 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
         key: formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .12,
+          child: ScrollConfiguration(
+            behavior: ScrollBehavior(),
+            child: GlowingOverscrollIndicator(
+              axisDirection: AxisDirection.down,
+              color: Theme.of(context).primaryColor,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .12,
+                    ),
+                    TextFormField(
+                      controller: userNameController,
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          return 'User Name Is Required';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: 'User Name'),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    TextFormField(
+                      controller: emailController,
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          return 'E-mail Adress Is Required';
+                        }
+                        if (!ValidationUtils.isValidEmail(text)) {
+                          return 'Pleas Enter A Valid E-mail';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: 'E-mail Adress'),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    TextFormField(
+                      controller: passwordController,
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          return 'Please Enter Password';
+                        }
+                        if (text.length < 6) {
+                          return 'Passord Must Be At Least 6 Characters.';
+                        }
+                        return null;
+                      },
+                      obscureText: securePasswordI,
+                      decoration: InputDecoration(
+                          suffixIcon: InkWell(
+                              onTap: () {
+                                securePasswordI = !securePasswordI;
+                                setState(() {});
+                              },
+                              child: Icon(securePasswordI
+                                  ? Icons.visibility
+                                  : Icons.visibility_off)),
+                          labelText: 'Password'),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    TextFormField(
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          return 'Please Confirm Password';
+                        }
+                        if (text != passwordController.text) {
+                          return 'The Two Passwords Are Not Identical.';
+                        }
+                        return null;
+                      },
+                      obscureText: securePasswordII,
+                      decoration: InputDecoration(
+                          suffixIcon: InkWell(
+                              onTap: () {
+                                securePasswordII = !securePasswordII;
+                                setState(() {});
+                              },
+                              child: Icon(securePasswordII
+                                  ? Icons.visibility
+                                  : Icons.visibility_off)),
+                          labelText: 'Confirm Password'),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .09,
+                    ),
+                    ElevatedButton(
+                      child: Text(
+                        'Create Account',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      onPressed: () {
+                        createAccountClicked();
+                      },
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.red))),
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .02,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, LogInScreen.routeName);
+                        },
+                        child: Text('Already Have An Account?',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor)))
+                  ],
                 ),
-                TextFormField(
-                  controller: userNameController,
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'User Name Is Required';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(labelText: 'User Name'),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .02,
-                ),
-                TextFormField(
-                  controller: emailController,
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'E-mail Adress Is Required';
-                    }
-                    if (!ValidationUtils.isValidEmail(text)) {
-                      return 'Pleas Enter A Valid E-mail';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(labelText: 'E-mail Adress'),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .02,
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'Please Enter Password';
-                    }
-                    if (text.length < 6) {
-                      return 'Passord Must Be At Least 6 Characters.';
-                    }
-                    return null;
-                  },
-                  obscureText: securePasswordI,
-                  decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                          onTap: () {
-                            securePasswordI = !securePasswordI;
-                            setState(() {});
-                          },
-                          child: Icon(securePasswordI
-                              ? Icons.visibility
-                              : Icons.visibility_off)),
-                      labelText: 'Password'),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .02,
-                ),
-                TextFormField(
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      return 'Please Confirm Password';
-                    }
-                    if (text != passwordController.text) {
-                      return 'The Two Passwords Are Not Identical.';
-                    }
-                    return null;
-                  },
-                  obscureText: securePasswordII,
-                  decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                          onTap: () {
-                            securePasswordII = !securePasswordII;
-                            setState(() {});
-                          },
-                          child: Icon(securePasswordII
-                              ? Icons.visibility
-                              : Icons.visibility_off)),
-                      labelText: 'Confirm Password'),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .09,
-                ),
-                ElevatedButton(
-                  child: Text(
-                    'Create Account',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  onPressed: () {
-                    createAccountClicked();
-                  },
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: BorderSide(color: Colors.red))),
-                    backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).primaryColor),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .02,
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(
-                          context, LogInScreen.routeName);
-                    },
-                    child: Text('Already Have An Account?',
-                        style:
-                            TextStyle(color: Theme.of(context).primaryColor)))
-              ],
+              ),
             ),
           ),
         ),

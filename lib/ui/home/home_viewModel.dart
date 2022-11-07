@@ -1,23 +1,19 @@
-import 'package:find_me_ii/base/base.dart';
-import 'package:find_me_ii/data_base/my_database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import '../../base/base.dart';
 
-import '../../shared_data.dart';
-
-abstract class LoginNavigator extends BaseNavigator {
-  void goToHome();
+abstract class HomeNavigator extends BaseNavigator {
+  // void goToHome();
 }
 
-class LoginViewModel extends BaseViewModel<LoginNavigator> {
-  var auth = FirebaseAuth.instance;
+class HomeViewModel extends BaseViewModel<HomeNavigator> {
+  // var auth = FirebaseAuth.instance;
 
-  void login(String email, String password) async {
+  /*void login(String email, String password) async {
     try {
       navigator?.showLoadingDialog();
       var credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       var retrievedUser =
-          await MyDataBase.getUserById(credential.user?.uid ?? '');
+      await MyDataBase.getUserById(credential.user?.uid ?? '');
       navigator?.hideLoadinDialog();
       if (retrievedUser == null) {
         navigator?.showMessageDialog('Something Went Wrong. Try Again Later');
@@ -31,5 +27,5 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
     } catch (e) {
       print(e);
     }
-  }
+  }*/
 }
