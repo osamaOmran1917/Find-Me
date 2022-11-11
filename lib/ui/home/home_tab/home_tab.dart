@@ -1,3 +1,4 @@
+import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
@@ -45,7 +46,7 @@ class HomeTab extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 26),
               decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: MyTheme.tertiaryColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
                       bottomLeft: Radius.circular(25))),
