@@ -1,4 +1,5 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
 import 'package:find_me_ii/ui/home/home_side_menu.dart';
 import 'package:find_me_ii/ui/home/home_viewModel.dart';
 import 'package:find_me_ii/ui/home/settings_tab/settings_tab.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
     implements HomeNavigator {
-  List<Widget> tabs = [HomeTab(), SettingsTab()];
+  List<Widget> tabs = [HomeTab(), ChatBotTab(), SettingsTab()];
 
   @override
   HomeViewModel initViewModel() {
@@ -43,6 +44,11 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.home),
                 label: 'Home'),
+            BottomNavigationBarItem(
+                backgroundColor:
+                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                icon: Icon(Icons.chat_outlined),
+                label: 'ChatBot'),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,

@@ -1,4 +1,5 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/registeration/register_viewModel.dart';
@@ -149,8 +150,8 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(color: Colors.red))),
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor),
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.secondaryColor),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),
@@ -164,8 +165,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                               context, LogInScreen.routeName);
                         },
                         child: Text('Already Have An Account?',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor)))
+                            style: TextStyle(color: MyTheme.tertiaryColor)))
                   ],
                 ),
               ),

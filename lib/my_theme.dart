@@ -7,6 +7,10 @@ class MyTheme {
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
+        centerTitle: true,
+        color: Colors.transparent,
+        shadowColor: Colors.transparent,
+        foregroundColor: Colors.transparent,
         backgroundColor: MyTheme.secondaryColor,
         // backgroundColor: Color(0xFFFFA19F),
         elevation: 15,

@@ -1,4 +1,5 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_viewModel.dart';
 import 'package:find_me_ii/ui/registeration/register_screen.dart';
@@ -28,6 +29,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
 
   @override
   Widget build(BuildContext context) {
+    viewModel.checkLoggedInUser();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -110,8 +112,8 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                     side: BorderSide(color: Colors.red))),
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor),
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.secondaryColor),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),
@@ -121,8 +123,8 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                     ),
                     Center(
                         child: Text(
-                      'Or',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                          'Or',
+                      style: TextStyle(color: MyTheme.tertiaryColor),
                     )),
                     TextButton(
                         onPressed: () {
@@ -130,8 +132,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                               context, RegisterScreen.routeName);
                         },
                         child: Text('Create New Account',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor)))
+                            style: TextStyle(color: MyTheme.tertiaryColor)))
                   ],
                 ),
               ),
