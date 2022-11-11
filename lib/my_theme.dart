@@ -7,15 +7,16 @@ class MyTheme {
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
+        actionsIconTheme: IconThemeData(color: primaryColor),
+        iconTheme: IconThemeData(color: primaryColor),
         centerTitle: true,
-        color: Colors.transparent,
         shadowColor: Colors.transparent,
         foregroundColor: Colors.transparent,
         backgroundColor: MyTheme.secondaryColor,
         // backgroundColor: Color(0xFFFFA19F),
         elevation: 15,
         shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.red, width: 1),
+            side: BorderSide(color: MyTheme.tertiaryColor, width: 1),
             borderRadius: BorderRadius.circular(18)),
         titleTextStyle: TextStyle(fontSize: 18, color: Colors.black)),
     scaffoldBackgroundColor: primaryColor,

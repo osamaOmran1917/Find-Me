@@ -30,7 +30,9 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
       drawer: Drawer(
         child: HomeSideMenu(),
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('FindMe'),
+      ),
       body: tabs[HomeScreen.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: HomeScreen.selectedIndex,
