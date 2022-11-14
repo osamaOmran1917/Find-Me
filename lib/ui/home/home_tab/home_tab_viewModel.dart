@@ -1,4 +1,4 @@
-import '../../../base/base.dart';
+import 'package:find_me_ii/base/base.dart';
 
 abstract class HomeTabNavigator extends BaseNavigator {
   void goToSearchScreen();

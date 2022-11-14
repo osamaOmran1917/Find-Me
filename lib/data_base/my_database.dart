@@ -35,10 +35,10 @@ class MyDataBase {
     });
   }
 
-  static void insertMissingPerson(MissingPerson missingPerson) {
+  void insertMissingPerson(MissingPerson missingPerson) {
     var missingPersonsCollection = getMissingPersonsCollection();
-    var missingPersonDoc = missingPersonsCollection.doc(); //create new document
-    missingPerson.id = missingPersonDoc.id;
-    missingPersonDoc.set(missingPerson);
+    var doc = missingPersonsCollection.doc(); //create new doc
+    missingPerson.id = doc.id;
+    doc.set(missingPerson); // get doc -> then set //update
   }
 }
