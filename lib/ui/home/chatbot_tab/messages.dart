@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Messages extends StatelessWidget {
+class Message extends StatelessWidget {
   String? message;
 
-  Messages(this.message);
+  Message(this.message);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      padding: EdgeInsets.all(12),
+      child: Text(message ?? ''),
+    );
   }
 }

@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/model/my_user.dart';
 
 class MyDataBase {
-
   static CollectionReference<MyUser> getUsersCollection() {
     return FirebaseFirestore.instance
         .collection(MyUser.collectionName)
         .withConverter<MyUser>(
-        fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
-        toFirestore: (user, options) => user.toFireStore());
+            fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
+            toFirestore: (user, options) => user.toFireStore());
   }
 
   static Future<MyUser?> insertUser(MyUser user) async {
@@ -23,5 +23,22 @@ class MyDataBase {
     var docRef = collection.doc(uid);
     var res = await docRef.get();
     return res.data();
+  }
+
+  static CollectionReference<MissingPerson> getMissingPersonsCollection() {
+    return FirebaseFirestore.instance
+        .collection(MissingPerson.collectionName)
+        .withConverter<MissingPerson>(fromFirestore: (snapshot, options) {
+      return MissingPerson.fromFirestore(snapshot.data()!);
+    }, toFirestore: (missingPerson, options) {
+      return missingPerson.toFirestore();
+    });
+  }
+
+  static void insertMissingPerson(MissingPerson missingPerson) {
+    var missingPersonsCollection = getMissingPersonsCollection();
+    var missingPersonDoc = missingPersonsCollection.doc(); //create new document
+    missingPerson.id = missingPersonDoc.id;
+    missingPersonDoc.set(missingPerson);
   }
 }

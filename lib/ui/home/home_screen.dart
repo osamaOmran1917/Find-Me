@@ -32,6 +32,12 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
       ),
       appBar: AppBar(
         title: Text('FindMe'),
+        actions: [
+          Icon(Icons.notifications_on),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * .05,
+          )
+        ],
       ),
       body: tabs[HomeScreen.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
