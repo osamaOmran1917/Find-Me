@@ -25,6 +25,8 @@ class _InsertMissingPersonScreenState
   var ageController = TextEditingController();
   var describtionController = TextEditingController();
   var addressController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+  bool b1 = false, b2 = false, b3 = false, b4 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,58 +47,97 @@ class _InsertMissingPersonScreenState
               color: MyTheme.secondaryColor,
               borderRadius: BorderRadius.circular(40)),
           padding: EdgeInsets.all(12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextField(
-                controller: ageController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Age'),
-              ),
-              TextField(
-                controller: describtionController,
-                minLines: 1,
-                maxLines: 5,
-                decoration: InputDecoration(
-                    labelText: 'Describe the person you are \n searching for'),
-              ),
-              TextField(
-                controller: addressController,
-                minLines: 1,
-                maxLines: 3,
-                decoration: InputDecoration(
-                    labelText: 'Where is thies person right now?'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text('Add photos'), Icon(Icons.add_a_photo)],
-              ),
-              ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    )),
-                    backgroundColor:
-                        MaterialStateProperty.all(MyTheme.tertiaryColor),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
-                  ),
-                  onPressed: () {
-                    addMissingPerson();
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextFormField(
+                  validator: (text) {
+                    if (text == null || text.trim().isEmpty) {
+                      b1 = true;
+                      return null;
+                    } else {
+                      b1 = false;
+                      return null;
+                    }
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('Insert'),
-                      Icon(Icons.add_circle_outlined),
-                    ],
-                  ))
-            ],
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                ),
+                TextFormField(
+                  validator: (text) {
+                    if (text == null || text.trim().isEmpty) {
+                      b2 = true;
+                      return null;
+                    } else {
+                      b2 = false;
+                      return null;
+                    }
+                  },
+                  controller: ageController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Age'),
+                ),
+                TextFormField(
+                  validator: (text) {
+                    if (text == null || text.trim().isEmpty) {
+                      b3 = true;
+                      return null;
+                    } else {
+                      b3 = false;
+                      return null;
+                    }
+                  },
+                  controller: describtionController,
+                  minLines: 1,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                      labelText: 'Describe the person you\'ve found'),
+                ),
+                TextFormField(
+                  validator: (text) {
+                    if (text == null || text.trim().isEmpty) {
+                      b4 = true;
+                      return null;
+                    } else {
+                      b4 = false;
+                      return null;
+                    }
+                  },
+                  controller: addressController,
+                  minLines: 1,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                      labelText: 'Where is thies person right now?'),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [Text('Add photos'), Icon(Icons.add_a_photo)],
+                ),
+                ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      )),
+                      backgroundColor:
+                          MaterialStateProperty.all(MyTheme.tertiaryColor),
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                    ),
+                    onPressed: () {
+                      addMissingPerson();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('Insert'),
+                        Icon(Icons.add_circle_outlined),
+                      ],
+                    ))
+              ],
+            ),
           ),
         ),
       ),
@@ -104,36 +145,44 @@ class _InsertMissingPersonScreenState
   }
 
   void addMissingPerson() {
-    if (nameController.text.trim() != null ||
-        !(nameController.text.trim().isEmpty) ||
-        ageController.text.trim() != null ||
-        !(ageController.text.trim().isEmpty) ||
-        describtionController.text.trim() != null ||
-        !(describtionController.text.trim().isEmpty ||
-            addressController.text.trim() != null ||
-            !(addressController.text.trim().isEmpty))) {
-      String name = nameController.text,
-          address = addressController.text,
-          desc = describtionController.text,
-          age = ageController.text;
-      DateTime dateTime = DateTime.now();
-      bool? isFound = false;
-      viewModel.onAddMissingPersonClicked(name, age, desc, address);
-    } else if (nameController.text.isEmpty &&
-        nameController.text.trim() == null &&
-        ageController.text.isEmpty &&
-        ageController.text.trim() == null &&
-        describtionController.text.isEmpty &&
-        describtionController.text.trim() == null &&
-        addressController.text.isEmpty &&
-        addressController.text.trim() == null) {
-      showMessage(context, 'Please fill in at least one statement');
-      //whenNotEnoughData();
-    }
+    if (formKey.currentState?.validate() == true) {
+      if (b1 && b2 && b3 && b4) {
+        showMessage(context, 'Please fill in at least one statement');
+        return;
+      } else {
+        void thenFun = thenMessage();
+        void errorFun = onErrorMessage();
+        void timeOutFun = timeOutMessage();
+        String name = nameController.text,
+            address = addressController.text,
+            desc = describtionController.text,
+            age = ageController.text;
+        DateTime dateTime = DateTime.now();
+        bool? isFound = false;
+        viewModel.onAddMissingPersonClicked(
+            name, age, desc, address, thenFun, errorFun, timeOutFun);
+      }
+    } else
+      return;
   }
 
   @override
   void whenNotEnoughData() {
     showMessage(context, 'Please fill in at least one statement');
+  }
+
+  @override
+  void thenMessage() {
+    showMessage(context, 'Missing Person Inserted Successfuly');
+  }
+
+  @override
+  void onErrorMessage() {
+    showMessage(context, 'Something went wrong, try again later');
+  }
+
+  @override
+  void timeOutMessage() {
+    showMessage(context, 'Missing person saved locally');
   }
 }
