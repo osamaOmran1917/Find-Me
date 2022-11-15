@@ -10,6 +10,8 @@ abstract class InsertMissingPersonNavigator extends BaseNavigator {
   void onErrorMessage();
 
   void timeOutMessage();
+
+  void showPickImageBottomSheet();
 }
 
 class InsertMissingPersonViewModel

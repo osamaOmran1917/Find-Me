@@ -1,5 +1,6 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/dialog_utils.dart';
+import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/pick_image_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../my_theme.dart';
@@ -111,9 +112,14 @@ class _InsertMissingPersonScreenState
                   decoration: InputDecoration(
                       labelText: 'Where is thies person right now?'),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [Text('Add photos'), Icon(Icons.add_a_photo)],
+                InkWell(
+                  onTap: () {
+                    showPickImageBottomSheet();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [Text('Add photos'), Icon(Icons.add_a_photo)],
+                  ),
                 ),
                 ElevatedButton(
                     style: ButtonStyle(
@@ -184,5 +190,17 @@ class _InsertMissingPersonScreenState
   @override
   void timeOutMessage() {
     showMessage(context, 'Missing person saved locally');
+  }
+
+  @override
+  void showPickImageBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (buildContext) {
+          return PickImageBottomSheet();
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(35),
+        ));
   }
 }
