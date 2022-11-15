@@ -1,4 +1,5 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/dialog_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../my_theme.dart';
@@ -23,6 +24,7 @@ class _InsertMissingPersonScreenState
   var nameController = TextEditingController();
   var ageController = TextEditingController();
   var describtionController = TextEditingController();
+  var addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,13 @@ class _InsertMissingPersonScreenState
                 decoration: InputDecoration(
                     labelText: 'Describe the person you are \n searching for'),
               ),
+              TextField(
+                controller: addressController,
+                minLines: 1,
+                maxLines: 3,
+                decoration: InputDecoration(
+                    labelText: 'Where is thies person right now?'),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [Text('Add photos'), Icon(Icons.add_a_photo)],
@@ -95,12 +104,36 @@ class _InsertMissingPersonScreenState
   }
 
   void addMissingPerson() {
-    if (nameController.text.trim() != null &&
-        ageController.text.trim() != null &&
-        describtionController.text.trim() != null) {
-      viewModel.onAddMissingPersonClicked();
-    } else {
-      viewModel.showErrorMessage();
+    if (nameController.text.trim() != null ||
+        !(nameController.text.trim().isEmpty) ||
+        ageController.text.trim() != null ||
+        !(ageController.text.trim().isEmpty) ||
+        describtionController.text.trim() != null ||
+        !(describtionController.text.trim().isEmpty ||
+            addressController.text.trim() != null ||
+            !(addressController.text.trim().isEmpty))) {
+      String name = nameController.text,
+          address = addressController.text,
+          desc = describtionController.text,
+          age = ageController.text;
+      DateTime dateTime = DateTime.now();
+      bool? isFound = false;
+      viewModel.onAddMissingPersonClicked(name, age, desc, address);
+    } else if (nameController.text.isEmpty &&
+        nameController.text.trim() == null &&
+        ageController.text.isEmpty &&
+        ageController.text.trim() == null &&
+        describtionController.text.isEmpty &&
+        describtionController.text.trim() == null &&
+        addressController.text.isEmpty &&
+        addressController.text.trim() == null) {
+      showMessage(context, 'Please fill in at least one statement');
+      //whenNotEnoughData();
     }
+  }
+
+  @override
+  void whenNotEnoughData() {
+    showMessage(context, 'Please fill in at least one statement');
   }
 }

@@ -1,14 +1,13 @@
 class MissingPerson {
   static const String collectionName = 'Missing Person';
-  String? id, name, adress, desc;
-  int? age;
+  String? id, name, address, desc, age;
   DateTime? dateTime;
   bool? isFound;
 
   MissingPerson(
       {this.id,
       this.name,
-      this.adress,
+      this.address,
       this.desc,
       this.age,
       this.dateTime,
@@ -16,9 +15,9 @@ class MissingPerson {
 
   MissingPerson.fromFirestore(Map<String, dynamic> data)
       : this(
-            id: data['id'],
+      id: data['id'],
             name: data['name'],
-            adress: data['adress'],
+            address: data['adress'],
             desc: data['desc'],
             age: data['age'],
             dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
@@ -28,7 +27,7 @@ class MissingPerson {
     return {
       'id': id,
       'name': name,
-      'adress': adress,
+      'adress': address,
       'desc': desc,
       'age': age,
       'dateTime': dateTime?.millisecondsSinceEpoch,
