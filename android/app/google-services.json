@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "49444864484",
+    "project_id": "find-me-dce6d",
+    "storage_bucket": "find-me-dce6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49444864484:android:70a78f10ac7ebfe4ef87f1",
+        "android_client_info": {
+          "package_name": "com.example.find_me_ii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49444864484-ptdng5dsts8rsok1mvfil2hrf61asrun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBucLj8uQ2e2HFY1QMVcs5oJLCS0bXLf5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49444864484-ptdng5dsts8rsok1mvfil2hrf61asrun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "49444864484-kq1qnacttcfkmajc7euvgfvdhl33169f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.findMeIi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
