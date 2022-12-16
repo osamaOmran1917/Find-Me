@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImageBottomSheet extends StatefulWidget {
+  File? img;
+
   @override
   State<PickImageBottomSheet> createState() => _PickImageBottomSheetState();
 }
@@ -13,7 +15,6 @@ class PickImageBottomSheet extends StatefulWidget {
 class _PickImageBottomSheetState extends State<PickImageBottomSheet> {
   final ImagePicker _picker = ImagePicker();
   File? _image;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,11 +28,16 @@ class _PickImageBottomSheetState extends State<PickImageBottomSheet> {
         children: [
           GestureDetector(
             onTap: captureImage,
-            child: Image.asset(
-              'assets/images/camera.png',
-              width: 50,
-              height: 50,
-            ),
+            child: _image == null
+                ? Image.asset(
+                    'assets/images/camera.png',
+                    width: 50,
+                    height: 50,
+                  )
+                : Image.file(
+                    _image!,
+                    fit: BoxFit.fill,
+                  ),
           ),
           InkWell(
             onTap: () => _pickImage(ImageSource.gallery),
@@ -41,7 +47,10 @@ class _PickImageBottomSheetState extends State<PickImageBottomSheet> {
                     width: 50,
                     height: 50,
                   )
-                : PickImageBottomSheet(),
+                : Image.file(
+                    _image!,
+                    fit: BoxFit.fill,
+                  ),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/insert_missing_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
+import 'package:find_me_ii/ui/registeration/phone_number_section/enter_phone_number_screen.dart';
 import 'package:find_me_ii/ui/registeration/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName: (_) => RegisterScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
         SearchScreen.routeName: (_) => SearchScreen(),
-        InsertMissingPersonScreen.routeName: (_) => InsertMissingPersonScreen()
+        InsertMissingPersonScreen.routeName: (_) => InsertMissingPersonScreen(),
+        EnterPhoneNumberScreen.routeName: (_) => EnterPhoneNumberScreen()
       },
     );
   }
