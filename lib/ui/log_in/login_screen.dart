@@ -2,7 +2,7 @@ import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_viewModel.dart';
-import 'package:find_me_ii/ui/registeration/phone_number_section/enter_phone_number_screen.dart';
+import 'package:find_me_ii/ui/registeration/register_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../validation_utils.dart';
@@ -128,8 +128,8 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                     )),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, EnterPhoneNumberScreen.routeName);
+                          Navigator.pushReplacementNamed(
+                              context, RegisterScreen.routeName);
                         },
                         child: Text('Create New Account',
                             style: TextStyle(color: MyTheme.tertiaryColor)))

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -10,6 +11,8 @@ class EnterPhoneNumberScreen extends StatefulWidget {
 }
 
 class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
+  String phoneNumber = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +43,9 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Text(
                         'Enter your phone number to continue, we will send you code to verify.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey.shade700),
-                  ),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey.shade700),
+                      ),
                     )),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .03,
@@ -64,18 +67,20 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                       child: Stack(
                         children: [
                           InternationalPhoneNumberInput(
-                            onInputChanged: (value) {},
-                            cursorColor: Colors.black,
-                            formatInput: false,
-                            selectorConfig: SelectorConfig(
-                                selectorType: PhoneInputSelectorType.DIALOG),
-                            inputDecoration: InputDecoration(
-                                contentPadding:
+                        onInputChanged: (value) {
+                          phoneNumber = value.phoneNumber!;
+                        },
+                        cursorColor: Colors.black,
+                        formatInput: false,
+                        selectorConfig: SelectorConfig(
+                            selectorType: PhoneInputSelectorType.DIALOG),
+                        inputDecoration: InputDecoration(
+                            contentPadding:
                                 EdgeInsets.only(bottom: 15, left: 0),
-                                border: InputBorder.none,
-                                hintText: 'Phone Number',
-                                hintStyle: TextStyle(
-                                    color: Colors.grey.shade500, fontSize: 16)),
+                            border: InputBorder.none,
+                            hintText: 'Phone Number',
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade500, fontSize: 16)),
                           ),
                           Positioned(
                             left: 90,
@@ -83,9 +88,9 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                             bottom: 8,
                             child: Container(
                               height: MediaQuery.of(context).size.height * .04,
-                          width: 1,
-                          color: Colors.black.withOpacity(0.13),
-                        ),
+                              width: 1,
+                              color: Colors.black.withOpacity(0.13),
+                            ),
                           ),
                         ],
                       ),
@@ -95,7 +100,45 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                 ),
                 FadeInDown(
                     child: MaterialButton(
-                      onPressed: () {},
+                  onPressed: () async {
+                    FirebaseAuth auth = FirebaseAuth.instance;
+
+                    await auth.verifyPhoneNumber(
+                      phoneNumber: phoneNumber,
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) async {
+                        // ANDROID ONLY!
+
+                        // Sign the user in (or link) with the auto-generated credential
+                        await auth.signInWithCredential(credential);
+                      },
+                      verificationFailed: (FirebaseAuthException e) {
+                        if (e.code == 'invalid-phone-number') {
+                          print('The provided phone number is not valid.');
+                        }
+
+                        // Handle other errors
+                      },
+                      codeSent:
+                          (String verificationId, int? resendToken) async {
+                        // Update the UI - wait for the user to enter the SMS code
+                        String smsCode = 'xxxx';
+
+                        // Create a PhoneAuthCredential with the code
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
+                                verificationId: verificationId,
+                                smsCode: smsCode);
+
+                        // Sign the user in (or link) with the credential
+                        await auth.signInWithCredential(credential);
+                      },
+                      timeout: const Duration(seconds: 60),
+                      codeAutoRetrievalTimeout: (String verificationId) {
+                        // Auto-resolution timed out...
+                      },
+                    );
+                  },
                   color: Colors.black,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),
@@ -107,7 +150,7 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                       color: Colors.white,
                     ),
                   ),
-                )),
+                    )),
                 SizedBox(height: MediaQuery.of(context).size.height * .02),
                 FadeInDown(
                   child: Row(

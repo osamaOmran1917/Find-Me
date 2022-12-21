@@ -1,10 +1,11 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
-import 'package:find_me_ii/ui/home/home_side_menu.dart';
 import 'package:find_me_ii/ui/home/home_viewModel.dart';
+import 'package:find_me_ii/ui/home/latest_lost_tab/latest_lost_tab.dart';
 import 'package:find_me_ii/ui/home/settings_tab/settings_tab.dart';
 import 'package:flutter/material.dart';
 
+import 'home_side_menu/home_side_menu.dart';
 import 'home_tab/home_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
     implements HomeNavigator {
-  List<Widget> tabs = [HomeTab(), ChatBotTab(), SettingsTab()];
+  List<Widget> tabs = [HomeTab(), LatestLost(), ChatBotTab(), SettingsTab()];
 
   @override
   HomeViewModel initViewModel() {
@@ -52,6 +53,11 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.home),
                 label: 'Home'),
+            BottomNavigationBarItem(
+                backgroundColor:
+                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                icon: Icon(Icons.timelapse_outlined),
+                label: 'Latest Lost'),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,

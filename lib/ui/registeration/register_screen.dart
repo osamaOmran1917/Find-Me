@@ -1,8 +1,8 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/registeration/register_viewModel.dart';
+import 'package:find_me_ii/ui/registeration/welcome_screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../validation_utils.dart';
@@ -185,7 +185,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
   }
 
   @override
-  void goToHome() {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+  void goToWelcomeScreen() {
+    Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
   }
 }
