@@ -6,7 +6,64 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purpleAccent,
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/images/osama.PNG', height: 50, width: 50,),
+                  Text('Eng: Osama')
+                ],
+              ),
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/images/osama.PNG', height: 50, width: 50,),
+                  Text('Eng: Osama')
+                ],
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/images/osama.PNG', height: 50, width: 50,),
+                  Text('Eng: Osama')
+                ],
+              ),
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/images/osama.PNG', height: 50, width: 50,),
+                  Text('Eng: Osama')
+                ],
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/images/osama.PNG', height: 50, width: 50,),
+                  Text('Eng: Osama')
+                ],
+              ),
+              Column(
+                children: [
+                  Image.asset(
+                    'assets/images/osama.PNG', height: 50, width: 50,),
+                  Text('Eng: Osama')
+                ],
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

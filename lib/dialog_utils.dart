@@ -1,3 +1,4 @@
+import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
 
 void showMessage(BuildContext context, String message,
@@ -50,9 +51,7 @@ void showLoading(BuildContext context, String loadingMessage,
           content: Row(
             children: [
               CircularProgressIndicator(
-                color: Theme
-                    .of(context)
-                    .primaryColor,
+                color: MyTheme.secondaryColor,
               ),
               SizedBox(
                 width: 12,

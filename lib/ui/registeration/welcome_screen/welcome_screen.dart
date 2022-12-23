@@ -57,11 +57,21 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       onPressed: () {
                         viewModel.onCompletePrsd();
                       },
-                      child: Text(
-                        'Complete your information',
-                        style: TextStyle(
-                            fontSize: 20, color: MyTheme.tertiaryColor),
-                        textAlign: TextAlign.center,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * .005,
+                            horizontal:
+                                MediaQuery.of(context).size.width * .0031),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: MyTheme.tertiaryColor, width: 1),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: Text(
+                          'Complete your information',
+                          style: TextStyle(
+                              fontSize: 20, color: MyTheme.tertiaryColor),
+                          textAlign: TextAlign.center,
+                        ),
                       )),
                   Text(
                     'Or',
@@ -73,11 +83,19 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       onPressed: () {
                         viewModel.onSkipPrsd();
                       },
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(
-                            fontSize: 20, color: MyTheme.tertiaryColor),
-                        textAlign: TextAlign.center,
+                      child: Container(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.height * .005),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: MyTheme.tertiaryColor, width: 1),
+                            borderRadius: BorderRadius.circular(7)),
+                        child: Text(
+                          'Skip',
+                          style: TextStyle(
+                              fontSize: 20, color: MyTheme.tertiaryColor),
+                          textAlign: TextAlign.center,
+                        ),
                       ))
                 ],
               ),

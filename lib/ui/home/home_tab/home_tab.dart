@@ -66,7 +66,8 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 26),
                 decoration: BoxDecoration(
-                    color: MyTheme.tertiaryColor,
+                    border: Border.all(color: MyTheme.secondaryColor, width: 3),
+                    color: MyTheme.primaryColor,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
                         bottomLeft: Radius.circular(25))),
@@ -74,7 +75,7 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
                   children: [
                     Icon(
                       Icons.person_add,
-                      color: Colors.white,
+                      color: MyTheme.secondaryColor,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .06,
@@ -82,7 +83,7 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
                     Text(
                       'Insert a missing person',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: MyTheme.secondaryColor,
                           fontSize: 24,
                           fontWeight: FontWeight.w500),
                     )

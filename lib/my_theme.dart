@@ -8,6 +8,7 @@ class MyTheme {
   /*static final Color primaryColor = Color(0xFFEFBD8E);
   static final Color secondaryColor = Color(0xFF778891);
   static final Color tertiaryColor = Color(0xFFA18B7D);*/
+  static final Color fourthColor = Colors.pink;
   static final ThemeData lightTheme = ThemeData(
     primaryColor: primaryColor,
     appBarTheme: AppBarTheme(
@@ -22,7 +23,7 @@ class MyTheme {
         shape: RoundedRectangleBorder(
             side: BorderSide(color: MyTheme.tertiaryColor, width: 1),
             borderRadius: BorderRadius.circular(18)),
-        titleTextStyle: TextStyle(fontSize: 18, color: Colors.black)),
+        titleTextStyle: TextStyle(fontSize: 18, color: MyTheme.primaryColor)),
     scaffoldBackgroundColor: primaryColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: secondaryColor,

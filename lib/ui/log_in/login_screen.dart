@@ -101,7 +101,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                     ElevatedButton(
                       child: Text(
                         'Log In',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: TextStyle(color: MyTheme.primaryColor),
                       ),
                       onPressed: () {
                         signIn();
@@ -111,7 +111,8 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.red))),
+                                    side: BorderSide(
+                                        color: MyTheme.tertiaryColor))),
                         backgroundColor:
                             MaterialStateProperty.all(MyTheme.secondaryColor),
                         padding: MaterialStateProperty.all(

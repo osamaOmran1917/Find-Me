@@ -139,7 +139,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                     ElevatedButton(
                       child: Text(
                         'Create Account',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: TextStyle(color: MyTheme.primaryColor),
                       ),
                       onPressed: () {
                         createAccountClicked();
@@ -149,7 +149,8 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.red))),
+                                    side: BorderSide(
+                                        color: MyTheme.tertiaryColor))),
                         backgroundColor:
                             MaterialStateProperty.all(MyTheme.secondaryColor),
                         padding: MaterialStateProperty.all(
