@@ -1,6 +1,6 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/dialog_utils.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/pick_image_bottom_sheet.dart';
+import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/add_pic/addin_pic_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../my_theme.dart';
@@ -8,6 +8,7 @@ import 'insert_missing_person_viewModel.dart';
 
 class InsertMissingPersonScreen extends StatefulWidget {
   static const String routeName = 'Insert Missing Person Screen';
+  static String id = '';
 
   @override
   State<InsertMissingPersonScreen> createState() =>
@@ -32,7 +33,6 @@ class _InsertMissingPersonScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.tertiaryColor,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 8.0, left: 8, right: 8),
         child: Text(
@@ -41,108 +41,122 @@ class _InsertMissingPersonScreenState
         ),
       ),
       body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width * .8,
-          height: MediaQuery.of(context).size.height * .8,
-          decoration: BoxDecoration(
-              color: MyTheme.secondaryColor,
-              borderRadius: BorderRadius.circular(40)),
-          padding: EdgeInsets.all(12),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextFormField(
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      b1 = true;
-                      return null;
-                    } else {
-                      b1 = false;
-                      return null;
-                    }
-                  },
-                  controller: nameController,
-                  decoration: InputDecoration(labelText: 'Name'),
-                ),
-                TextFormField(
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      b2 = true;
-                      return null;
-                    } else {
-                      b2 = false;
-                      return null;
-                    }
-                  },
-                  controller: ageController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Age'),
-                ),
-                TextFormField(
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      b3 = true;
-                      return null;
-                    } else {
-                      b3 = false;
-                      return null;
-                    }
-                  },
-                  controller: describtionController,
-                  minLines: 1,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                      labelText: 'Describe the person you\'ve found'),
-                ),
-                TextFormField(
-                  validator: (text) {
-                    if (text == null || text.trim().isEmpty) {
-                      b4 = true;
-                      return null;
-                    } else {
-                      b4 = false;
-                      return null;
-                    }
-                  },
-                  controller: addressController,
-                  minLines: 1,
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                      labelText: 'Where is thies person right now?'),
-                ),
-                InkWell(
-                  onTap: () {
-                    showPickImageBottomSheet();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [Text('Add photos'), Icon(Icons.add_a_photo)],
-                  ),
-                ),
-                ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      )),
-                      backgroundColor:
-                          MaterialStateProperty.all(MyTheme.tertiaryColor),
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width * .8,
+            height: MediaQuery.of(context).size.height * .8,
+            decoration: BoxDecoration(
+                color: MyTheme.secondaryColor,
+                borderRadius: BorderRadius.circular(40)),
+            padding: EdgeInsets.all(12),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: MyTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextFormField(
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          b1 = true;
+                          return null;
+                        } else {
+                          b1 = false;
+                          return null;
+                        }
+                      },
+                      controller: nameController,
+                      decoration: InputDecoration(labelText: 'Name'),
                     ),
-                    onPressed: () {
-                      addMissingPerson();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text('Insert'),
-                        Icon(Icons.add_circle_outlined),
-                      ],
-                    ))
-              ],
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: MyTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextFormField(
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          b2 = true;
+                          return null;
+                        } else {
+                          b2 = false;
+                          return null;
+                        }
+                      },
+                      controller: ageController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'Age'),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: MyTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextFormField(
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          b3 = true;
+                          return null;
+                        } else {
+                          b3 = false;
+                          return null;
+                        }
+                      },
+                      controller: describtionController,
+                      minLines: 1,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                          labelText: 'Describe the person you\'ve found'),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: MyTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: TextFormField(
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          b4 = true;
+                          return null;
+                        } else {
+                          b4 = false;
+                          return null;
+                        }
+                      },
+                      controller: addressController,
+                      minLines: 1,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                          labelText: 'Where is thies person right now?'),
+                    ),
+                  ),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        )),
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.tertiaryColor),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                      ),
+                      onPressed: () {
+                        addMissingPerson();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text('Insert'),
+                          Icon(Icons.add_circle_outlined),
+                        ],
+                      ))
+                ],
+              ),
             ),
           ),
         ),
@@ -180,6 +194,7 @@ class _InsertMissingPersonScreenState
   @override
   void thenMessage() {
     showMessage(context, 'Missing Person Inserted Successfuly');
+    Navigator.pushReplacementNamed(context, AddPic.routeName);
   }
 
   @override
@@ -189,18 +204,8 @@ class _InsertMissingPersonScreenState
 
   @override
   void timeOutMessage() {
-    showMessage(context, 'Missing person saved locally');
-  }
-
-  @override
-  void showPickImageBottomSheet() {
-    showModalBottomSheet(
-        context: context,
-        builder: (buildContext) {
-          return PickImageBottomSheet();
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(35),
-        ));
+    showMessage(context, 'Missing person added');
+    Navigator.pushReplacementNamed(context, AddPic.routeName,
+        arguments: AddPic.id = InsertMissingPersonScreen.id);
   }
 }

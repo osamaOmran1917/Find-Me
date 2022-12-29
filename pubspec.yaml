@@ -42,9 +42,10 @@ dependencies:
   cloud_firestore: ^4.0.4
   image_picker: ^0.8.6
   path: ^1.8.2
-  firebase_storage: ^11.0.6
+  firebase_storage: ^11.0.9
   flutter_animator: ^3.2.2
   intl_phone_number_input: ^0.7.1
+  fluttertoast: ^8.1.2
 
 dev_dependencies:
   flutter_test:
