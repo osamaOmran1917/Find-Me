@@ -13,47 +13,138 @@ class SearchScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width * .8,
           height: MediaQuery.of(context).size.height * .8,
           decoration: BoxDecoration(
-              color: MyTheme.tertiaryColor,
+              color: MyTheme.primaryColor,
               borderRadius: BorderRadius.circular(40)),
           padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Name'),
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Age'),
-              ),
-              TextFormField(
-                minLines: 1,
-                maxLines: 5,
-                decoration: InputDecoration(
-                    labelText: 'Describe the person you are \n searching for'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text('Add photos'), Icon(Icons.add_a_photo)],
+              ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Text('Search by name'), Icon(Icons.search)],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
               ),
               ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    )),
-                    backgroundColor:
-                        MaterialStateProperty.all(MyTheme.secondaryColor),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text('Search'),
-                      Icon(Icons.search),
-                    ],
-                  ))
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Text('Search by age'), Icon(Icons.search)],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Text('Search by details'), Icon(Icons.search)],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Search by date of lose'),
+                    Icon(Icons.search)
+                  ],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Search by date of finding'),
+                    Icon(Icons.search)
+                  ],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Text('Search by post date'), Icon(Icons.search)],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Text('Search by photo'), Icon(Icons.search)],
+                ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                  backgroundColor:
+                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                  padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+                ),
+              ),
             ],
           ),
         ),
