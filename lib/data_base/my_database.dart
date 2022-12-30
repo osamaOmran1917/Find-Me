@@ -41,4 +41,12 @@ class MyDataBase {
     missingPerson.id = doc.id;
     return doc.set(missingPerson); // get doc -> then set //update
   }
+
+  static Future<List<MissingPerson>> getAllMissingPersons() async {
+    QuerySnapshot<MissingPerson> querySnapshot =
+        await getMissingPersonsCollection().get();
+    List<MissingPerson> missingPersons =
+        querySnapshot.docs.map((e) => e.data()).toList();
+    return missingPersons;
+  }
 }

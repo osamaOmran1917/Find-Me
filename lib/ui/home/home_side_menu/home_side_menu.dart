@@ -55,6 +55,7 @@ class _HomeSideMenuState extends State<HomeSideMenu>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              TextButton(onPressed: () {}, child: Text('Inbox')),
               TextButton(
                   onPressed: () {
                     viewModel.onManageAccPrsd();
