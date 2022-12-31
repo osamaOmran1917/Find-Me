@@ -14,7 +14,6 @@ import 'package:find_me_ii/ui/registeration/register_screen.dart';
 import 'package:find_me_ii/ui/registeration/welcome_screen/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,15 +41,6 @@ class MyApp extends StatelessWidget {
         WelcomeScreen.routeName: (_) => WelcomeScreen(),
         AddPic.routeName: (_) => AddPic()
       },
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('en', ''), // English, no country code
-        Locale('es', ''), // Spanish, no country code
-      ],
     );
   }
 }

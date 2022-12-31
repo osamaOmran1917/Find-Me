@@ -46,9 +46,7 @@ dependencies:
   flutter_animator: ^3.2.2
   intl_phone_number_input: ^0.7.1
   fluttertoast: ^8.1.2
-  intl: ^0.17.0
-  flutter_localizations:
-    sdk: flutter
+
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +64,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -103,3 +100,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
