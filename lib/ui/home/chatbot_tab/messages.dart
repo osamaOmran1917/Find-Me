@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 
 class Message extends StatelessWidget {
@@ -12,4 +13,4 @@ class Message extends StatelessWidget {
       child: Text(message ?? ''),
     );
   }
-}
+}*/

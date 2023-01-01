@@ -6,6 +6,8 @@ abstract class HomeSideMenuNavigator {
   void goToAboutUsPage();
 
   void goToContactUsPage();
+
+  void goToInboxPage();
 }
 
 class HomeSideMenuViewModel extends ChangeNotifier {
@@ -21,5 +23,9 @@ class HomeSideMenuViewModel extends ChangeNotifier {
 
   void onContactUsPrsd() {
     navigator?.goToContactUsPage();
+  }
+
+  void onInboxPrsd() {
+    navigator?.goToInboxPage();
   }
 }
