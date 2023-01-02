@@ -113,6 +113,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   void goToHome() {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+        arguments: HomeScreen.selectedIndex = 0);
   }
 }

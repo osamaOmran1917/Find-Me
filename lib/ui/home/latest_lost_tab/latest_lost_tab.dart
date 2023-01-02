@@ -1,6 +1,8 @@
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/shared_data.dart';
+import 'package:find_me_ii/ui/home/latest_lost_tab/post_details.dart';
 import 'package:find_me_ii/ui/home/latest_lost_tab/post_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +33,8 @@ class _LatestLostState extends State<LatestLost> {
             itemBuilder: (buildContext, index) {
               return InkWell(
                   onTap: () {
+                    Navigator.pushNamed(context, PostDetails.routeName,
+                        arguments: SharedData.missingPerson = data[index]);
                     print(data![index].id);
                   },
                   child: PostWidget(data![index]));

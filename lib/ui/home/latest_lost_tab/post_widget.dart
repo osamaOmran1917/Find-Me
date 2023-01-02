@@ -23,7 +23,8 @@ class PostWidget extends StatelessWidget {
             children: [
               Text(missingPerson.name ?? 'Name Not Found'),
               Text(missingPerson.gov ?? 'Government Not Found'),
-              Text('15/10/2021')
+              Text(
+                  '${missingPerson.dateTime?.year.toString()}/${missingPerson.dateTime?.month.toString()}/${missingPerson.dateTime?.day.toString()}')
             ],
           )
         ],

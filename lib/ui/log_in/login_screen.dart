@@ -153,6 +153,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
 
   @override
   void goToHome() {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+        arguments: HomeScreen.selectedIndex = 0);
   }
 }

@@ -191,6 +191,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
 
   @override
   void goToHome() {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+        arguments: HomeScreen.selectedIndex = 0);
   }
 }
