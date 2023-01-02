@@ -31,13 +31,21 @@ class _LatestLostState extends State<LatestLost> {
           var data = snapshot.data;
           return ListView.builder(
             itemBuilder: (buildContext, index) {
-              return InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, PostDetails.routeName,
-                        arguments: SharedData.missingPerson = data[index]);
-                    print(data![index].id);
-                  },
-                  child: PostWidget(data![index]));
+              return data.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No Lost People',
+                        style: TextStyle(
+                            color: MyTheme.secondaryColor, fontSize: 30),
+                      ),
+                    )
+                  : InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, PostDetails.routeName,
+                            arguments: SharedData.missingPerson = data[index]);
+                        print(data![index].id);
+                      },
+                      child: PostWidget(data![index]));
             },
             itemCount: data!.length,
           );

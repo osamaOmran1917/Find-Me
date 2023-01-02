@@ -23,11 +23,11 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        InkWell(
-          onTap: () => onFindPersonPressed(),
-          child: Row(
-            children: [
-              Container(
+        Row(
+          children: [
+            InkWell(
+              onTap: () => onFindPersonPressed(),
+              child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 26),
                 decoration: BoxDecoration(
                     color: Colors.black,
@@ -52,19 +52,19 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * .1,
         ),
-        InkWell(
-          onTap: () => onInsertMissingPersonPressed(),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            InkWell(
+              onTap: () => onInsertMissingPersonPressed(),
+              child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 26),
                 decoration: BoxDecoration(
                     border: Border.all(color: MyTheme.secondaryColor, width: 3),
@@ -90,18 +90,18 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
                     )
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * .1,
         ),
-        InkWell(
-          onTap: () => onFindPersonPressed(),
-          child: Row(
-            children: [
-              Container(
+        Row(
+          children: [
+            InkWell(
+              onTap: () => onFindPersonPressed(),
+              child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 26),
                 decoration: BoxDecoration(
                     color: Colors.black,
@@ -126,9 +126,9 @@ class _HomeTabState extends BaseState<HomeTab, HomeTabViewModel>
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         )
       ],
     );

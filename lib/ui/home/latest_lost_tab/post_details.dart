@@ -32,10 +32,14 @@ class PostDetails extends StatelessWidget {
                       Text(
                         missingPerson?.desc ?? '',
                         style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
                       ),
                       Text(missingPerson?.gov ?? ''),
-                      Text(missingPerson?.adress ?? '',
-                          style: Theme.of(context).textTheme.titleLarge),
+                      Text(
+                        missingPerson?.adress ?? '',
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
                       Text(
                           'Post Date: ${missingPerson?.dateTime?.year.toString()}'
                           '/${missingPerson?.dateTime?.month.toString()}'

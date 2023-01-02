@@ -1,6 +1,8 @@
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
 import 'package:find_me_ii/ui/home/home_viewModel.dart';
+import 'package:find_me_ii/ui/home/latest_lost_tab/current_user_posts.dart';
 import 'package:find_me_ii/ui/home/latest_lost_tab/latest_lost_tab.dart';
 import 'package:find_me_ii/ui/home/settings_tab/settings_tab.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,18 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: HomeScreen.selectedIndex == 1
+          ? FloatingActionButton(
+              backgroundColor: MyTheme.secondaryColor,
+              onPressed: () {
+                Navigator.pushNamed(context, CurrentUserPosts.routeName);
+              },
+              child: Text(
+                'My Posts',
+                textAlign: TextAlign.center,
+              ),
+            )
+          : null,
       drawer: Drawer(
         child: HomeSideMenu(),
       ),
@@ -50,22 +64,22 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
           items: [
             BottomNavigationBarItem(
                 backgroundColor:
-                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.home),
                 label: 'Home'),
             BottomNavigationBarItem(
                 backgroundColor:
-                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.timelapse_outlined),
                 label: 'Latest Lost'),
             BottomNavigationBarItem(
                 backgroundColor:
-                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.chat_outlined),
                 label: 'ChatBot'),
             BottomNavigationBarItem(
                 backgroundColor:
-                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.settings),
                 label: 'Settings')
           ]),

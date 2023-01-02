@@ -23,7 +23,8 @@ class MyTheme {
         shape: RoundedRectangleBorder(
             side: BorderSide(color: MyTheme.tertiaryColor, width: 1),
             borderRadius: BorderRadius.circular(18)),
-        titleTextStyle: TextStyle(fontSize: 18, color: MyTheme.primaryColor)),
+        titleTextStyle: TextStyle(fontSize: 18, color: MyTheme.primaryColor),
+        backwardsCompatibility: false),
     scaffoldBackgroundColor: primaryColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: secondaryColor,

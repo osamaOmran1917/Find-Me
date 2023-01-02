@@ -6,7 +6,11 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      body: Center(
+        child: Text(
+            'WhatsApp & Calls: +201557712317'
+        ),
+      ),
     );
   }
 }

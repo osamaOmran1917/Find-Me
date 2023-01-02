@@ -49,4 +49,12 @@ class MyDataBase {
         querySnapshot.docs.map((e) => e.data()).toList();
     return missingPersons;
   }
+
+  static Future<List<MissingPerson>?> getUserPosts(String uid) async {
+    var collection = getUsersCollection();
+    var docRef = collection.doc(uid);
+    var res = await docRef.get();
+    var data = res.data();
+    return data?.userMissingList;
+  }
 }
