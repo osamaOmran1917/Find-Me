@@ -1,32 +1,33 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/dialog_utils.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/add_pic/addin_pic_screen.dart';
+import 'package:find_me_ii/shared_data.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../my_theme.dart';
-import 'insert_missing_person_viewModel.dart';
+import 'add_pic/addin_pic_screen.dart';
+import 'insert_lost_person_viewModel.dart';
 
-class InsertMissingPersonScreen extends StatefulWidget {
+class InsertLostPersonScreen extends StatefulWidget {
   static const String routeName = 'Insert Missing Person Screen';
   static String id = '';
 
   @override
-  State<InsertMissingPersonScreen> createState() =>
-      _InsertMissingPersonScreenState();
+  State<InsertLostPersonScreen> createState() => _InsertLostPersonScreenState();
 }
 
-class _InsertMissingPersonScreenState
-    extends BaseState<InsertMissingPersonScreen, InsertMissingPersonViewModel>
-    implements InsertMissingPersonNavigator {
+class _InsertLostPersonScreenState
+    extends BaseState<InsertLostPersonScreen, InsertLostPersonViewModel>
+    implements InsertLostPersonNavigator {
   @override
-  InsertMissingPersonViewModel initViewModel() {
-    return InsertMissingPersonViewModel();
+  InsertLostPersonViewModel initViewModel() {
+    return InsertLostPersonViewModel();
   }
 
   var nameController = TextEditingController();
   var ageController = TextEditingController();
   var describtionController = TextEditingController();
   var addressController = TextEditingController();
+  String gov = 'gov';
   var formKey = GlobalKey<FormState>();
   bool b1 = false, b2 = false, b3 = false, b4 = false;
 
@@ -113,6 +114,54 @@ class _InsertMissingPersonScreenState
                     ),
                   ),
                   Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: MyTheme.primaryColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: DropdownButton<String>(
+                      items: <String>[
+                        'Alexandria',
+                        'Ismailia',
+                        'Aswan',
+                        'Assiut',
+                        'Luxor',
+                        'Red Sea',
+                        'Buhaira',
+                        'Beni Suef',
+                        'Port Said',
+                        'South Sinai',
+                        'Giza',
+                        'Dakahlia',
+                        'Damietta',
+                        'Sohag',
+                        'Suez',
+                        'Sharkia',
+                        'North Sinai',
+                        'Gharbia',
+                        'Fayoum',
+                        'Cairo',
+                        'Qalyubia',
+                        'Qena',
+                        'Kafr El Sheikh',
+                        'Marsa Matrouh',
+                        'Menoufia',
+                        'Minya',
+                        'New Valley'
+                      ].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: Text(gov),
+                      onChanged: (value) {
+                        setState(() {
+                          gov = value.toString();
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
                     decoration: BoxDecoration(
                         color: MyTheme.primaryColor,
                         borderRadius: BorderRadius.circular(12)),
@@ -173,14 +222,18 @@ class _InsertMissingPersonScreenState
         void thenFun = thenMessage();
         void errorFun = onErrorMessage();
         void timeOutFun = timeOutMessage();
-        String name = nameController.text,
+        String name = nameController.text.trim().isEmpty
+                ? 'Name Not Found'
+                : nameController.text,
+            gover = gov == 'gov' ? 'Government Not Found' : gov,
+            userId = SharedData.user?.id ?? '',
             address = addressController.text,
             desc = describtionController.text,
             age = ageController.text;
         DateTime dateTime = DateTime.now();
         bool? isFound = false;
-        viewModel.onAddMissingPersonClicked(
-            name, age, desc, address, thenFun, errorFun, timeOutFun);
+        viewModel.onAddMissingPersonClicked(name, age, desc, gover, userId,
+            address, thenFun, errorFun, timeOutFun);
       }
     } else
       return;
@@ -206,6 +259,6 @@ class _InsertMissingPersonScreenState
   void timeOutMessage() {
     showMessage(context, 'Missing person added');
     Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.id = InsertMissingPersonScreen.id);
+        arguments: AddPic.id = InsertLostPersonScreen.id);
   }
 }

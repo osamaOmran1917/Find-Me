@@ -5,8 +5,8 @@ import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart'
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/inbox/inbox_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/add_pic/addin_pic_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/insert_missing_person_screen.dart';
+import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/add_pic/addin_pic_screen.dart';
+import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/registeration/complete_user_info/complete_user_info_screen.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName: (_) => RegisterScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
         SearchScreen.routeName: (_) => SearchScreen(),
-        InsertMissingPersonScreen.routeName: (_) => InsertMissingPersonScreen(),
+        InsertLostPersonScreen.routeName: (_) => InsertLostPersonScreen(),
         EnterPhoneNumberScreen.routeName: (_) => EnterPhoneNumberScreen(),
         ManageAcc.routeName: (_) => ManageAcc(),
         AboutUs.routeName: (_) => AboutUs(),

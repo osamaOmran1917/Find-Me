@@ -21,8 +21,8 @@ class PostWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(missingPerson.name ?? ''),
-              Text('القليوبية'),
+              Text(missingPerson.name ?? 'Name Not Found'),
+              Text(missingPerson.gov ?? 'Government Not Found'),
               Text('15/10/2021')
             ],
           )

@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_missing_person_screen/add_pic/add_pic_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import 'add_pic_viewModel.dart';
 
 class AddPic extends StatefulWidget {
   static const String routeName = 'Add Pic';

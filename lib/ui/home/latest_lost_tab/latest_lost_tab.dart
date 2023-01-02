@@ -29,7 +29,11 @@ class _LatestLostState extends State<LatestLost> {
           var data = snapshot.data;
           return ListView.builder(
             itemBuilder: (buildContext, index) {
-              return PostWidget(data![index]);
+              return InkWell(
+                  onTap: () {
+                    print(data![index].id);
+                  },
+                  child: PostWidget(data![index]));
             },
             itemCount: data!.length,
           );
