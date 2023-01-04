@@ -62,6 +62,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                       : Image.file(
                           _image!,
                           fit: BoxFit.fill,
+                          height: MediaQuery.of(context).size.width * .65,
                         ),
                   Container(
                     height: MediaQuery.of(context).size.height * .25,
@@ -73,7 +74,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                       children: [
                         Text(_image == null
                             ? 'Add pic to this person'
-                            : 'Choose another pic'),
+                            : 'Change pic'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -112,6 +113,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                       ],
                     ),
                   ),
+                  ElevatedButton(onPressed: () {}, child: Text('Save Pic')),
                   ElevatedButton(
                       onPressed: () {
                         viewModel.onSkipPrsd();
