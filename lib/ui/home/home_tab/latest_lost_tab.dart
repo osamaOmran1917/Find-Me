@@ -2,8 +2,8 @@ import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/shared_data.dart';
-import 'package:find_me_ii/ui/home/latest_lost_tab/post_details.dart';
-import 'package:find_me_ii/ui/home/latest_lost_tab/post_widget.dart';
+import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
+import 'package:find_me_ii/ui/home/home_tab/post_widget.dart';
 import 'package:flutter/material.dart';
 
 class LatestLost extends StatefulWidget {

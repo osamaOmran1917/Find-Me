@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../data_base/my_database.dart';
 import '../../../../shared_data.dart';
-import '../../latest_lost_tab/post_details.dart';
-import '../../latest_lost_tab/post_widget.dart';
+import '../post_details.dart';
+import '../post_widget.dart';
 
 class SearchScreen extends StatelessWidget {
   static const String routeName = 'Search Screen';

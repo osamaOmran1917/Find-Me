@@ -28,10 +28,11 @@ class MyTheme {
     scaffoldBackgroundColor: primaryColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: secondaryColor,
-      selectedIconTheme: IconThemeData(color: primaryColor),
-      showSelectedLabels: true,
-      selectedItemColor: primaryColor,
-    ),
+        selectedIconTheme: IconThemeData(color: primaryColor),
+        unselectedIconTheme: IconThemeData(color: primaryColor),
+        showSelectedLabels: true,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: primaryColor),
     textTheme:
         TextTheme(bodyText1: TextStyle(color: Colors.black, fontSize: 18)),
   );
