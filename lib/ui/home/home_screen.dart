@@ -1,5 +1,6 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/home/chat/chat_screen.dart';
 import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
 import 'package:find_me_ii/ui/home/home_tab/current_user_posts.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
@@ -99,7 +100,9 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
               ? CircleAvatar(
                   backgroundColor: MyTheme.primaryColor.withOpacity(.2),
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, ChatScreen.routeName);
+                      },
                       icon: Icon(Icons.forward_to_inbox_outlined)),
                 )
               : Container(),

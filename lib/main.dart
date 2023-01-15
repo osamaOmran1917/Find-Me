@@ -1,5 +1,6 @@
 import 'package:find_me_ii/firebase_options.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/home/chat/chat_screen.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
         AddPic.routeName: (_) => AddPic(),
         InboxScreen.routeName: (_) => InboxScreen(),
         PostDetails.routeName: (_) => PostDetails(),
-        CurrentUserPosts.routeName: (_) => CurrentUserPosts()
+        CurrentUserPosts.routeName: (_) => CurrentUserPosts(),
+        ChatScreen.routeName: (_) => ChatScreen()
       },
     );
   }
