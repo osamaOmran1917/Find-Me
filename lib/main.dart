@@ -6,7 +6,6 @@ import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart'
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/inbox/inbox_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/current_user_posts.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/add_pic/addin_pic_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
@@ -46,8 +45,7 @@ class MyApp extends StatelessWidget {
         AddPic.routeName: (_) => AddPic(),
         InboxScreen.routeName: (_) => InboxScreen(),
         PostDetails.routeName: (_) => PostDetails(),
-        CurrentUserPosts.routeName: (_) => CurrentUserPosts(),
-        ChatScreen.routeName: (_) => ChatScreen()
+        ChatScreen.routeName: (_) => ChatScreen(),
       },
     );
   }

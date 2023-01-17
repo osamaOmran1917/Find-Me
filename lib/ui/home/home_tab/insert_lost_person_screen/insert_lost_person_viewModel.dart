@@ -50,5 +50,9 @@ class InsertLostPersonViewModel
       InsertLostPersonScreen.id = missingPerson.id!;
       SharedData.user?.userMissingList?.add(missingPerson);
     });
+
+    miss = missingPerson;
   }
+
+  late MissingPerson miss;
 }

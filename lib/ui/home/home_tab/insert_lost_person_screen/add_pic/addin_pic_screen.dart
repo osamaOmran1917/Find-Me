@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animator/flutter_animator.dart';
@@ -113,7 +114,28 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                       ],
                     ),
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Save Pic')),
+                  Visibility(
+                    visible: _image == null ? false : true,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          final _firebaseStorage = FirebaseStorage.instance;
+                          var file = File(_image!.path);
+                          if (_image != null) {
+                            //Upload to Firebase
+                            var snapshot = await _firebaseStorage
+                                .ref()
+                                .child('images/${AddPic.id}')
+                                .putFile(file)
+                                .whenComplete(() => null);
+                            var downloadUrl =
+                                await snapshot.ref.getDownloadURL();
+                          } else {
+                            print('No Image Path Received');
+                          }
+                          viewModel.onSkipPrsd();
+                        },
+                        child: Text('Save Pic')),
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         viewModel.onSkipPrsd();
@@ -130,8 +152,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
 
   @override
   void goToNewsFeed() {
-    Navigator.pushReplacementNamed(context, HomeScreen.routeName,
-        arguments: HomeScreen.selectedIndex = 1);
+    Navigator.pushReplacementNamed(context, HomeScreen.routeName);
   }
 
   void captureImage() async {

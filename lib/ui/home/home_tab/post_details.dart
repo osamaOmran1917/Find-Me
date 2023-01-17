@@ -54,7 +54,7 @@ class PostDetails extends StatelessWidget {
                       : false,
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Text('jjjjjjjjjjjjjjjjjjjjjjjjjjjj'),
+                    child: Text('Chat'),
                   ))
             ],
           ),

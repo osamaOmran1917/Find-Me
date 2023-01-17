@@ -2,7 +2,6 @@ import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/chat/chat_screen.dart';
 import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
-import 'package:find_me_ii/ui/home/home_tab/current_user_posts.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/latest_lost_tab.dart';
 import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
@@ -40,18 +39,6 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: HomeScreen.selectedIndex == 0
-          ? FloatingActionButton(
-              backgroundColor: MyTheme.secondaryColor,
-              onPressed: () {
-                Navigator.pushNamed(context, CurrentUserPosts.routeName);
-              },
-              child: Text(
-                'My Posts',
-                textAlign: TextAlign.center,
-              ),
-            )
-          : null,
       drawer: Drawer(
         child: HomeSideMenu(),
       ),
