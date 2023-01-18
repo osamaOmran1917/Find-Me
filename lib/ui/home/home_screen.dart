@@ -10,6 +10,7 @@ import 'package:find_me_ii/ui/home/notificationa_tab/notifications_tab.dart';
 import 'package:find_me_ii/ui/home/profile_tab/profile_tab.dart';
 import 'package:find_me_ii/ui/home/settings_tab/settings_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'home_side_menu/home_side_menu.dart';
 
@@ -44,7 +45,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
       ),
       appBar: AppBar(
         centerTitle: HomeScreen.selectedIndex == 0 ? false : true,
-        title: Text('FindMe'),
+        title: Text(AppLocalizations.of(context)!.app_title),
         actions: [
           HomeScreen.selectedIndex == 0
               ? CircleAvatar(

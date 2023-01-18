@@ -1,0 +1,12 @@
+{
+    "app_title": "أين أنا",
+    "home": "الرئسية",
+    "chatbot": "المتحدث الآلي",
+    "notifications": "الإشعارات",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "iWannaAddAMissingPerson": "أريد إضافة مفقود",
+    "iWannaSearchForAMissingPerson": "أريد البحث عن مفقود",
+    "whoIsChattingWithMe": "من يتحدث معي؟",
+    "language": "اللغة"
+}

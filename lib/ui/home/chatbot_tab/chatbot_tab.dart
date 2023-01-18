@@ -1,5 +1,6 @@
 import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /*class ChatBotTab extends StatefulWidget {
   @override
@@ -144,7 +145,7 @@ class _ChatBotTabState extends State<ChatBotTab> {
                     border: Border.all(width: 1, color: MyTheme.secondaryColor),
                     borderRadius: BorderRadius.circular(30)),
                 child: Text(
-                  'I wanna add a missing person',
+                  AppLocalizations.of(context)!.iWannaAddAMissingPerson,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: MyTheme.secondaryColor),

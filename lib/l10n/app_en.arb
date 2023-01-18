@@ -1,0 +1,12 @@
+{
+    "app_title": "Find Me",
+    "home": "Home",
+    "chatbot": "Chatbot",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "iWannaAddAMissingPerson": "I wanna add a missing person",
+    "iWannaSearchForAMissingPerson": "I wanna search for a missing person",
+    "whoIsChattingWithMe": "Who's chatting with me?",
+    "language": "Language"
+}

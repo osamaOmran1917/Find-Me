@@ -28,6 +28,7 @@ class _LatestLostState extends State<LatestLost> {
               child: CircularProgressIndicator(color: MyTheme.secondaryColor),
             );
           }
+
           var data = snapshot.data;
           return ListView.builder(
             itemBuilder: (buildContext, index) {

@@ -17,6 +17,8 @@ import 'package:find_me_ii/ui/registeration/register_screen.dart';
 import 'package:find_me_ii/ui/registeration/welcome_screen/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'), // English
+        Locale('ar'), // Arabic
+      ],
       theme: MyTheme.lightTheme,
       initialRoute: LogInScreen.routeName,
       routes: {
