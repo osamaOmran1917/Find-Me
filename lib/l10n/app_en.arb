@@ -8,5 +8,8 @@
     "iWannaAddAMissingPerson": "I wanna add a missing person",
     "iWannaSearchForAMissingPerson": "I wanna search for a missing person",
     "whoIsChattingWithMe": "Who's chatting with me?",
-    "language": "Language"
+    "language": "Language",
+    "theme": "Theme",
+    "basic": "Basic",
+    "colored": "Colored"
 }

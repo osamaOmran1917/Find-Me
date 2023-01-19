@@ -8,5 +8,8 @@
     "iWannaAddAMissingPerson": "أريد إضافة مفقود",
     "iWannaSearchForAMissingPerson": "أريد البحث عن مفقود",
     "whoIsChattingWithMe": "من يتحدث معي؟",
-    "language": "اللغة"
+    "language": "اللغة",
+    "theme": "المظهر",
+    "basic": "أساسي",
+    "colored": "ملون"
 }
