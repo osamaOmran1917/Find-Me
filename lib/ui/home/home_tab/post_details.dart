@@ -13,7 +13,7 @@ class PostDetails extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(missingPerson?.name ?? 'Name Not Found',
-              style: TextStyle(color: MyTheme.primaryColor)),
+              style: TextStyle(color: MyTheme.basicWhite)),
         ),
         body: Container(
           width: double.infinity,
@@ -24,7 +24,7 @@ class PostDetails extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * .8,
                 height: MediaQuery.of(context).size.height * .6,
                 decoration: BoxDecoration(
-                    border: Border.all(color: MyTheme.secondaryColor),
+                    border: Border.all(color: MyTheme.coloredSecondary),
                     borderRadius: BorderRadius.circular(6)),
                 child: SingleChildScrollView(
                   child: Column(

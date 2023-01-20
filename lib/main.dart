@@ -48,8 +48,9 @@ class MyApp extends StatelessWidget {
         Locale('ar'), // Arabic
       ],
       locale: Locale(settingsProvider.currentLang),
-      theme: MyTheme.lightTheme,
-      themeMode: ThemeMode.system,
+      theme: MyTheme.basicTheme,
+      darkTheme: MyTheme.coloredTheme,
+      themeMode: settingsProvider.currentTheme,
       initialRoute: LogInScreen.routeName,
       routes: {
         LogInScreen.routeName: (_) => LogInScreen(),

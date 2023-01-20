@@ -48,7 +48,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
               height: MediaQuery.of(context).size.height * .9,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: MyTheme.secondaryColor.withOpacity(.25)),
+                  color: MyTheme.coloredSecondary.withOpacity(.25)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,7 +68,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                   Container(
                     height: MediaQuery.of(context).size.height * .25,
                     decoration: BoxDecoration(
-                        color: MyTheme.primaryColor,
+                        color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(5)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,

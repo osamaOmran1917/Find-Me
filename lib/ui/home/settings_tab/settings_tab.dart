@@ -1,4 +1,5 @@
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/home/settings_tab/theme_bottom_sheet.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,7 +33,8 @@ class _SettingsTabState extends State<SettingsTab> {
             child: Container(
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    border: Border.all(color: MyTheme.secondaryColor, width: 1),
+                    border:
+                        Border.all(color: MyTheme.coloredSecondary, width: 1),
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white),
                 child: Text(
@@ -50,16 +52,24 @@ class _SettingsTabState extends State<SettingsTab> {
           SizedBox(
             height: MediaQuery.of(context).size.height * .0125,
           ),
-          Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  border: Border.all(color: MyTheme.secondaryColor, width: 1),
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.white),
-              child: Text(
-                AppLocalizations.of(context)!.basic,
-                style: Theme.of(context).textTheme.headline5,
-              ))
+          InkWell(
+            onTap: () {
+              showThemeBottomSheet();
+            },
+            child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    border:
+                        Border.all(color: MyTheme.coloredSecondary, width: 1),
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white),
+                child: Text(
+                  settingsProvider.isDarkMode()
+                      ? AppLocalizations.of(context)!.colored
+                      : AppLocalizations.of(context)!.basic,
+                  style: Theme.of(context).textTheme.headline5,
+                )),
+          )
         ],
       ),
     );
@@ -70,6 +80,14 @@ class _SettingsTabState extends State<SettingsTab> {
         context: context,
         builder: (buildContext) {
           return LanguageBottomSheet();
+        });
+  }
+
+  void showThemeBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (buildContext) {
+          return ThemeBottomSheet();
         });
   }
 }

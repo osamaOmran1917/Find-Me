@@ -13,13 +13,13 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyTheme.secondaryColor,
+      backgroundColor: MyTheme.coloredSecondary,
       body: Center(
         child: Container(
           width: MediaQuery.of(context).size.width * .8,
           height: MediaQuery.of(context).size.height * .8,
           decoration: BoxDecoration(
-              color: MyTheme.primaryColor,
+              color: MyTheme.basicWhite,
               borderRadius: BorderRadius.circular(40)),
           padding: EdgeInsets.all(10),
           child: Column(
@@ -46,9 +46,9 @@ class SearchScreen extends StatelessWidget {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                          side: BorderSide(color: MyTheme.basicBlue))),
                   backgroundColor:
-                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                      MaterialStateProperty.all(MyTheme.coloredSecondary),
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                 ),
@@ -70,9 +70,9 @@ class SearchScreen extends StatelessWidget {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                          side: BorderSide(color: MyTheme.basicBlue))),
                   backgroundColor:
-                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                      MaterialStateProperty.all(MyTheme.coloredSecondary),
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                 ),
@@ -94,9 +94,9 @@ class SearchScreen extends StatelessWidget {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                          side: BorderSide(color: MyTheme.basicBlue))),
                   backgroundColor:
-                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                      MaterialStateProperty.all(MyTheme.coloredSecondary),
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                 ),
@@ -118,9 +118,9 @@ class SearchScreen extends StatelessWidget {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: MyTheme.tertiaryColor))),
+                          side: BorderSide(color: MyTheme.basicBlue))),
                   backgroundColor:
-                      MaterialStateProperty.all(MyTheme.secondaryColor),
+                      MaterialStateProperty.all(MyTheme.coloredSecondary),
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                 ),
@@ -162,7 +162,7 @@ class PersonSearchDelegate extends SearchDelegate {
           return Text('Error loading data, try again later.');
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(color: MyTheme.secondaryColor),
+            child: CircularProgressIndicator(color: MyTheme.coloredSecondary),
           );
         }
         var data = snapshot.data;
@@ -173,7 +173,7 @@ class PersonSearchDelegate extends SearchDelegate {
                     child: Text(
                       'No Lost People',
                       style: TextStyle(
-                          color: MyTheme.secondaryColor, fontSize: 30),
+                          color: MyTheme.coloredSecondary, fontSize: 30),
                     ),
                   )
                 : !(data[index].name!.contains(query) ||

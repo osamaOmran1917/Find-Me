@@ -46,7 +46,7 @@ class _HomeSideMenuState extends State<HomeSideMenu>
             automaticallyImplyLeading: false,
             actionsIconTheme: IconThemeData(color: Colors.black),
             iconTheme: IconThemeData(color: Colors.black),
-            backgroundColor: MyTheme.tertiaryColor,
+            backgroundColor: MyTheme.basicBlue,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
             titleTextStyle: TextStyle(fontSize: 18, color: Colors.black)),

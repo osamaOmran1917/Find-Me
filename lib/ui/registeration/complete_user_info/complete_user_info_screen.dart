@@ -50,19 +50,19 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                       children: [
                         Container(
                             decoration: BoxDecoration(
-                                color: MyTheme.secondaryColor,
+                                color: MyTheme.coloredSecondary,
                                 borderRadius: BorderRadius.circular(500)),
                             child: Icon(
                               Icons.person_outlined,
                               size: MediaQuery.of(context).size.height * .15,
-                              color: MyTheme.primaryColor,
+                              color: MyTheme.basicWhite,
                             )),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * .03,
                         ),
                         Text(
                           'Add profile picture',
-                          style: TextStyle(color: MyTheme.tertiaryColor),
+                          style: TextStyle(color: MyTheme.basicBlue),
                         ),
                         Container(
                           color: Colors.black,
@@ -96,7 +96,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: MyTheme.secondaryColor),
+                                    BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
                             hintText: 'phone number'),
@@ -156,7 +156,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: MyTheme.secondaryColor),
+                                    BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
                             hintText: 'detailed address'),
@@ -173,7 +173,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: MyTheme.secondaryColor),
+                                    BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
                             hintText: 'nat ID'),

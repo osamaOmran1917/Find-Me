@@ -45,12 +45,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: MyTheme.secondaryColor),
+                        color: MyTheme.coloredSecondary),
                   ),
                   Text(
                     'You have just created your find me account',
-                    style:
-                        TextStyle(fontSize: 20, color: MyTheme.secondaryColor),
+                    style: TextStyle(
+                        fontSize: 20, color: MyTheme.coloredSecondary),
                     textAlign: TextAlign.center,
                   ),
                   TextButton(
@@ -63,20 +63,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             horizontal:
                                 MediaQuery.of(context).size.width * .0031),
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: MyTheme.tertiaryColor, width: 1),
+                            border:
+                                Border.all(color: MyTheme.basicBlue, width: 1),
                             borderRadius: BorderRadius.circular(7)),
                         child: Text(
                           'Complete your information',
-                          style: TextStyle(
-                              fontSize: 20, color: MyTheme.tertiaryColor),
+                          style:
+                              TextStyle(fontSize: 20, color: MyTheme.basicBlue),
                           textAlign: TextAlign.center,
                         ),
                       )),
                   Text(
                     'Or',
-                    style:
-                        TextStyle(fontSize: 20, color: MyTheme.secondaryColor),
+                    style: TextStyle(
+                        fontSize: 20, color: MyTheme.coloredSecondary),
                     textAlign: TextAlign.center,
                   ),
                   TextButton(
@@ -87,13 +87,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.height * .005),
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: MyTheme.tertiaryColor, width: 1),
+                            border:
+                                Border.all(color: MyTheme.basicBlue, width: 1),
                             borderRadius: BorderRadius.circular(7)),
                         child: Text(
                           'Skip',
-                          style: TextStyle(
-                              fontSize: 20, color: MyTheme.tertiaryColor),
+                          style:
+                              TextStyle(fontSize: 20, color: MyTheme.basicBlue),
                           textAlign: TextAlign.center,
                         ),
                       ))

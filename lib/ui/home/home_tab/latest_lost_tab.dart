@@ -25,7 +25,7 @@ class _LatestLostState extends State<LatestLost> {
             return Text('Error loading data, try again later.');
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(color: MyTheme.secondaryColor),
+              child: CircularProgressIndicator(color: MyTheme.coloredSecondary),
             );
           }
 
@@ -37,7 +37,7 @@ class _LatestLostState extends State<LatestLost> {
                       child: Text(
                         'No Lost People',
                         style: TextStyle(
-                            color: MyTheme.secondaryColor, fontSize: 30),
+                            color: MyTheme.coloredSecondary, fontSize: 30),
                       ),
                     )
                   : InkWell(

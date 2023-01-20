@@ -49,7 +49,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
         actions: [
           HomeScreen.selectedIndex == 0
               ? CircleAvatar(
-                  backgroundColor: MyTheme.primaryColor.withOpacity(.2),
+                  backgroundColor: MyTheme.basicWhite.withOpacity(.2),
                   child: popMenus(
                     context: context,
                     options: [
@@ -72,7 +72,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
               : Container(),
           HomeScreen.selectedIndex == 0
               ? CircleAvatar(
-                  backgroundColor: MyTheme.primaryColor.withOpacity(.2),
+              backgroundColor: MyTheme.basicWhite.withOpacity(.2),
                   child: IconButton(
                       onPressed: () {
                         Navigator.pushNamed(context, SearchScreen.routeName);
@@ -86,7 +86,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
               : Container(),
           HomeScreen.selectedIndex == 0
               ? CircleAvatar(
-                  backgroundColor: MyTheme.primaryColor.withOpacity(.2),
+            backgroundColor: MyTheme.basicWhite.withOpacity(.2),
                   child: IconButton(
                       onPressed: () {
                         Navigator.pushNamed(context, ChatScreen.routeName);

@@ -142,13 +142,14 @@ class _ChatBotTabState extends State<ChatBotTab> {
               child: Container(
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: MyTheme.secondaryColor),
+                    border:
+                        Border.all(width: 1, color: MyTheme.coloredSecondary),
                     borderRadius: BorderRadius.circular(30)),
                 child: Text(
                   AppLocalizations.of(context)!.iWannaAddAMissingPerson,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: MyTheme.secondaryColor),
+                      color: MyTheme.coloredSecondary),
                 ),
               ),
             ),

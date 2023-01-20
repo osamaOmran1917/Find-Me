@@ -47,7 +47,7 @@ class _InsertLostPersonScreenState
             width: MediaQuery.of(context).size.width * .8,
             height: MediaQuery.of(context).size.height * .8,
             decoration: BoxDecoration(
-                color: MyTheme.secondaryColor,
+                color: MyTheme.coloredSecondary,
                 borderRadius: BorderRadius.circular(40)),
             padding: EdgeInsets.all(12),
             child: Form(
@@ -57,7 +57,7 @@ class _InsertLostPersonScreenState
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: MyTheme.primaryColor,
+                        color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(12)),
                     child: TextFormField(
                       validator: (text) {
@@ -75,7 +75,7 @@ class _InsertLostPersonScreenState
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: MyTheme.primaryColor,
+                        color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(12)),
                     child: TextFormField(
                       validator: (text) {
@@ -94,7 +94,7 @@ class _InsertLostPersonScreenState
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: MyTheme.primaryColor,
+                        color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(12)),
                     child: TextFormField(
                       validator: (text) {
@@ -116,7 +116,7 @@ class _InsertLostPersonScreenState
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: MyTheme.primaryColor,
+                        color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(12)),
                     child: DropdownButton<String>(
                       items: <String>[
@@ -163,7 +163,7 @@ class _InsertLostPersonScreenState
                   ),
                   Container(
                     decoration: BoxDecoration(
-                        color: MyTheme.primaryColor,
+                        color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(12)),
                     child: TextFormField(
                       validator: (text) {
@@ -190,7 +190,7 @@ class _InsertLostPersonScreenState
                           borderRadius: BorderRadius.circular(18.0),
                         )),
                         backgroundColor:
-                            MaterialStateProperty.all(MyTheme.tertiaryColor),
+                            MaterialStateProperty.all(MyTheme.basicBlue),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),

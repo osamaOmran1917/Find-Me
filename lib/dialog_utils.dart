@@ -51,7 +51,7 @@ void showLoading(BuildContext context, String loadingMessage,
           content: Row(
             children: [
               CircularProgressIndicator(
-                color: MyTheme.secondaryColor,
+                color: MyTheme.coloredSecondary,
               ),
               SizedBox(
                 width: 12,

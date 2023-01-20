@@ -1,14 +1,15 @@
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class LanguageBottomSheet extends StatefulWidget {
+class ThemeBottomSheet extends StatefulWidget {
   @override
-  State<LanguageBottomSheet> createState() => _LanguageBottomSheetState();
+  State<ThemeBottomSheet> createState() => _ThemeBottomSheetState();
 }
 
-class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
+class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   @override
   Widget build(BuildContext context) {
     var settingsProvider = Provider.of<SettingsProvider>(context);
@@ -18,21 +19,25 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
         children: [
           InkWell(
               onTap: () {
-                settingsProvider.changeLanguage('en');
+                settingsProvider.isDarkMode()
+                    ? settingsProvider.changeTheme(ThemeMode.light)
+                    : null;
               },
-              child: settingsProvider.currentLang == 'en'
-                  ? getSelectedItem('English')
-                  : getUnSelectedItem('English')),
+              child: settingsProvider.isDarkMode()
+                  ? getUnSelectedItem(AppLocalizations.of(context)!.basic)
+                  : getSelectedItem(AppLocalizations.of(context)!.basic)),
           SizedBox(
             height: MediaQuery.of(context).size.height * .045,
           ),
           InkWell(
               onTap: () {
-                settingsProvider.changeLanguage('ar');
+                settingsProvider.isDarkMode()
+                    ? null
+                    : settingsProvider.changeTheme(ThemeMode.dark);
               },
-              child: settingsProvider.currentLang == 'ar'
-                  ? getSelectedItem('العربية')
-                  : getUnSelectedItem('العربية'))
+              child: settingsProvider.isDarkMode()
+                  ? getSelectedItem(AppLocalizations.of(context)!.colored)
+                  : getUnSelectedItem(AppLocalizations.of(context)!.colored))
         ],
       ),
     );
