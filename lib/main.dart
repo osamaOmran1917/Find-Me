@@ -35,6 +35,7 @@ main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -46,8 +47,9 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('ar'), // Arabic
       ],
-      locale: Locale('ar'),
+      locale: Locale(settingsProvider.currentLang),
       theme: MyTheme.lightTheme,
+      themeMode: ThemeMode.system,
       initialRoute: LogInScreen.routeName,
       routes: {
         LogInScreen.routeName: (_) => LogInScreen(),

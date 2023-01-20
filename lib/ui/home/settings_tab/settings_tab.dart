@@ -1,6 +1,8 @@
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'language_bottom_sheet.dart';
 
@@ -12,6 +14,7 @@ class SettingsTab extends StatefulWidget {
 class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
       padding: EdgeInsets.all(12),
       child: Column(
@@ -33,7 +36,7 @@ class _SettingsTabState extends State<SettingsTab> {
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white),
                 child: Text(
-                  'English',
+                  settingsProvider.currentLang == 'en' ? 'English' : 'العربية',
                   style: Theme.of(context).textTheme.headline5,
                 )),
           ),

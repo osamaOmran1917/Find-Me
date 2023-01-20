@@ -1,5 +1,6 @@
 import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OneOfUsWidget extends StatelessWidget {
   String img, name;
@@ -31,7 +32,7 @@ class OneOfUsWidget extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Text('Eng: ${name}')
+          Text('${AppLocalizations.of(context)!.eng}: ${name}')
         ],
       ),
     );

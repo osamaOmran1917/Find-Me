@@ -1,20 +1,24 @@
 import 'package:find_me_ii/ui/home/home_side_menu/about_us/one_of_us_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutUs extends StatelessWidget {
   static const String routeName = 'About Us';
 
-  List<OneOfUsWidget> us = [
-    OneOfUsWidget('osama.PNG', 'Osama'),
-    OneOfUsWidget('zmlk.PNG', 'Zamalkawy'),
-    OneOfUsWidget('adhm.PNG', 'Adham'),
-    OneOfUsWidget('Shai5Messi.jpg', 'Alaa'),
-    OneOfUsWidget('Shai5Messi.jpg', 'Fatema'),
-    OneOfUsWidget('attota.PNG', 'Mohammed'),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<OneOfUsWidget> us = [
+      OneOfUsWidget(
+        'osama.PNG',
+        AppLocalizations.of(context)!.osama,
+      ),
+      OneOfUsWidget('zmlk.PNG', AppLocalizations.of(context)!.zamalkawy),
+      OneOfUsWidget('adhm.PNG', AppLocalizations.of(context)!.adham),
+      OneOfUsWidget('Shai5Messi.jpg', AppLocalizations.of(context)!.alaa),
+      OneOfUsWidget('Shai5Messi.jpg', AppLocalizations.of(context)!.fatema),
+      OneOfUsWidget('attota.PNG', AppLocalizations.of(context)!.mohammed),
+    ];
+
     return Scaffold(
       body: GridView.count(
         crossAxisSpacing: MediaQuery.of(context).size.width * .01,

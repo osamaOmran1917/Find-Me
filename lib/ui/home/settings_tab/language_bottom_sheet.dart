@@ -1,5 +1,7 @@
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LanguageBottomSheet extends StatefulWidget {
   @override
@@ -9,15 +11,28 @@ class LanguageBottomSheet extends StatefulWidget {
 class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
       padding: EdgeInsets.all(18),
       child: Column(
         children: [
-          getSelectedItem('English'),
+          InkWell(
+              onTap: () {
+                settingsProvider.changeLanguage('en');
+              },
+              child: settingsProvider.currentLang == 'en'
+                  ? getSelectedItem('English')
+                  : getUnSelectedItem('English')),
           SizedBox(
             height: MediaQuery.of(context).size.height * .045,
           ),
-          getUnSelectedItem('العربية')
+          InkWell(
+              onTap: () {
+                settingsProvider.changeLanguage('ar');
+              },
+              child: settingsProvider.currentLang == 'ar'
+                  ? getSelectedItem('العربية')
+                  : getUnSelectedItem('العربية'))
         ],
       ),
     );
@@ -35,7 +50,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
               ?.copyWith(color: MyTheme.tertiaryColor),
         ),
         Icon(
-          Icons.check_box_sharp,
+          Icons.check_circle_outline,
           color: MyTheme.tertiaryColor,
         )
       ],
