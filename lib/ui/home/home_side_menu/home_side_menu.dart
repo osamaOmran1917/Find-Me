@@ -7,6 +7,7 @@ import 'package:find_me_ii/ui/home/home_side_menu/inbox/inbox_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../log_in/login_screen.dart';
@@ -58,24 +59,19 @@ class _HomeSideMenuState extends State<HomeSideMenu>
             children: [
               TextButton(
                   onPressed: () {
-                    viewModel.onInboxPrsd();
-                  },
-                  child: Text('Inbox')),
-              TextButton(
-                  onPressed: () {
                     viewModel.onManageAccPrsd();
                   },
-                  child: Text('Manage your account')),
+                  child: Text(AppLocalizations.of(context)!.manageAcc)),
               TextButton(
                   onPressed: () {
                     viewModel.onAboutUsPrsd();
                   },
-                  child: Text('About us')),
+                  child: Text(AppLocalizations.of(context)!.aboutUs)),
               TextButton(
                   onPressed: () {
                     viewModel.onContactUsPrsd();
                   },
-                  child: Text('Contact us')),
+                  child: Text(AppLocalizations.of(context)!.contactUs)),
               TextButton(
                   onPressed: () {
                     FirebaseAuth.instance.signOut();
@@ -83,7 +79,7 @@ class _HomeSideMenuState extends State<HomeSideMenu>
                     Navigator.pushReplacementNamed(
                         context, LogInScreen.routeName);
                   },
-                  child: Text('Log Out')),
+                  child: Text(AppLocalizations.of(context)!.logOut)),
             ],
           ),
         ),

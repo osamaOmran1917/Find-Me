@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,9 +34,12 @@ main() async {
 }
 
 class MyApp extends StatelessWidget {
+  late SettingsProvider settingsProvider;
+
   @override
   Widget build(BuildContext context) {
-    var settingsProvider = Provider.of<SettingsProvider>(context);
+    settingsProvider = Provider.of<SettingsProvider>(context);
+    getValueFromShared();
     return MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -70,5 +74,15 @@ class MyApp extends StatelessWidget {
         ChatScreen.routeName: (_) => ChatScreen(),
       },
     );
+  }
+
+  void getValueFromShared() async {
+    final prefs = await SharedPreferences.getInstance();
+    settingsProvider.changeLanguage(prefs.getString('lang') ?? 'ar');
+    if (prefs.getString('theme') == 'light') {
+      settingsProvider.changeTheme(ThemeMode.light);
+    } else {
+      settingsProvider.changeTheme(ThemeMode.dark);
+    }
   }
 }

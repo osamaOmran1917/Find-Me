@@ -20,5 +20,9 @@
     "mohammed": "Mohammed",
     "eng": "Eng",
     "whats": "WhatsApp",
-    "calls": "Calls"
+    "calls": "Calls",
+    "manageAcc": "Manage your account",
+    "aboutUs": "About us",
+    "contactUs": "Contact us",
+    "logOut": "Log out"
 }
