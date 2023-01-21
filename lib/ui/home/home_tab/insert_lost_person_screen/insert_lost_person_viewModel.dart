@@ -17,6 +17,8 @@ abstract class InsertLostPersonNavigator extends BaseNavigator {
 
 class InsertLostPersonViewModel
     extends BaseViewModel<InsertLostPersonNavigator> {
+  MissingPerson? miss;
+
   void onAddMissingPersonClicked(
       String name,
       String age,
@@ -32,7 +34,6 @@ class InsertLostPersonViewModel
         age: age,
         desc: desc,
         gov: gov,
-        userId: userId,
         adress: address,
         dateTime: DateTime.now(),
         isFound: false);
@@ -53,6 +54,4 @@ class InsertLostPersonViewModel
 
     miss = missingPerson;
   }
-
-  late MissingPerson miss;
 }

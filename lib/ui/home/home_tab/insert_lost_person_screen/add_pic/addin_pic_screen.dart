@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,7 +15,7 @@ import 'add_pic_viewModel.dart';
 class AddPic extends StatefulWidget {
   static const String routeName = 'Add Pic';
 
-  static String id = '';
+  static MissingPerson? missingPerson;
 
   File? img;
 
@@ -124,7 +125,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                             //Upload to Firebase
                             var snapshot = await _firebaseStorage
                                 .ref()
-                                .child('images/${AddPic.id}')
+                                .child('images/${AddPic.missingPerson?.name}')
                                 .putFile(file)
                                 .whenComplete(() => null);
                             var downloadUrl =

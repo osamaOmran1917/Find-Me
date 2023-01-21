@@ -49,9 +49,8 @@ class PostDetails extends StatelessWidget {
                 ),
               ),
               Visibility(
-                  visible: SharedData.user?.id == missingPerson?.userId
-                      ? true
-                      : false,
+                  visible:
+                      SharedData.user == missingPerson?.poster ? true : false,
                   child: ElevatedButton(
                     onPressed: () {},
                     child: Text('Chat'),

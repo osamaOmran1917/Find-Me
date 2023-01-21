@@ -248,7 +248,7 @@ class _InsertLostPersonScreenState
   void thenMessage() {
     showMessage(context, 'Missing Person Inserted Successfuly');
     Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.id = viewModel.miss.id!);
+        arguments: AddPic.missingPerson = viewModel.miss);
   }
 
   @override
@@ -260,6 +260,6 @@ class _InsertLostPersonScreenState
   void timeOutMessage() {
     showMessage(context, 'Missing person added');
     Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.id = viewModel.miss.id!);
+        arguments: AddPic.missingPerson = viewModel.miss);
   }
 }

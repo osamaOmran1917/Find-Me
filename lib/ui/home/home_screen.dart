@@ -72,7 +72,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
               : Container(),
           HomeScreen.selectedIndex == 0
               ? CircleAvatar(
-              backgroundColor: MyTheme.basicWhite.withOpacity(.2),
+                  backgroundColor: MyTheme.basicWhite.withOpacity(.2),
                   child: IconButton(
                       onPressed: () {
                         Navigator.pushNamed(context, SearchScreen.routeName);
