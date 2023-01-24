@@ -7,7 +7,7 @@ class MissingPerson {
   static const String collectionName = 'Missing Person';
   String? id, name, adress, desc, age, gov;
   DateTime? dateTime;
-  bool? isFound;
+  bool? reachedToFamily;
   File? image;
   MyUser? poster = SharedData.user;
 
@@ -19,19 +19,19 @@ class MissingPerson {
       this.age,
       this.gov,
       this.dateTime,
-      this.isFound,
+      this.reachedToFamily,
       this.image});
 
   MissingPerson.fromFirestore(Map<String, dynamic> data)
       : this(
-            id: data['id'],
+      id: data['id'],
             name: data['name'],
             adress: data['adress'],
             desc: data['desc'],
             age: data['age'],
             gov: data['gov'],
             dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
-            isFound: data['isFound'],
+            reachedToFamily: data['isFound'],
             image: data['image']);
 
   Map<String, dynamic> toFirestore() {
@@ -43,7 +43,7 @@ class MissingPerson {
       'age': age,
       'gov': gov,
       'dateTime': dateTime?.millisecondsSinceEpoch,
-      'isFound': isFound,
+      'isFound': reachedToFamily,
       'image': image,
     };
   }

@@ -36,7 +36,7 @@ class InsertLostPersonViewModel
         gov: gov,
         adress: address,
         dateTime: DateTime.now(),
-        isFound: false);
+        reachedToFamily: false);
     MyDataBase.insertMissingPerson(missingPerson).then((value) {
       //called when future is completed
       thenFun;

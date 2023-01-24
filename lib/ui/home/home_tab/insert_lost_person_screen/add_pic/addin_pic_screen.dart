@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animator/flutter_animator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +56,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'You\'ve just added a lost person.',
+                    AppLocalizations.of(context)!.youHaveJustAddedALostPerson,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
@@ -75,8 +76,8 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(_image == null
-                            ? 'Add pic to this person'
-                            : 'Change pic'),
+                            ? AppLocalizations.of(context)!.addPicToThisPerson
+                            : AppLocalizations.of(context)!.changePic),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -91,7 +92,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                                     height: MediaQuery.of(context).size.height *
                                         .12,
                                   ),
-                                  Text('capture')
+                                  Text(AppLocalizations.of(context)!.capture)
                                 ],
                               ),
                             ),
@@ -106,7 +107,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                                     height: MediaQuery.of(context).size.height *
                                         .12,
                                   ),
-                                  Text('select')
+                                  Text(AppLocalizations.of(context)!.select)
                                 ],
                               ),
                             )
@@ -135,13 +136,13 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                           }
                           viewModel.onSkipPrsd();
                         },
-                        child: Text('Save Pic')),
+                        child: Text(AppLocalizations.of(context)!.savePic)),
                   ),
                   ElevatedButton(
                       onPressed: () {
                         viewModel.onSkipPrsd();
                       },
-                      child: Text('Skip'))
+                      child: Text(AppLocalizations.of(context)!.skip))
                 ],
               ),
             ),

@@ -1,11 +1,10 @@
 import 'package:find_me_ii/firebase_options.dart';
 import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/ui/home/chat/chat_screen.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
-import 'package:find_me_ii/ui/home/home_side_menu/inbox/inbox_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
+import 'package:find_me_ii/ui/home/home_tab/chat/chat_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/add_pic/addin_pic_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
@@ -69,7 +68,6 @@ class MyApp extends StatelessWidget {
         CompleteUserInfo.routeName: (_) => CompleteUserInfo(),
         WelcomeScreen.routeName: (_) => WelcomeScreen(),
         AddPic.routeName: (_) => AddPic(),
-        InboxScreen.routeName: (_) => InboxScreen(),
         PostDetails.routeName: (_) => PostDetails(),
         ChatScreen.routeName: (_) => ChatScreen(),
       },

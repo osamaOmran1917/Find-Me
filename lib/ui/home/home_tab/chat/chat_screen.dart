@@ -1,6 +1,7 @@
 import 'package:find_me_ii/shared_data.dart';
-import 'package:find_me_ii/ui/home/chat/chat_section.dart';
 import 'package:flutter/material.dart';
+
+import 'chat_section.dart';
 
 class ChatScreen extends StatelessWidget {
   static const String routeName = 'Chat Screen';

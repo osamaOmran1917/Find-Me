@@ -1,7 +1,10 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/shared_data.dart';
+import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../my_theme.dart';
 import 'add_pic/addin_pic_screen.dart';
@@ -10,6 +13,7 @@ import 'insert_lost_person_viewModel.dart';
 class InsertLostPersonScreen extends StatefulWidget {
   static const String routeName = 'Insert Missing Person Screen';
   static String id = '';
+  static bool lost = true;
 
   @override
   State<InsertLostPersonScreen> createState() => _InsertLostPersonScreenState();
@@ -28,16 +32,76 @@ class _InsertLostPersonScreenState
   var describtionController = TextEditingController();
   var addressController = TextEditingController();
   String gov = 'gov';
+  List<String> govs = [
+    'Alexandria',
+    'Ismailia',
+    'Aswan',
+    'Assiut',
+    'Luxor',
+    'Red Sea',
+    'Buhaira',
+    'Beni Suef',
+    'Port Said',
+    'South Sinai',
+    'Giza',
+    'Dakahlia',
+    'Damietta',
+    'Sohag',
+    'Suez',
+    'Sharkia',
+    'North Sinai',
+    'Gharbia',
+    'Fayoum',
+    'Cairo',
+    'Qalyubia',
+    'Qena',
+    'Kafr El Sheikh',
+    'Marsa Matrouh',
+    'Menoufia',
+    'Minya',
+    'New Valley'
+  ];
+  List<String> govsAR = [
+    'الإسكندرية',
+    'الإسماعيلية',
+    'أسوان',
+    'أسيوط',
+    'الأقصر',
+    'البحر الأحمر',
+    'البحيرة',
+    'بني سويف',
+    'بور سعيد',
+    'جنوب سيناء',
+    'الجيزة',
+    'الدقهلية',
+    'دمياط',
+    'سوهاج',
+    'السويس',
+    'الشرقية',
+    'شمال سيناء',
+    'الغربية',
+    'الفيوم',
+    'القاهرة',
+    'القليوبية',
+    'قنا',
+    'كفر الشيخ',
+    'مرسى مطروح',
+    'المنوفية',
+    'المنيا',
+    'الوادي الجديد'
+  ];
   var formKey = GlobalKey<FormState>();
   bool b1 = false, b2 = false, b3 = false, b4 = false;
 
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 8.0, left: 8, right: 8),
         child: Text(
-          'All of this data is optional. But try to fill in all of them so that we can connect the missing with their families, and if you cannot, then fill out at least one statement.',
+          AppLocalizations.of(context)!
+              .allOfThisDataIsOptionalButTryToFillInAllOfThemSoThatWeCanConnectTheMissingWithTheirFamiliesAndIfYouCannotThenFillOutAtLeastOneStatement,
           style: TextStyle(fontSize: 10),
         ),
       ),
@@ -70,7 +134,8 @@ class _InsertLostPersonScreenState
                         }
                       },
                       controller: nameController,
-                      decoration: InputDecoration(labelText: 'Name'),
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.name),
                     ),
                   ),
                   Container(
@@ -89,7 +154,8 @@ class _InsertLostPersonScreenState
                       },
                       controller: ageController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: 'Age'),
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.age),
                     ),
                   ),
                   Container(
@@ -110,7 +176,8 @@ class _InsertLostPersonScreenState
                       minLines: 1,
                       maxLines: 5,
                       decoration: InputDecoration(
-                          labelText: 'Describe the person you\'ve found'),
+                          labelText: AppLocalizations.of(context)!
+                              .describeThePersonYouVeFound),
                     ),
                   ),
                   Container(
@@ -118,48 +185,35 @@ class _InsertLostPersonScreenState
                     decoration: BoxDecoration(
                         color: MyTheme.basicWhite,
                         borderRadius: BorderRadius.circular(12)),
-                    child: DropdownButton<String>(
-                      items: <String>[
-                        'Alexandria',
-                        'Ismailia',
-                        'Aswan',
-                        'Assiut',
-                        'Luxor',
-                        'Red Sea',
-                        'Buhaira',
-                        'Beni Suef',
-                        'Port Said',
-                        'South Sinai',
-                        'Giza',
-                        'Dakahlia',
-                        'Damietta',
-                        'Sohag',
-                        'Suez',
-                        'Sharkia',
-                        'North Sinai',
-                        'Gharbia',
-                        'Fayoum',
-                        'Cairo',
-                        'Qalyubia',
-                        'Qena',
-                        'Kafr El Sheikh',
-                        'Marsa Matrouh',
-                        'Menoufia',
-                        'Minya',
-                        'New Valley'
-                      ].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      hint: Text(gov),
-                      onChanged: (value) {
-                        setState(() {
-                          gov = value.toString();
-                        });
-                      },
-                    ),
+                    child: settingsProvider.currentLang == 'en'
+                        ? DropdownButton<String>(
+                            items: govs.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            hint: Text(gov),
+                            onChanged: (value) {
+                              setState(() {
+                                gov = value.toString();
+                              });
+                            },
+                          )
+                        : DropdownButton<String>(
+                            items: govsAR.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            hint: Text(gov),
+                            onChanged: (value) {
+                              setState(() {
+                                gov = value.toString();
+                              });
+                            },
+                          ),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -179,18 +233,19 @@ class _InsertLostPersonScreenState
                       minLines: 1,
                       maxLines: 3,
                       decoration: InputDecoration(
-                          labelText: 'Where is thies person right now?'),
+                          labelText: AppLocalizations.of(context)!
+                              .whereIsThiesPersonRightNow),
                     ),
                   ),
                   ElevatedButton(
                       style: ButtonStyle(
                         shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        )),
+                        MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            )),
                         backgroundColor:
-                            MaterialStateProperty.all(MyTheme.basicBlue),
+                        MaterialStateProperty.all(MyTheme.basicBlue),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),
@@ -200,8 +255,10 @@ class _InsertLostPersonScreenState
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text('Insert'),
-                          Icon(Icons.add_circle_outlined),
+                          Text(AppLocalizations.of(context)!.insert),
+                          Icon(InsertLostPersonScreen.lost
+                              ? Icons.add_circle_outlined
+                              : Icons.add_a_photo),
                         ],
                       ))
                 ],
@@ -216,16 +273,19 @@ class _InsertLostPersonScreenState
   void addMissingPerson() {
     if (formKey.currentState?.validate() == true) {
       if (b1 && b2 && b3 && b4) {
-        showMessage(context, 'Please fill in at least one statement');
+        showMessage(context,
+            AppLocalizations.of(context)!.pleaseFillInAtLeastOneStatement);
         return;
       } else {
         void thenFun = thenMessage();
         void errorFun = onErrorMessage();
         void timeOutFun = timeOutMessage();
         String name = nameController.text.trim().isEmpty
-                ? 'Name Not Found'
+                ? AppLocalizations.of(context)!.nameNotAvailable
                 : nameController.text,
-            gover = gov == 'gov' ? 'Government Not Found' : gov,
+            gover = gov == 'gov'
+                ? AppLocalizations.of(context)!.govNotAvailable
+                : gov,
             userId = SharedData.user?.id ?? '',
             address = addressController.text,
             desc = describtionController.text,
@@ -241,24 +301,27 @@ class _InsertLostPersonScreenState
 
   @override
   void whenNotEnoughData() {
-    showMessage(context, 'Please fill in at least one statement');
+    showMessage(
+        context, AppLocalizations.of(context)!.pleaseFillInAtLeastOneStatement);
   }
 
   @override
   void thenMessage() {
-    showMessage(context, 'Missing Person Inserted Successfuly');
+    showMessage(context,
+        AppLocalizations.of(context)!.missingPersonInsertedSuccessfuly);
     Navigator.pushReplacementNamed(context, AddPic.routeName,
         arguments: AddPic.missingPerson = viewModel.miss);
   }
 
   @override
   void onErrorMessage() {
-    showMessage(context, 'Something went wrong, try again later');
+    showMessage(
+        context, AppLocalizations.of(context)!.somethingWentWrongTryAgainLater);
   }
 
   @override
   void timeOutMessage() {
-    showMessage(context, 'Missing person added');
+    showMessage(context, AppLocalizations.of(context)!.missingPersonAdded);
     Navigator.pushReplacementNamed(context, AddPic.routeName,
         arguments: AddPic.missingPerson = viewModel.miss);
   }

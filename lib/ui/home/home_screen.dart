@@ -1,6 +1,5 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/ui/home/chat/chat_screen.dart';
 import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/latest_lost_tab.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'home_side_menu/home_side_menu.dart';
+import 'home_tab/chat/chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'Home Screen';

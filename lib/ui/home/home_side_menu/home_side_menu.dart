@@ -3,7 +3,6 @@ import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/home_side_menu_viewModel.dart';
-import 'package:find_me_ii/ui/home/home_side_menu/inbox/inbox_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -100,10 +99,5 @@ class _HomeSideMenuState extends State<HomeSideMenu>
   @override
   void goToContactUsPage() {
     Navigator.pushNamed(context, ContactUs.routeName);
-  }
-
-  @override
-  void goToInboxPage() {
-    Navigator.pushNamed(context, InboxScreen.routeName);
   }
 }
