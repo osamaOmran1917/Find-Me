@@ -50,19 +50,29 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
           HomeScreen.selectedIndex == 0
               ? CircleAvatar(
                   backgroundColor: MyTheme.basicWhite.withOpacity(.2),
-                  child: popMenus(
-                    context: context,
-                    options: [
-                      {
-                        "menu": "Found Person" ?? '',
-                        "menu_id": 1,
+                  child: PopupMenuButton(
+                      onSelected: (value) {
+                        value == 'Found person'
+                            ? Navigator.pushNamed(
+                                context, InsertLostPersonScreen.routeName,
+                                arguments: InsertLostPersonScreen.lost = false)
+                            : Navigator.pushNamed(
+                                context, InsertLostPersonScreen.routeName,
+                                arguments: InsertLostPersonScreen.lost = true);
                       },
-                      {
-                        "menu": "Lost Person" ?? "",
-                        "menu_id": 2,
-                      },
-                    ],
-                  ),
+                      icon: Icon(Icons.add),
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      itemBuilder: (context) => [
+                            PopupMenuItem(
+                              child: Text('Found person'),
+                              value: 'Found person',
+                            ),
+                            PopupMenuItem(
+                              child: Text('Lost person'),
+                              value: 'Lost person',
+                            )
+                          ]),
                 )
               : Container(),
           HomeScreen.selectedIndex == 0
@@ -140,63 +150,5 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
 
   void onTabClicked(index) {
     viewModel.onTabSelected(index);
-  }
-
-  Widget popMenus({
-    required List<Map<String, dynamic>> options,
-    required BuildContext context,
-  }) {
-    return PopupMenuButton(
-      iconSize: 24.0,
-      padding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      icon: Icon(
-        Icons.add,
-      ),
-      offset: Offset(0, 10),
-      itemBuilder: (BuildContext bc) {
-        return options
-            .map(
-              (selectedOption) => PopupMenuItem(
-                height: 12.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      selectedOption['menu'] ?? "",
-                      style: TextStyle(
-                        // fontSize: ScreenUtil().setSp(14.0),
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    (options.length == (options.indexOf(selectedOption) + 1))
-                        ? SizedBox(
-                            width: 0.0,
-                            height: 0.0,
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 8.0,
-                            ),
-                            child: Divider(
-                              color: Colors.grey,
-                              // height: ScreenUtil().setHeight(1.0),
-                            ),
-                          ),
-                  ],
-                ),
-                value: selectedOption,
-              ),
-            )
-            .toList();
-      },
-      onSelected: (value) async {
-        Navigator.pushNamed(context, InsertLostPersonScreen.routeName);
-      },
-    );
   }
 }

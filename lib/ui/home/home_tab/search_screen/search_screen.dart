@@ -1,6 +1,7 @@
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../data_base/my_database.dart';
 import '../../../../shared_data.dart';
@@ -35,7 +36,7 @@ class SearchScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Text search',
+                      AppLocalizations.of(context)!.textSearch,
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * .03),
                     ),
@@ -59,7 +60,7 @@ class SearchScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Search by date of lose',
+                      AppLocalizations.of(context)!.searchByDateOfLose,
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * .03),
                     ),
@@ -83,7 +84,7 @@ class SearchScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Search by date of finding',
+                      AppLocalizations.of(context)!.searchByDateOfFinding,
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * .03),
                     ),
@@ -107,7 +108,7 @@ class SearchScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Search by photo',
+                      AppLocalizations.of(context)!.searchByPhoto,
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * .03),
                     ),
@@ -159,7 +160,8 @@ class PersonSearchDelegate extends SearchDelegate {
     return FutureBuilder<List<MissingPerson>>(
       builder: (buildContext, snapshot) {
         if (snapshot.hasError) {
-          return Text('Error loading data, try again later.');
+          return Text(
+              AppLocalizations.of(context)!.errorLoadingDataTryAgainLater);
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(color: MyTheme.coloredSecondary),
@@ -171,7 +173,7 @@ class PersonSearchDelegate extends SearchDelegate {
             return data.isEmpty
                 ? Center(
                     child: Text(
-                      'No Lost People',
+                      AppLocalizations.of(context)!.noLostPeople,
                       style: TextStyle(
                           color: MyTheme.coloredSecondary, fontSize: 30),
                     ),
@@ -200,6 +202,6 @@ class PersonSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Center(child: Text('Suggestions...'));
+    return Center(child: Text(AppLocalizations.of(context)!.suggestions));
   }
 }

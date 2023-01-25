@@ -72,5 +72,12 @@
     "govNotAvailable": "المحافظة غير متوفرة",
     "missingPersonInsertedSuccessfuly": "تم إضافة المفقود بنجاح",
     "somethingWentWrongTryAgainLater": "حدث خطأ ما. حاول لاحقاً",
-    "missingPersonAdded": "تم إضافة المفقود"
+    "missingPersonAdded": "تم إضافة المفقود",
+    "textSearch": "بحث نصي",
+    "searchByDateOfLose": "بحث بتاريخ الفقد",
+    "searchByDateOfFinding": "بحث بتاريخ العثور",
+    "searchByPhoto": "بحث بصورة",
+    "errorLoadingDataTryAgainLater": "خطأ في تحميل البيانات. حاول لاحقاً",
+    "noLostPeople": "لم يتمكن بحثك من إيجاد مفقودين",
+    "suggestions": "اقتراحات..."
 }

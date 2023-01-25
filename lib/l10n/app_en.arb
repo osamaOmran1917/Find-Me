@@ -72,5 +72,12 @@
     "govNotAvailable": "Government Not Available",
     "missingPersonInsertedSuccessfuly": "Missing Person Inserted Successfuly",
     "somethingWentWrongTryAgainLater": "Something went wrong, try again later",
-    "missingPersonAdded": "Missing person added"
+    "missingPersonAdded": "Missing person added",
+    "textSearch": "Text search",
+    "searchByDateOfLose": "Search by date of lose",
+    "searchByDateOfFinding": "Search by date of finding",
+    "searchByPhoto": "Search by photo",
+    "errorLoadingDataTryAgainLater": "Error loading data, try again later.",
+    "noLostPeople": "No Lost People",
+    "suggestions": "Suggestions..."
 }
