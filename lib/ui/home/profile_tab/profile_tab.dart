@@ -1,6 +1,7 @@
 import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -37,7 +38,9 @@ class ProfileTab extends StatelessWidget {
                 SharedData.user?.userName ?? '',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              ElevatedButton(onPressed: () {}, child: Text('Edit profile'))
+              ElevatedButton(
+                  onPressed: () {},
+                  child: Text(AppLocalizations.of(context)!.editProfile))
             ],
           ),
         ),

@@ -2,8 +2,10 @@ import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_viewModel.dart';
+import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:find_me_ii/ui/registeration/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../validation_utils.dart';
 
@@ -30,6 +32,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
   @override
   Widget build(BuildContext context) {
     viewModel.checkLoggedInUser();
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -113,8 +116,10 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                                     borderRadius: BorderRadius.circular(18.0),
                                     side:
                                         BorderSide(color: MyTheme.basicBlue))),
-                        backgroundColor:
-                            MaterialStateProperty.all(MyTheme.coloredSecondary),
+                        backgroundColor: MaterialStateProperty.all(
+                            settingsProvider.isDarkMode()
+                                ? MyTheme.coloredSecondary
+                                : MyTheme.basicBlack),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),

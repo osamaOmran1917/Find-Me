@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'home_side_menu/home_side_menu.dart';
-import 'home_tab/chat/chat_screen.dart';
+import 'home_tab/chat/chats_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'Home Screen';
@@ -52,7 +52,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                   backgroundColor: MyTheme.basicWhite.withOpacity(.2),
                   child: PopupMenuButton(
                       onSelected: (value) {
-                        value == 'Found person'
+                        value == AppLocalizations.of(context)!.foundPerson
                             ? Navigator.pushNamed(
                                 context, InsertLostPersonScreen.routeName,
                                 arguments: InsertLostPersonScreen.lost = false)
@@ -65,12 +65,14 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                           borderRadius: BorderRadius.circular(10)),
                       itemBuilder: (context) => [
                             PopupMenuItem(
-                              child: Text('Found person'),
-                              value: 'Found person',
+                              child: Text(
+                                  AppLocalizations.of(context)!.foundPerson),
+                              value: AppLocalizations.of(context)!.foundPerson,
                             ),
                             PopupMenuItem(
-                              child: Text('Lost person'),
-                              value: 'Lost person',
+                              child: Text(
+                                  AppLocalizations.of(context)!.lostPerson),
+                              value: AppLocalizations.of(context)!.lostPerson,
                             )
                           ]),
                 )
@@ -99,7 +101,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
             backgroundColor: MyTheme.basicWhite.withOpacity(.2),
                   child: IconButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, ChatScreen.routeName);
+                        Navigator.pushNamed(context, ChatsScreen.routeName);
                       },
                       icon: Icon(Icons.forward_to_inbox_outlined)),
                 )
@@ -123,27 +125,27 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.home),
-                label: 'Home'),
+                label: AppLocalizations.of(context)!.home),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.chat_outlined),
-                label: 'ChatBot'),
+                label: AppLocalizations.of(context)!.chatbot),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.person),
-                label: 'Profile'),
+                label: AppLocalizations.of(context)!.profile),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.notifications_on),
-                label: 'Notifications'),
+                label: AppLocalizations.of(context)!.notifications),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(Icons.settings),
-                label: 'Settings')
+                label: AppLocalizations.of(context)!.settings)
           ]),
     );
   }

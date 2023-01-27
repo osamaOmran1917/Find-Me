@@ -1,7 +1,6 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
-import 'package:find_me_ii/shared_data.dart';
 
 import 'insert_lost_person_screen.dart';
 
@@ -41,7 +40,6 @@ class InsertLostPersonViewModel
       //called when future is completed
       thenFun;
       InsertLostPersonScreen.id = missingPerson.id!;
-      SharedData.user?.userMissingList?.add(missingPerson);
     }).onError((error, stackTrace) {
       //called when future fails
       errorFun;
@@ -49,7 +47,6 @@ class InsertLostPersonViewModel
       //save changes in cache
       timeOutFun;
       InsertLostPersonScreen.id = missingPerson.id!;
-      SharedData.user?.userMissingList?.add(missingPerson);
     });
 
     miss = missingPerson;

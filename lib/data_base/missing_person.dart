@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:find_me_ii/model/my_user.dart';
-import 'package:find_me_ii/shared_data.dart';
 
 class MissingPerson {
   static const String collectionName = 'Missing Person';
@@ -9,7 +8,7 @@ class MissingPerson {
   DateTime? dateTime;
   bool? reachedToFamily;
   File? image;
-  MyUser? poster = SharedData.user;
+  MyUser? poster;
 
   MissingPerson(
       {this.id,
@@ -20,19 +19,21 @@ class MissingPerson {
       this.gov,
       this.dateTime,
       this.reachedToFamily,
-      this.image});
+      this.image,
+      this.poster});
 
   MissingPerson.fromFirestore(Map<String, dynamic> data)
       : this(
-      id: data['id'],
+            id: data['id'],
             name: data['name'],
             adress: data['adress'],
             desc: data['desc'],
             age: data['age'],
             gov: data['gov'],
             dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
-            reachedToFamily: data['isFound'],
-            image: data['image']);
+            reachedToFamily: data['reachedToFamily'],
+            image: data['image'],
+            poster: data['poster']);
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -43,8 +44,9 @@ class MissingPerson {
       'age': age,
       'gov': gov,
       'dateTime': dateTime?.millisecondsSinceEpoch,
-      'isFound': reachedToFamily,
+      'reachedToFamily': reachedToFamily,
       'image': image,
+      'poster': poster,
     };
   }
 }

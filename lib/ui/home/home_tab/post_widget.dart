@@ -1,4 +1,5 @@
 import 'package:find_me_ii/data_base/missing_person.dart';
+import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
 
 class PostWidget extends StatelessWidget {
@@ -10,6 +11,27 @@ class PostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          children: [
+            Icon(Icons.check_circle),
+            Expanded(
+              child: Container(),
+            ),
+            CircleAvatar(
+              backgroundColor: MyTheme.basicWhite.withOpacity(.2),
+              child: PopupMenuButton(
+                  onSelected: (value) {},
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  itemBuilder: (context) => [
+                        PopupMenuItem(
+                          child: Text('Edit'),
+                          value: 'Edit',
+                        )
+                      ]),
+            )
+          ],
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

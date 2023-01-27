@@ -1,4 +1,4 @@
-import 'package:find_me_ii/data_base/chat_direction.dart';
+import 'package:find_me_ii/ui/home/home_tab/chat/chat_section.dart';
 
 import '../data_base/missing_person.dart';
 
@@ -6,7 +6,7 @@ class MyUser {
   static const String collectionName = 'Users';
   String? id, userName, email, password, natId, gov, phoneNumber;
   List<MissingPerson>? userMissingList;
-  List<ChatDirection>? chatDirections;
+  List<ChatSection>? chatSections;
 
   MyUser(
       {this.id,
@@ -17,7 +17,7 @@ class MyUser {
       this.gov,
       this.phoneNumber,
       this.userMissingList,
-      this.chatDirections});
+      this.chatSections});
 
   MyUser.fromFierStore(Map<String, dynamic> data)
       : this(
@@ -29,7 +29,7 @@ class MyUser {
             gov: data['gov'],
             phoneNumber: data['phoneNumber'],
             userMissingList: data['userMissingList'],
-            chatDirections: data['chatDirections']);
+            chatSections: data['chatSections']);
 
   Map<String, dynamic> toFireStore() {
     return {
@@ -41,7 +41,7 @@ class MyUser {
       'gov': gov,
       'phoneNumber': phoneNumber,
       'userMissingList': userMissingList,
-      'chatDirections': chatDirections,
+      'chatSections': chatSections,
     };
   }
 }

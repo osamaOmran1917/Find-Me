@@ -79,5 +79,14 @@
     "searchByPhoto": "بحث بصورة",
     "errorLoadingDataTryAgainLater": "خطأ في تحميل البيانات. حاول لاحقاً",
     "noLostPeople": "لم يتمكن بحثك من إيجاد مفقودين",
-    "suggestions": "اقتراحات..."
+    "suggestions": "اقتراحات...",
+    "editProfile": "تعديل الملف الشخصي",
+    "foundPerson": "عُثر عليه",
+    "lostPerson": "مفقود",
+    "profilePic": "صورة الملف الشخصي",
+    "edit": "تعديل",
+    "details": "التفاصيل",
+    "whereDoYouLive": "أين تسكن؟",
+    "links": "الروابط",
+    "addYourFaceBook": "أضف الفيسبوك الخاص بك"
 }

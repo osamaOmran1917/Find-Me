@@ -5,6 +5,7 @@ import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
 import 'package:find_me_ii/ui/home/home_tab/post_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LatestLost extends StatefulWidget {
   @override
@@ -22,7 +23,8 @@ class _LatestLostState extends State<LatestLost> {
       child: FutureBuilder<List<MissingPerson>>(
         builder: (buildContext, snapshot) {
           if (snapshot.hasError) {
-            return Text('Error loading data, try again later.');
+            return Text(
+                AppLocalizations.of(context)!.errorLoadingDataTryAgainLater);
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(color: MyTheme.coloredSecondary),
@@ -35,7 +37,7 @@ class _LatestLostState extends State<LatestLost> {
               return data.isEmpty
                   ? Center(
                       child: Text(
-                        'No Lost People',
+                        AppLocalizations.of(context)!.noLostPeople,
                         style: TextStyle(
                             color: MyTheme.coloredSecondary, fontSize: 30),
                       ),

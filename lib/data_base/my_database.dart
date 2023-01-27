@@ -57,4 +57,10 @@ class MyDataBase {
     var data = res.data();
     return data?.userMissingList;
   }
+
+  static editReachedFamiley(MissingPerson missingPerson) {
+    CollectionReference findMeRef = getMissingPersonsCollection();
+    findMeRef.doc(missingPerson.id).update(
+        {'reachedToFamily': missingPerson.reachedToFamily! ? false : true});
+  }
 }

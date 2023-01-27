@@ -79,5 +79,14 @@
     "searchByPhoto": "Search by photo",
     "errorLoadingDataTryAgainLater": "Error loading data, try again later.",
     "noLostPeople": "No Lost People",
-    "suggestions": "Suggestions..."
+    "suggestions": "Suggestions...",
+    "editProfile": "Edit profile",
+    "foundPerson": "Found person",
+    "lostPerson": "Lost person",
+    "profilePic": "Profile Picture",
+    "edit": "Edit",
+    "details": "Details",
+    "whereDoYouLive": "Where do you live?",
+    "links": "Links",
+    "addYourFaceBook": "Add Your Facebook"
 }

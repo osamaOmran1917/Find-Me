@@ -292,6 +292,7 @@ class _InsertLostPersonScreenState
             age = ageController.text;
         DateTime dateTime = DateTime.now();
         bool? isFound = false;
+
         viewModel.onAddMissingPersonClicked(name, age, desc, gover, userId,
             address, thenFun, errorFun, timeOutFun);
       }
