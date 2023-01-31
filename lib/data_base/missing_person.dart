@@ -4,11 +4,10 @@ import 'package:find_me_ii/model/my_user.dart';
 
 class MissingPerson {
   static const String collectionName = 'Missing Person';
-  String? id, name, adress, desc, age, gov;
+  String? id, name, adress, desc, age, gov, posterId, posterName;
   DateTime? dateTime;
   bool? reachedToFamily;
   File? image;
-  MyUser? poster;
 
   MissingPerson(
       {this.id,
@@ -20,7 +19,8 @@ class MissingPerson {
       this.dateTime,
       this.reachedToFamily,
       this.image,
-      this.poster});
+      this.posterId,
+      this.posterName});
 
   MissingPerson.fromFirestore(Map<String, dynamic> data)
       : this(
@@ -33,7 +33,8 @@ class MissingPerson {
             dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
             reachedToFamily: data['reachedToFamily'],
             image: data['image'],
-            poster: data['poster']);
+            posterId: data['posterId'],
+            posterName: data['posterName']);
 
   Map<String, dynamic> toFirestore() {
     return {
@@ -46,7 +47,8 @@ class MissingPerson {
       'dateTime': dateTime?.millisecondsSinceEpoch,
       'reachedToFamily': reachedToFamily,
       'image': image,
-      'poster': poster,
+      'posterId': posterId,
+      'posterName': posterName,
     };
   }
 }

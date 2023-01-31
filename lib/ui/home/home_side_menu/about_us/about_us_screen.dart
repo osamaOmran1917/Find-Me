@@ -9,80 +9,29 @@ class AboutUs extends StatelessWidget {
   Widget build(BuildContext context) {
     List<OneOfUsWidget> us = [
       OneOfUsWidget(
-        'osama.PNG',
+        'cat.jpg',
         AppLocalizations.of(context)!.osama,
       ),
-      OneOfUsWidget('zmlk.PNG', AppLocalizations.of(context)!.zamalkawy),
-      OneOfUsWidget('adhm.PNG', AppLocalizations.of(context)!.adham),
-      OneOfUsWidget('Shai5Messi.jpg', AppLocalizations.of(context)!.alaa),
-      OneOfUsWidget('Shai5Messi.jpg', AppLocalizations.of(context)!.fatema),
-      OneOfUsWidget('attota.PNG', AppLocalizations.of(context)!.mohammed),
+      OneOfUsWidget('cat.jpg', AppLocalizations.of(context)!.zamalkawy),
+      OneOfUsWidget('cat.jpg', AppLocalizations.of(context)!.adham),
+      OneOfUsWidget('cat.jpg', AppLocalizations.of(context)!.alaa),
+      OneOfUsWidget('cat.jpg', AppLocalizations.of(context)!.fatema),
+      OneOfUsWidget('cat.jpg', AppLocalizations.of(context)!.mohammed),
     ];
 
     return Scaffold(
       body: GridView.count(
-        crossAxisSpacing: MediaQuery.of(context).size.width * .01,
-        mainAxisSpacing: MediaQuery.of(context).size.height * .04,
+        crossAxisSpacing: MediaQuery
+            .of(context)
+            .size
+            .width * .01,
+        mainAxisSpacing: MediaQuery
+            .of(context)
+            .size
+            .height * .04,
         crossAxisCount: 2,
         children: us,
-      ), /*Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/osama.PNG', height: 50, width: 50,),
-                  Text('Eng: Osama')
-                ],
-              ),
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/osama.PNG', height: 50, width: 50,),
-                  Text('Eng: Osama')
-                ],
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/osama.PNG', height: 50, width: 50,),
-                  Text('Eng: Osama')
-                ],
-              ),
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/osama.PNG', height: 50, width: 50,),
-                  Text('Eng: Osama')
-                ],
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/osama.PNG', height: 50, width: 50,),
-                  Text('Eng: Osama')
-                ],
-              ),
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/osama.PNG', height: 50, width: 50,),
-                  Text('Eng: Osama')
-                ],
-              )
-            ],
-          )
-        ],
-      ),*/
+      ),
     );
   }
 }

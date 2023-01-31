@@ -37,7 +37,7 @@ class PostWidget extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                missingPerson.poster?.userName ?? '',
+                missingPerson.posterName ?? '',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
