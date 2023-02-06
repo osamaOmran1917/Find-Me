@@ -311,7 +311,7 @@ class _InsertLostPersonScreenState
     showMessage(context,
         AppLocalizations.of(context)!.missingPersonInsertedSuccessfuly);
     Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.missingPersonId = viewModel.missId);
+        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);
   }
 
   @override
@@ -324,6 +324,6 @@ class _InsertLostPersonScreenState
   void timeOutMessage() {
     showMessage(context, AppLocalizations.of(context)!.missingPersonAdded);
     Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.missingPersonId = viewModel.missId);
+        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);
   }
 }

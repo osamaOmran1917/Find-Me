@@ -41,8 +41,8 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
     _signInWithGoogle().then((user) {
       Navigator.pop(context);
       if (user != null) {
-        log('\nUser: ${user.user}');
-        log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
+        log('\n${AppLocalizations.of(context)!.user}: ${user.user}');
+        log('\n${AppLocalizations.of(context)!.userAdditionalInfo}: ${user.additionalUserInfo}');
         Navigator.pushReplacementNamed(context, HomeScreen.routeName,
             arguments: HomeScreen.selectedIndex = 0);
       }
@@ -70,7 +70,9 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
     } catch (e) {
       log('\n_signInWithGoogle: $e');
       Dialogs.showSnackbar(
-          context, 'Something went wrong (Check Internet Connection)!');
+          context,
+          AppLocalizations.of(context)!
+              .somethingWentWrongCheckInternetConnection);
       return null;
     }
   }

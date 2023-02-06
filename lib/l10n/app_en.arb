@@ -100,5 +100,13 @@
     "or": "Or",
     "createNewAccount": "Create New Account",
     "login": "Log In",
-    "registerWith": "Register With "
+    "registerWith": "Register With ",
+    "user": "User",
+    "userAdditionalInfo": "UserAdditionalInfo",
+    "somethingWentWrongCheckInternetConnection": "Something went wrong (Check Internet Connection)!",
+    "addProfilePicture": "Add profile picture",
+    "pleasEnterAValidPhoneNumber": "Pleas Enter A Valid Phone Number",
+    "phoneNumber": "Phone Number",
+    "detailedAddress": "detailed address",
+    "natID": "Nat ID"
 }

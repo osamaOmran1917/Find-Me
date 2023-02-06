@@ -17,7 +17,6 @@ abstract class InsertLostPersonNavigator extends BaseNavigator {
 
 class InsertLostPersonViewModel
     extends BaseViewModel<InsertLostPersonNavigator> {
-  late String missId;
 
   void onAddMissingPersonClicked(
       String name,
@@ -51,7 +50,5 @@ class InsertLostPersonViewModel
       timeOutFun;
       InsertLostPersonScreen.id = missingPerson.id!;
     });
-
-    missId = missingPerson.id!;
   }
 }

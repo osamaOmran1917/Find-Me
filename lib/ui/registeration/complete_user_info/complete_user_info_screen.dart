@@ -1,9 +1,11 @@
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
+import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:find_me_ii/ui/registeration/complete_user_info/complete_user_info_viewModel.dart';
 import 'package:find_me_ii/validation_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class CompleteUserInfo extends StatefulWidget {
@@ -18,6 +20,64 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
   late CompleteUserInfoViewModel viewModel;
   var formKey = GlobalKey<FormState>();
   String gov = 'Governorate';
+  List<String> govs = [
+    'Alexandria',
+    'Ismailia',
+    'Aswan',
+    'Assiut',
+    'Luxor',
+    'Red Sea',
+    'Buhaira',
+    'Beni Suef',
+    'Port Said',
+    'South Sinai',
+    'Giza',
+    'Dakahlia',
+    'Damietta',
+    'Sohag',
+    'Suez',
+    'Sharkia',
+    'North Sinai',
+    'Gharbia',
+    'Fayoum',
+    'Cairo',
+    'Qalyubia',
+    'Qena',
+    'Kafr El Sheikh',
+    'Marsa Matrouh',
+    'Menoufia',
+    'Minya',
+    'New Valley'
+  ];
+  List<String> govsAR = [
+    'الإسكندرية',
+    'الإسماعيلية',
+    'أسوان',
+    'أسيوط',
+    'الأقصر',
+    'البحر الأحمر',
+    'البحيرة',
+    'بني سويف',
+    'بور سعيد',
+    'جنوب سيناء',
+    'الجيزة',
+    'الدقهلية',
+    'دمياط',
+    'سوهاج',
+    'السويس',
+    'الشرقية',
+    'شمال سيناء',
+    'الغربية',
+    'الفيوم',
+    'القاهرة',
+    'القليوبية',
+    'قنا',
+    'كفر الشيخ',
+    'مرسى مطروح',
+    'المنوفية',
+    'المنيا',
+    'الوادي الجديد'
+  ];
 
   @override
   void initState() {
@@ -28,6 +88,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
 
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return ChangeNotifierProvider(
       create: (_) => viewModel,
       child: Scaffold(
@@ -35,7 +96,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
           onPressed: () {
             viewModel.onSkipPrsd();
           },
-          child: Text('Skip'),
+          child: Text(AppLocalizations.of(context)!.skip),
         ),
         body: Form(
           child: FadeInLeft(
@@ -61,7 +122,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                           height: MediaQuery.of(context).size.height * .03,
                         ),
                         Text(
-                          'Add profile picture',
+                          AppLocalizations.of(context)!.addProfilePicture,
                           style: TextStyle(color: MyTheme.basicBlue),
                         ),
                         Container(
@@ -70,9 +131,9 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                           width: double.infinity,
                           margin: EdgeInsets.symmetric(
                               horizontal:
-                                  MediaQuery.of(context).size.width * .07,
+                              MediaQuery.of(context).size.width * .07,
                               vertical:
-                                  MediaQuery.of(context).size.height * .025),
+                              MediaQuery.of(context).size.height * .025),
                         )
                       ],
                     ),
@@ -88,7 +149,8 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                           if (txt == null || txt.trim().isEmpty) {
                             return null;
                           } else if (!ValidationUtils.isValidPhoneNumber(txt)) {
-                            return 'Pleas Enter A Valid Phone Number';
+                            return AppLocalizations.of(context)!
+                                .pleasEnterAValidPhoneNumber;
                           }
                           return null;
                         },
@@ -99,44 +161,24 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                                     BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
-                            hintText: 'phone number'),
+                            hintText:
+                                AppLocalizations.of(context)!.phoneNumber),
                       ),
                     ),
                     DropdownButton<String>(
-                      items: <String>[
-                        'Alexandria',
-                        'Ismailia',
-                        'Aswan',
-                        'Assiut',
-                        'Luxor',
-                        'Red Sea',
-                        'Buhaira',
-                        'Beni Suef',
-                        'Port Said',
-                        'South Sinai',
-                        'Giza',
-                        'Dakahlia',
-                        'Damietta',
-                        'Sohag',
-                        'Suez',
-                        'Sharkia',
-                        'North Sinai',
-                        'Gharbia',
-                        'Fayoum',
-                        'Cairo',
-                        'Qalyubia',
-                        'Qena',
-                        'Kafr El Sheikh',
-                        'Marsa Matrouh',
-                        'Menoufia',
-                        'Minya',
-                        'New Valley'
-                      ].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                      items: settingsProvider.currentLang == 'en'
+                          ? govs.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList()
+                          : govsAR.map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                       hint: Text(gov),
                       onChanged: (value) {
                         setState(() {
@@ -159,7 +201,8 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                                     BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
-                            hintText: 'detailed address'),
+                            hintText:
+                                AppLocalizations.of(context)!.detailedAddress),
                       ),
                     ),
                     Container(
@@ -176,7 +219,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                                     BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
-                            hintText: 'nat ID'),
+                            hintText: AppLocalizations.of(context)!.natID),
                       ),
                     )
                   ],

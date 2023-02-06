@@ -100,5 +100,13 @@
     "or": "أو",
     "createNewAccount": "أنشئ حساباً",
     "login": "تسجيل دخول",
-    "registerWith": "سجل باستخدام "
+    "registerWith": "سجل باستخدام ",
+    "user": "المستخدم",
+    "userAdditionalInfo": "معلومات إضافية عن المستخدم",
+    "somethingWentWrongCheckInternetConnection": "حدث خطأ ما (تأكد من اتصالك بالإنترنت)!",
+    "addProfilePicture": "أضف صورة شخصية",
+    "pleasEnterAValidPhoneNumber": "من فضلك أدخل رقم هاتف صحيح",
+    "phoneNumber": "رقم الهاتف",
+    "detailedAddress": "عنوان تفصيلي",
+    "natID": "الرقم القومي"
 }
