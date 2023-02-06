@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 void showMessage(BuildContext context, String message,
     {String? posActionName,
-      VoidCallback? posAction,
-      String? negActionName,
-      VoidCallback? negAction,
-      bool isCancelable = true}) {
+    VoidCallback? posAction,
+    String? negActionName,
+    VoidCallback? negAction,
+    bool isCancelable = true}) {
   List<Widget> actions = [];
   if (posActionName != null) {
     actions.add(TextButton(
@@ -32,10 +32,7 @@ void showMessage(BuildContext context, String message,
         return AlertDialog(
             content: Text(
               message,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .bodySmall,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             actions: actions);
       },
@@ -58,10 +55,7 @@ void showLoading(BuildContext context, String loadingMessage,
               ),
               Text(
                 loadingMessage,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               )
             ],
           ),
@@ -85,9 +79,11 @@ class Dialogs {
 
   static void showProgressBar(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => Center(
-              child: CircularProgressIndicator(),
-            ));
+      context: context,
+      builder: (_) => Center(
+        child: CircularProgressIndicator(),
+      ),
+      barrierDismissible: false,
+    );
   }
 }

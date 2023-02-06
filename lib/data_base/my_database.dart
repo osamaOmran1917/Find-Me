@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/model/my_user.dart';
@@ -65,4 +63,11 @@ class MyDataBase {
     findMeRef.doc(missingPerson.id).update(
         {'reachedToFamily': missingPerson.reachedToFamily! ? false : true});
   }
+
+/*editMissingPersonPic(MissingPerson missingPerson) {
+    CollectionReference findMeRef = getMissingPersonsCollection();
+    findMeRef.doc(missingPerson.id).update({
+
+    });
+  }*/
 }
