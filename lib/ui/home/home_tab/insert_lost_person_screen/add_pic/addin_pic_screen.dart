@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -122,6 +123,7 @@ class _AddPicState extends State<AddPic> implements AddPicNavigator {
                           final _firebaseStorage = FirebaseStorage.instance;
                           File file = File(_image!.path);
                           if (_image != null) {
+                            Dialogs.showProgressBar(context);
                             //Upload to Firebase
                             var snapshot = await _firebaseStorage
                                 .ref()

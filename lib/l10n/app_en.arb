@@ -108,5 +108,8 @@
     "pleasEnterAValidPhoneNumber": "Pleas Enter A Valid Phone Number",
     "phoneNumber": "Phone Number",
     "detailedAddress": "detailed address",
-    "natID": "Nat ID"
+    "natID": "Nat ID",
+    "enterYourPhoneNumberToContinueWeWillSendYouCodeToVerify": "Enter your phone number to continue, we will send you code to verify.",
+    "requestVerificationCode": "Request Verification Code",
+    "alreadyHaveAnAccount": "Already have an account?"
 }

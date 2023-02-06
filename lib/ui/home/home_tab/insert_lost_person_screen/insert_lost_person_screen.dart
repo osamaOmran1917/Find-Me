@@ -312,6 +312,7 @@ class _InsertLostPersonScreenState
         AppLocalizations.of(context)!.missingPersonInsertedSuccessfuly);
     Navigator.pushReplacementNamed(context, AddPic.routeName,
         arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);
+    print('ال أيدي     يييييييييييييييي${AddPic.missingPersonId}');
   }
 
   @override

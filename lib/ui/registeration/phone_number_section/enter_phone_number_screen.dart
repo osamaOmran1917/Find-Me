@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EnterPhoneNumberScreen extends StatefulWidget {
-  static const String routeName = 'Confirm Phone Number Screen';
+  static const String routeName = 'Enter Phone Number Screen';
 
   @override
   State<EnterPhoneNumberScreen> createState() => _EnterPhoneNumberScreenState();
@@ -35,14 +36,16 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                 ),
                 FadeInDown(
                     child: Text(
-                      'Phone Number',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      AppLocalizations.of(context)!.phoneNumber,
+                      style: TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
                     )),
                 FadeInDown(
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Text(
-                        'Enter your phone number to continue, we will send you code to verify.',
+                        AppLocalizations.of(context)!
+                            .enterYourPhoneNumberToContinueWeWillSendYouCodeToVerify,
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.grey.shade700),
                       ),
@@ -76,9 +79,9 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                             selectorType: PhoneInputSelectorType.DIALOG),
                         inputDecoration: InputDecoration(
                             contentPadding:
-                                EdgeInsets.only(bottom: 15, left: 0),
+                            EdgeInsets.only(bottom: 15, left: 0),
                             border: InputBorder.none,
-                            hintText: 'Phone Number',
+                            hintText: AppLocalizations.of(context)!.phoneNumber,
                             hintStyle: TextStyle(
                                 color: Colors.grey.shade500, fontSize: 16)),
                           ),
@@ -145,7 +148,7 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                   minWidth: double.infinity,
                   child: Text(
-                    'Request Verification Code',
+                    AppLocalizations.of(context)!.requestVerificationCode,
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -159,7 +162,8 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                         TextButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(
-                              'Already have an account?',
+                              AppLocalizations.of(context)!
+                                  .alreadyHaveAnAccount,
                               style: TextStyle(color: Colors.grey.shade700),
                             ))
                       ]),

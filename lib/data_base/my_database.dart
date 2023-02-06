@@ -65,11 +65,4 @@ class MyDataBase {
     findMeRef.doc(missingPerson.id).update(
         {'reachedToFamily': missingPerson.reachedToFamily! ? false : true});
   }
-
-  static Future<void> editMissingPersonPic(MissingPerson missingPerson) {
-    CollectionReference findMeRef = getMissingPersonsCollection();
-    return findMeRef.doc(missingPerson.id).update({
-      'image': missingPerson.image,
-    });
-  }
 }

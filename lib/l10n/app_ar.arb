@@ -108,5 +108,8 @@
     "pleasEnterAValidPhoneNumber": "من فضلك أدخل رقم هاتف صحيح",
     "phoneNumber": "رقم الهاتف",
     "detailedAddress": "عنوان تفصيلي",
-    "natID": "الرقم القومي"
+    "natID": "الرقم القومي",
+    "enterYourPhoneNumberToContinueWeWillSendYouCodeToVerify": "أدخل رقمك للتأكيد. سوف نرسل لك رقم تأكيدي",
+    "requestVerificationCode": "طلب رقم تأكيدي",
+    "alreadyHaveAnAccount": "لديك حساب بالفعل؟"
 }
