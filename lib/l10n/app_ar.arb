@@ -88,5 +88,17 @@
     "details": "التفاصيل",
     "whereDoYouLive": "أين تسكن؟",
     "links": "الروابط",
-    "addYourFaceBook": "أضف الفيسبوك الخاص بك"
+    "addYourFaceBook": "أضف الفيسبوك الخاص بك",
+    "loginWith": "سجل دخول باستخدام",
+    "google": "جوجل",
+    "emailAdressIsRequired": "يجب إدخال عنوان بريد إلكتروني",
+    "pleasEnterAValidEmail": "من فضلك أدخل عنوان بريد صحيح",
+    "emailAdress": "بريد إالكتروني",
+    "pleaseEnterPassword": "من فضلك أدخل كلمة مرور",
+    "passwordMustBeAtLeastSixCharacters": "كلمة المرور يجب أن تكون 6 أحرف على الأقل.",
+    "password": "كلمة المرور",
+    "or": "أو",
+    "createNewAccount": "أنشئ حساباً",
+    "login": "تسجيل دخول",
+    "registerWith": "سجل باستخدام "
 }

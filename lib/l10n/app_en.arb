@@ -88,5 +88,17 @@
     "details": "Details",
     "whereDoYouLive": "Where do you live?",
     "links": "Links",
-    "addYourFaceBook": "Add Your Facebook"
+    "addYourFaceBook": "Add Your Facebook",
+    "loginWith": "Login with",
+    "google": "Google",
+    "emailAdressIsRequired": "E-mail Adress Is Required",
+    "pleasEnterAValidEmail": "Pleas Enter A Valid E-mail",
+    "emailAdress": "E-mail Adress",
+    "pleaseEnterPassword": "Please Enter Password",
+    "passwordMustBeAtLeastSixCharacters": "Password Must Be At Least 6 Characters.",
+    "password": "Password",
+    "or": "Or",
+    "createNewAccount": "Create New Account",
+    "login": "Log In",
+    "registerWith": "Register With "
 }

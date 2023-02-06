@@ -73,3 +73,21 @@ void showLoading(BuildContext context, String loadingMessage,
 void hideLoading(BuildContext context) {
   Navigator.pop(context);
 }
+
+class Dialogs {
+  static void showSnackbar(BuildContext context, String msg) {
+    // var settingsProvider = Provider.of<SettingsProvider>(context);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+      behavior: SnackBarBehavior.floating,
+    ));
+  }
+
+  static void showProgressBar(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => Center(
+              child: CircularProgressIndicator(),
+            ));
+  }
+}

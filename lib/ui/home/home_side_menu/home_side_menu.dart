@@ -7,6 +7,7 @@ import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.d
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 import '../../log_in/login_screen.dart';
@@ -72,8 +73,9 @@ class _HomeSideMenuState extends State<HomeSideMenu>
                   },
                   child: Text(AppLocalizations.of(context)!.contactUs)),
               TextButton(
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut();
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    await GoogleSignIn().signOut();
                     SharedData.user = null;
                     Navigator.pushReplacementNamed(
                         context, LogInScreen.routeName);

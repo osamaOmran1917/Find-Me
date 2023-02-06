@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '49444864484',
     projectId: 'find-me-dce6d',
     storageBucket: 'find-me-dce6d.appspot.com',
+    androidClientId:
+        '49444864484-ebdf3dqjv4ilbbnhuj7lmlajmpnkpoi2.apps.googleusercontent.com',
     iosClientId:
         '49444864484-kq1qnacttcfkmajc7euvgfvdhl33169f.apps.googleusercontent.com',
     iosBundleId: 'com.example.findMeIi',
