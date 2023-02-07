@@ -1,4 +1,4 @@
-import 'package:find_me_ii/ui/home/home_tab/chat/chat_section.dart';
+import 'package:find_me_ii/ui/widgets/chat_user_card.dart';
 
 import '../data_base/missing_person.dart';
 
@@ -6,7 +6,7 @@ class MyUser {
   static const String collectionName = 'Users';
   String? id, userName, email, password, natId, gov, phoneNumber;
   List<MissingPerson>? userMissingList;
-  List<ChatSection>? chatSections;
+  List<ChatUserCard>? chatSections;
 
   MyUser(
       {this.id,

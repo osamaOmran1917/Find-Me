@@ -1,12 +1,13 @@
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/home/home_tab/search_screen/text_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../data_base/my_database.dart';
 import '../../../../shared_data.dart';
+import '../../../widgets/post_widget.dart';
 import '../post_details.dart';
-import '../post_widget.dart';
 
 class SearchScreen extends StatelessWidget {
   static const String routeName = 'Search Screen';
@@ -29,8 +30,10 @@ class SearchScreen extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  showSearch(
-                      context: context, delegate: PersonSearchDelegate());
+                  /*showSearch(
+                      context: context, delegate: PersonSearchDelegate());*/
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => TextSearchScreen()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

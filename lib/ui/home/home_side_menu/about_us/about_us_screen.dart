@@ -1,4 +1,4 @@
-import 'package:find_me_ii/ui/home/home_side_menu/about_us/one_of_us_widget.dart';
+import 'package:find_me_ii/ui/widgets/one_of_us_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

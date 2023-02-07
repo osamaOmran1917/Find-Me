@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
     settingsProvider = Provider.of<SettingsProvider>(context);
     getValueFromShared();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
