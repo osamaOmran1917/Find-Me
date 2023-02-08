@@ -33,6 +33,7 @@ class _LatestLostState extends State<LatestLost> {
 
           var data = snapshot.data;
           return ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemBuilder: (buildContext, index) {
               return data.isEmpty
                   ? Center(
@@ -44,11 +45,11 @@ class _LatestLostState extends State<LatestLost> {
                     )
                   : InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, PostDetails.routeName,
-                            arguments: SharedData.missingPerson = data[index]);
-                        print(data![index].id);
-                      },
-                      child: PostWidget(data![index]));
+                    Navigator.pushNamed(context, PostDetails.routeName,
+                        arguments: SharedData.missingPerson = data[index]);
+                    print(data![index].id);
+                  },
+                  child: PostWidget(data![index]));
             },
             itemCount: data!.length,
           );

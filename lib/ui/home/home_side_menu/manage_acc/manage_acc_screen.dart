@@ -18,6 +18,7 @@ class ManageAcc extends StatelessWidget {
         shape: InputBorder.none,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * .05),

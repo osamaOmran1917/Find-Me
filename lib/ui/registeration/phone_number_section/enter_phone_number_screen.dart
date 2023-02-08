@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class EnterPhoneNumberScreen extends StatefulWidget {
   static const String routeName = 'Enter Phone Number Screen';
@@ -20,6 +20,7 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Container(
             padding: EdgeInsets.all(30),
             width: double.infinity,
@@ -70,20 +71,20 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                       child: Stack(
                         children: [
                           InternationalPhoneNumberInput(
-                        onInputChanged: (value) {
-                          phoneNumber = value.phoneNumber!;
-                        },
-                        cursorColor: Colors.black,
-                        formatInput: false,
-                        selectorConfig: SelectorConfig(
-                            selectorType: PhoneInputSelectorType.DIALOG),
-                        inputDecoration: InputDecoration(
-                            contentPadding:
-                            EdgeInsets.only(bottom: 15, left: 0),
-                            border: InputBorder.none,
-                            hintText: AppLocalizations.of(context)!.phoneNumber,
-                            hintStyle: TextStyle(
-                                color: Colors.grey.shade500, fontSize: 16)),
+                            onInputChanged: (value) {
+                              phoneNumber = value.phoneNumber!;
+                            },
+                            cursorColor: Colors.black,
+                            formatInput: false,
+                            selectorConfig: SelectorConfig(
+                                selectorType: PhoneInputSelectorType.DIALOG),
+                            inputDecoration: InputDecoration(
+                                contentPadding:
+                                EdgeInsets.only(bottom: 15, left: 0),
+                                border: InputBorder.none,
+                                hintText: AppLocalizations.of(context)!.phoneNumber,
+                                hintStyle: TextStyle(
+                                    color: Colors.grey.shade500, fontSize: 16)),
                           ),
                           Positioned(
                             left: 90,
@@ -103,56 +104,56 @@ class _EnterPhoneNumberScreenState extends State<EnterPhoneNumberScreen> {
                 ),
                 FadeInDown(
                     child: MaterialButton(
-                  onPressed: () async {
-                    FirebaseAuth auth = FirebaseAuth.instance;
+                      onPressed: () async {
+                        FirebaseAuth auth = FirebaseAuth.instance;
 
-                    await auth.verifyPhoneNumber(
-                      phoneNumber: phoneNumber,
-                      verificationCompleted:
-                          (PhoneAuthCredential credential) async {
-                        // ANDROID ONLY!
+                        await auth.verifyPhoneNumber(
+                          phoneNumber: phoneNumber,
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) async {
+                            // ANDROID ONLY!
 
-                        // Sign the user in (or link) with the auto-generated credential
-                        await auth.signInWithCredential(credential);
-                      },
-                      verificationFailed: (FirebaseAuthException e) {
-                        if (e.code == 'invalid-phone-number') {
-                          print('The provided phone number is not valid.');
-                        }
+                            // Sign the user in (or link) with the auto-generated credential
+                            await auth.signInWithCredential(credential);
+                          },
+                          verificationFailed: (FirebaseAuthException e) {
+                            if (e.code == 'invalid-phone-number') {
+                              print('The provided phone number is not valid.');
+                            }
 
-                        // Handle other errors
-                      },
-                      codeSent:
-                          (String verificationId, int? resendToken) async {
-                        // Update the UI - wait for the user to enter the SMS code
-                        String smsCode = 'xxxx';
+                            // Handle other errors
+                          },
+                          codeSent:
+                              (String verificationId, int? resendToken) async {
+                            // Update the UI - wait for the user to enter the SMS code
+                            String smsCode = 'xxxx';
 
-                        // Create a PhoneAuthCredential with the code
-                        PhoneAuthCredential credential =
+                            // Create a PhoneAuthCredential with the code
+                            PhoneAuthCredential credential =
                             PhoneAuthProvider.credential(
                                 verificationId: verificationId,
                                 smsCode: smsCode);
 
-                        // Sign the user in (or link) with the credential
-                        await auth.signInWithCredential(credential);
+                            // Sign the user in (or link) with the credential
+                            await auth.signInWithCredential(credential);
+                          },
+                          timeout: const Duration(seconds: 60),
+                          codeAutoRetrievalTimeout: (String verificationId) {
+                            // Auto-resolution timed out...
+                          },
+                        );
                       },
-                      timeout: const Duration(seconds: 60),
-                      codeAutoRetrievalTimeout: (String verificationId) {
-                        // Auto-resolution timed out...
-                      },
-                    );
-                  },
-                  color: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                  minWidth: double.infinity,
-                  child: Text(
-                    AppLocalizations.of(context)!.requestVerificationCode,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                      color: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                      minWidth: double.infinity,
+                      child: Text(
+                        AppLocalizations.of(context)!.requestVerificationCode,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     )),
                 SizedBox(height: MediaQuery.of(context).size.height * .02),
                 FadeInDown(

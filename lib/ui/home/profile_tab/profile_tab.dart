@@ -10,6 +10,7 @@ class ProfileTab extends StatelessWidget {
     var settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           width: double.infinity,
           child: Column(

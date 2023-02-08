@@ -103,6 +103,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
             child: Container(
               width: double.infinity,
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -158,27 +159,27 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: MyTheme.coloredSecondary),
+                                BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
                             hintText:
-                                AppLocalizations.of(context)!.phoneNumber),
+                            AppLocalizations.of(context)!.phoneNumber),
                       ),
                     ),
                     DropdownButton<String>(
                       items: settingsProvider.currentLang == 'en'
                           ? govs.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList()
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList()
                           : govsAR.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                       hint: Text(gov),
                       onChanged: (value) {
                         setState(() {
@@ -198,11 +199,11 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: MyTheme.coloredSecondary),
+                                BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
                             hintText:
-                                AppLocalizations.of(context)!.detailedAddress),
+                            AppLocalizations.of(context)!.detailedAddress),
                       ),
                     ),
                     Container(
@@ -216,7 +217,7 @@ class _CompleteUserInfoState extends State<CompleteUserInfo>
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide:
-                                    BorderSide(color: MyTheme.coloredSecondary),
+                                BorderSide(color: MyTheme.coloredSecondary),
                                 borderRadius: BorderRadius.circular(12)),
                             border: InputBorder.none,
                             hintText: AppLocalizations.of(context)!.natID),

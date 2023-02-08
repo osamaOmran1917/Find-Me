@@ -98,11 +98,13 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
               axisDirection: AxisDirection.down,
               color: Theme.of(context).primaryColor,
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     Container(
                       height: MediaQuery.of(context).size.height * .8,
                       child: SingleChildScrollView(
+                        physics: BouncingScrollPhysics(),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -115,7 +117,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                 return null;
                               },
                               decoration:
-                                  InputDecoration(labelText: 'User Name'),
+                              InputDecoration(labelText: 'User Name'),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * .02,
@@ -132,7 +134,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                 return null;
                               },
                               decoration:
-                                  InputDecoration(labelText: 'E-mail Adress'),
+                              InputDecoration(labelText: 'E-mail Adress'),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * .02,
@@ -198,10 +200,10 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                               },
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(18.0),
+                                        BorderRadius.circular(18.0),
                                         side: BorderSide(
                                             color: MyTheme.basicBlue))),
                                 backgroundColor: MaterialStateProperty.all(
@@ -219,9 +221,9 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                             ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        settingsProvider.isDarkMode()
-                                            ? MyTheme.coloredTertiary
-                                            : MyTheme.basicBlack,
+                                    settingsProvider.isDarkMode()
+                                        ? MyTheme.coloredTertiary
+                                        : MyTheme.basicBlack,
                                     shape: StadiumBorder(),
                                     elevation: 1),
                                 onPressed: () {
@@ -230,7 +232,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                 icon: Image.asset(
                                   'assets/images/googleIcon.png',
                                   height:
-                                      MediaQuery.of(context).size.height * .03,
+                                  MediaQuery.of(context).size.height * .03,
                                 ),
                                 label: RichText(
                                   text: TextSpan(
@@ -240,7 +242,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                       children: [
                                         TextSpan(
                                             text:
-                                                '${AppLocalizations.of(context)!.registerWith} '),
+                                            '${AppLocalizations.of(context)!.registerWith} '),
                                         TextSpan(
                                             text: AppLocalizations.of(context)!
                                                 .google,

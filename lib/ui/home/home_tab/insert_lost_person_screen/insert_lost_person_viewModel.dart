@@ -25,19 +25,21 @@ class InsertLostPersonViewModel
       String gov,
       String userId,
       String address,
+      bool foundPerson,
       void thenFun,
       void errorFun,
       void timeOutFun) {
     MissingPerson missingPerson = MissingPerson(
-      name: name,
-      age: age,
-      desc: desc,
-      gov: gov,
-      adress: address,
-      dateTime: DateTime.now(),
-      reachedToFamily: false,
-      posterId: SharedData.user?.id,
-      posterName: SharedData.user?.userName,);
+        name: name,
+        age: age,
+        desc: desc,
+        gov: gov,
+        adress: address,
+        dateTime: DateTime.now(),
+        reachedToFamily: false,
+        posterId: SharedData.user?.id,
+        posterName: SharedData.user?.userName,
+        foundPerson: foundPerson);
     MyDataBase.insertMissingPerson(missingPerson).then((value) {
       //called when future is completed
       thenFun;

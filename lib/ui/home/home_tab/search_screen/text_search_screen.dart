@@ -93,6 +93,7 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
 
                   var data = snapshot.data;
                   return ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     itemBuilder: (buildContext, index) {
                       return data.isEmpty
                           ? Center(
@@ -104,28 +105,28 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
                               ),
                             )
                           : !(data[index]
-                                      .name!
-                                      .contains(searchController.text) ||
-                                  data[index]
-                                      .adress!
-                                      .contains(searchController.text) ||
-                                  data[index]
-                                      .gov!
-                                      .contains(searchController.text) ||
-                                  data[index]
-                                      .desc!
-                                      .contains(searchController.text) ||
-                                  data[index].age! == searchController.text)
-                              ? Container()
-                              : InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, PostDetails.routeName,
-                                        arguments: SharedData.missingPerson =
-                                            data[index]);
-                                    print(data![index].id);
-                                  },
-                                  child: PostWidget(data![index]));
+                          .name!
+                          .contains(searchController.text) ||
+                          data[index]
+                              .adress!
+                              .contains(searchController.text) ||
+                          data[index]
+                              .gov!
+                              .contains(searchController.text) ||
+                          data[index]
+                              .desc!
+                              .contains(searchController.text) ||
+                          data[index].age! == searchController.text)
+                          ? Container()
+                          : InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, PostDetails.routeName,
+                                arguments: SharedData.missingPerson =
+                                data[index]);
+                            print(data![index].id);
+                          },
+                          child: PostWidget(data![index]));
                     },
                     itemCount: data!.length,
                   );

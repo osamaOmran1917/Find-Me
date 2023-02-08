@@ -172,6 +172,7 @@ class PersonSearchDelegate extends SearchDelegate {
         }
         var data = snapshot.data;
         return ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemBuilder: (buildContext, index) {
             return data.isEmpty
                 ? Center(
@@ -183,18 +184,18 @@ class PersonSearchDelegate extends SearchDelegate {
                   )
                 : !(data[index].name!.contains(query) ||
                         data[index].adress!.contains(query) ||
-                        data[index].gov!.contains(query) ||
-                        data[index].desc!.contains(query) ||
-                        data[index].age! == query)
-                    ? Container()
-                    : InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, PostDetails.routeName,
-                              arguments: SharedData.missingPerson =
-                                  data[index]);
-                          print(data![index].id);
-                        },
-                        child: PostWidget(data![index]));
+                data[index].gov!.contains(query) ||
+                data[index].desc!.contains(query) ||
+                data[index].age! == query)
+                ? Container()
+                : InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, PostDetails.routeName,
+                      arguments: SharedData.missingPerson =
+                      data[index]);
+                  print(data![index].id);
+                },
+                child: PostWidget(data![index]));
           },
           itemCount: data!.length,
         );

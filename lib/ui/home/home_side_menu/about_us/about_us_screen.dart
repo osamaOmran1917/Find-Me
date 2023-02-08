@@ -21,14 +21,9 @@ class AboutUs extends StatelessWidget {
 
     return Scaffold(
       body: GridView.count(
-        crossAxisSpacing: MediaQuery
-            .of(context)
-            .size
-            .width * .01,
-        mainAxisSpacing: MediaQuery
-            .of(context)
-            .size
-            .height * .04,
+        physics: BouncingScrollPhysics(),
+        crossAxisSpacing: MediaQuery.of(context).size.width * .01,
+        mainAxisSpacing: MediaQuery.of(context).size.height * .04,
         crossAxisCount: 2,
         children: us,
       ),

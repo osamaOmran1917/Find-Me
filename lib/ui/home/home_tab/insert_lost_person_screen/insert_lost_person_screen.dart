@@ -107,6 +107,7 @@ class _InsertLostPersonScreenState
       ),
       body: Center(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Container(
             width: MediaQuery.of(context).size.width * .8,
             height: MediaQuery.of(context).size.height * .8,
@@ -187,33 +188,33 @@ class _InsertLostPersonScreenState
                         borderRadius: BorderRadius.circular(12)),
                     child: settingsProvider.currentLang == 'en'
                         ? DropdownButton<String>(
-                            items: govs.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            hint: Text(gov),
-                            onChanged: (value) {
-                              setState(() {
-                                gov = value.toString();
-                              });
-                            },
-                          )
+                      items: govs.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: Text(gov),
+                      onChanged: (value) {
+                        setState(() {
+                          gov = value.toString();
+                        });
+                      },
+                    )
                         : DropdownButton<String>(
-                            items: govsAR.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            hint: Text(gov),
-                            onChanged: (value) {
-                              setState(() {
-                                gov = value.toString();
-                              });
-                            },
-                          ),
+                      items: govsAR.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      hint: Text(gov),
+                      onChanged: (value) {
+                        setState(() {
+                          gov = value.toString();
+                        });
+                      },
+                    ),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -240,12 +241,12 @@ class _InsertLostPersonScreenState
                   ElevatedButton(
                       style: ButtonStyle(
                         shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            )),
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        )),
                         backgroundColor:
-                        MaterialStateProperty.all(MyTheme.basicBlue),
+                            MaterialStateProperty.all(MyTheme.basicBlue),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),
@@ -256,9 +257,7 @@ class _InsertLostPersonScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(AppLocalizations.of(context)!.insert),
-                          Icon(InsertLostPersonScreen.lost
-                              ? Icons.add_circle_outlined
-                              : Icons.add_a_photo),
+                          Icon(Icons.add_circle_outlined),
                         ],
                       ))
                 ],
@@ -291,10 +290,18 @@ class _InsertLostPersonScreenState
             desc = describtionController.text,
             age = ageController.text;
         DateTime dateTime = DateTime.now();
-        bool? isFound = false;
 
-        viewModel.onAddMissingPersonClicked(name, age, desc, gover, userId,
-            address, thenFun, errorFun, timeOutFun);
+        viewModel.onAddMissingPersonClicked(
+            name,
+            age,
+            desc,
+            gover,
+            userId,
+            address,
+            !InsertLostPersonScreen.lost,
+            thenFun,
+            errorFun,
+            timeOutFun);
       }
     } else
       return;

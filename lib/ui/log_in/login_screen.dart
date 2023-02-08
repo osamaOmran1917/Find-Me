@@ -101,9 +101,11 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
               axisDirection: AxisDirection.down,
               color: Theme.of(context).primaryColor,
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -125,7 +127,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                             },
                             decoration: InputDecoration(
                                 labelText:
-                                    AppLocalizations.of(context)!.emailAdress),
+                                AppLocalizations.of(context)!.emailAdress),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * .02,
@@ -154,7 +156,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                                         ? Icons.visibility
                                         : Icons.visibility_off)),
                                 labelText:
-                                    AppLocalizations.of(context)!.password),
+                                AppLocalizations.of(context)!.password),
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * .09,
@@ -169,7 +171,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                             },
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(18.0),
                                       side: BorderSide(
@@ -199,7 +201,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                               icon: Image.asset(
                                 'assets/images/googleIcon.png',
                                 height:
-                                    MediaQuery.of(context).size.height * .03,
+                                MediaQuery.of(context).size.height * .03,
                               ),
                               label: RichText(
                                 text: TextSpan(
@@ -209,7 +211,7 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                                     children: [
                                       TextSpan(
                                           text:
-                                              '${AppLocalizations.of(context)!.loginWith} '),
+                                          '${AppLocalizations.of(context)!.loginWith} '),
                                       TextSpan(
                                           text: AppLocalizations.of(context)!
                                               .google,
@@ -222,9 +224,9 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
                           ),
                           Center(
                               child: Text(
-                            AppLocalizations.of(context)!.or,
-                            style: TextStyle(color: MyTheme.basicBlue),
-                          )),
+                                AppLocalizations.of(context)!.or,
+                                style: TextStyle(color: MyTheme.basicBlue),
+                              )),
                           TextButton(
                               onPressed: () {
                                 Navigator.pushReplacementNamed(
