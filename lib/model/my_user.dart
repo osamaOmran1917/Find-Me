@@ -27,7 +27,7 @@ class MyUser {
             password: data['password'],
             natId: data['natId'],
             gov: data['gov'],
-            phoneNumber: data['phoneNumber'],
+            phoneNumber: data['phoneNum ber'],
             userMissingList: data['userMissingList'],
             chatSections: data['chatSections']);
 

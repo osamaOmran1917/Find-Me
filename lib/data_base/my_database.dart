@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyDataBase {
   static CollectionReference<MyUser> getUsersCollection() {
     return FirebaseFirestore.instance
         .collection(MyUser.collectionName)
         .withConverter<MyUser>(
-        fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
-        toFirestore: (user, options) => user.toFireStore());
+            fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
+            toFirestore: (user, options) => user.toFireStore());
   }
 
   static Future<MyUser?> insertUser(MyUser user) async {
@@ -44,9 +45,9 @@ class MyDataBase {
 
   static Future<List<MissingPerson>> getAllMissingPersons() async {
     QuerySnapshot<MissingPerson> querySnapshot =
-    await getMissingPersonsCollection().get();
+        await getMissingPersonsCollection().get();
     List<MissingPerson> missingPersons =
-    querySnapshot.docs.map((e) => e.data()).toList();
+        querySnapshot.docs.map((e) => e.data()).toList();
     return missingPersons;
   }
 
@@ -64,10 +65,13 @@ class MyDataBase {
         {'reachedToFamily': missingPerson.reachedToFamily! ? false : true});
   }
 
-/*editMissingPersonPic(MissingPerson missingPerson) {
+  /*editMissingPersonPic(MissingPerson missingPerson) {
     CollectionReference findMeRef = getMissingPersonsCollection();
     findMeRef.doc(missingPerson.id).update({
 
     });
   }*/
+
+  static FirebaseAuth auth = FirebaseAuth.instance;
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
 }
