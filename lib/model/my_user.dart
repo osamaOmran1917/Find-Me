@@ -4,7 +4,18 @@ import '../data_base/missing_person.dart';
 
 class MyUser {
   static const String collectionName = 'Users';
-  String? id, userName, email, password, natId, gov, phoneNumber;
+  String? id,
+      userName,
+      email,
+      password,
+      natId,
+      gov,
+      phoneNumber,
+      image,
+      created_at,
+      last_active,
+      push_token;
+  bool? is_online;
   List<MissingPerson>? userMissingList;
   List<ChatUserCard>? chatSections;
 
@@ -16,18 +27,28 @@ class MyUser {
       this.natId,
       this.gov,
       this.phoneNumber,
+      this.image,
+      this.created_at,
+      this.last_active,
+      this.push_token,
+      this.is_online,
       this.userMissingList,
       this.chatSections});
 
   MyUser.fromFierStore(Map<String, dynamic> data)
       : this(
-            id: data['id'],
+      id: data['id'],
             userName: data['userName'],
             email: data['email'],
             password: data['password'],
             natId: data['natId'],
             gov: data['gov'],
             phoneNumber: data['phoneNum ber'],
+            image: data['image'],
+            created_at: data['created_at'],
+            last_active: data['last_active'],
+            push_token: data['push_token'],
+            is_online: data['is_online'],
             userMissingList: data['userMissingList'],
             chatSections: data['chatSections']);
 
@@ -40,6 +61,11 @@ class MyUser {
       'natId': natId,
       'gov': gov,
       'phoneNumber': phoneNumber,
+      'image': image,
+      'created_at': created_at,
+      'last_active': last_active,
+      'push_token': push_token,
+      'is_online': is_online,
       'userMissingList': userMissingList,
       'chatSections': chatSections,
     };

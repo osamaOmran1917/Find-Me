@@ -1,6 +1,5 @@
 import 'package:find_me_ii/my_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OneOfUsWidget extends StatelessWidget {
   String img, name;
@@ -24,15 +23,15 @@ class OneOfUsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * .25,
-            width: MediaQuery.of(context).size.width * .25,
+            height: MediaQuery.of(context).size.height * .2,
+            width: MediaQuery.of(context).size.width * .2,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
             child: Image.asset(
               'assets/images/${img}',
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
-          Text('${AppLocalizations.of(context)!.eng}: ${name}')
+          Text(name)
         ],
       ),
     );

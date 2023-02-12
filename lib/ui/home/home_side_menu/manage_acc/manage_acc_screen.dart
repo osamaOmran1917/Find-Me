@@ -1,6 +1,7 @@
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +93,7 @@ class ManageAcc extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    Icons.home,
+                    CupertinoIcons.home,
                     color: settingsProvider.isDarkMode()
                         ? MyTheme.coloredTertiary
                         : Colors.grey,

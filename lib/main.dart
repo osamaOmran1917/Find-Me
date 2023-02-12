@@ -1,7 +1,6 @@
 import 'package:find_me_ii/firebase_options.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
-import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/chat/chats_screen.dart';
@@ -64,7 +63,6 @@ class MyApp extends StatelessWidget {
         InsertLostPersonScreen.routeName: (_) => InsertLostPersonScreen(),
         EnterPhoneNumberScreen.routeName: (_) => EnterPhoneNumberScreen(),
         ManageAcc.routeName: (_) => ManageAcc(),
-        AboutUs.routeName: (_) => AboutUs(),
         ContactUs.routeName: (_) => ContactUs(),
         CompleteUserInfo.routeName: (_) => CompleteUserInfo(),
         WelcomeScreen.routeName: (_) => WelcomeScreen(),

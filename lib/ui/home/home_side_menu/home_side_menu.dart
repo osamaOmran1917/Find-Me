@@ -1,10 +1,11 @@
-import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/home_side_menu_viewModel.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -32,7 +33,7 @@ class _HomeSideMenuState extends State<HomeSideMenu>
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => viewModel,
-      child: Scaffold(
+      child: /*Scaffold(
         appBar: AppBar(
             centerTitle: false,
             title: Row(
@@ -51,40 +52,69 @@ class _HomeSideMenuState extends State<HomeSideMenu>
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
             titleTextStyle: TextStyle(fontSize: 18, color: Colors.black)),
-        body: Container(
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    viewModel.onManageAccPrsd();
-                  },
-                  child: Text(AppLocalizations.of(context)!.manageAcc)),
-              TextButton(
-                  onPressed: () {
-                    viewModel.onAboutUsPrsd();
-                  },
-                  child: Text(AppLocalizations.of(context)!.aboutUs)),
-              TextButton(
-                  onPressed: () {
-                    viewModel.onContactUsPrsd();
-                  },
-                  child: Text(AppLocalizations.of(context)!.contactUs)),
-              TextButton(
-                  onPressed: () async {
+        body: */
+          Container(
+        width: double.infinity,
+        color: Theme.of(context).primaryColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset('assets/images/icon.png',
+                      width: MediaQuery.of(context).size.width * .2,
+                      height: MediaQuery.of(context).size.height * .2),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .1,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.app_title,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * .07),
+                  )
+                ]),
+            TextButton.icon(
+                onPressed: () {
+                  viewModel.onManageAccPrsd();
+                },
+                icon: Icon(CupertinoIcons.profile_circled),
+                label: Text(AppLocalizations.of(context)!.manageAcc)),
+            TextButton.icon(
+                onPressed: () {
+                  viewModel.onAboutUsPrsd();
+                },
+                icon: Icon(CupertinoIcons.group),
+                label: Text(AppLocalizations.of(context)!.aboutUs)),
+            TextButton.icon(
+                onPressed: () {
+                  viewModel.onContactUsPrsd();
+                },
+                icon: Icon(CupertinoIcons.phone),
+                label: Text(AppLocalizations.of(context)!.contactUs)),
+            TextButton.icon(
+                onPressed: () async {
+                  showMessage(context,
+                      AppLocalizations.of(context)!.areYouSureYouWannaLogout,
+                      posAction: () async {
                     await FirebaseAuth.instance.signOut();
                     await GoogleSignIn().signOut();
                     SharedData.user = null;
                     Navigator.pushReplacementNamed(
                         context, LogInScreen.routeName);
                   },
-                  child: Text(AppLocalizations.of(context)!.logOut)),
-            ],
-          ),
+                      posActionName: AppLocalizations.of(context)!.yes,
+                      negAction: () {},
+                      negActionName: AppLocalizations.of(context)!.no);
+                },
+                icon: Icon(Icons.logout_outlined),
+                label: Text(AppLocalizations.of(context)!.logOut)),
+          ],
         ),
       ),
+      // ),
     );
   }
 
@@ -95,7 +125,7 @@ class _HomeSideMenuState extends State<HomeSideMenu>
 
   @override
   void goToAboutUsPage() {
-    Navigator.pushNamed(context, AboutUs.routeName);
+    Navigator.push(context, MaterialPageRoute(builder: (_) => AboutUs()));
   }
 
   @override

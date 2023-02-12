@@ -1,8 +1,11 @@
+import 'package:find_me_ii/model/my_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatUserCard extends StatefulWidget {
-  const ChatUserCard({Key? key}) : super(key: key);
+  final MyUser user;
+
+  const ChatUserCard({Key? key, required this.user}) : super(key: key);
 
   @override
   State<ChatUserCard> createState() => _ChatUserCardState();
@@ -18,12 +21,12 @@ class _ChatUserCardState extends State<ChatUserCard> {
       elevation: .5,
       child: InkWell(
           child: ListTile(
-        leading: CircleAvatar(
+            leading: CircleAvatar(
           child: Icon(CupertinoIcons.person_alt),
         ),
-        title: Text('Demo User'),
+        title: Text(widget.user.userName ?? ''),
         subtitle: Text(
-          'last user message',
+          widget.user.id ?? '',
           maxLines: 1,
         ),
         trailing: Text(

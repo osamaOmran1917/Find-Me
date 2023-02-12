@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutUs extends StatelessWidget {
-  static const String routeName = 'About Us';
-
   @override
   Widget build(BuildContext context) {
     List<OneOfUsWidget> us = [

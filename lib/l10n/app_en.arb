@@ -77,7 +77,7 @@
     "searchByDateOfLose": "Search by date of lose",
     "searchByDateOfFinding": "Search by date of finding",
     "searchByPhoto": "Search by photo",
-    "errorLoadingDataTryAgainLater": "Error loading data, try again later.",
+    "errorLoadingDataTryAgainLater": "Error loading data, Check your connection or try again later.",
     "noLostPeople": "No Lost People",
     "suggestions": "Suggestions...",
     "editProfile": "Edit profile",
@@ -111,5 +111,8 @@
     "natID": "Nat ID",
     "enterYourPhoneNumberToContinueWeWillSendYouCodeToVerify": "Enter your phone number to continue, we will send you code to verify.",
     "requestVerificationCode": "Request Verification Code",
-    "alreadyHaveAnAccount": "Already have an account?"
+    "alreadyHaveAnAccount": "Already have an account?",
+    "areYouSureYouWannaLogout": "Are you sure you wanna logout?",
+    "yes": "Yes",
+    "no": "No"
 }

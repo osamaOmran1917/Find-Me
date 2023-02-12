@@ -23,14 +23,15 @@ class _LatestLostState extends State<LatestLost> {
       child: FutureBuilder<List<MissingPerson>>(
         builder: (buildContext, snapshot) {
           if (snapshot.hasError) {
-            return Text(
-                AppLocalizations.of(context)!.errorLoadingDataTryAgainLater);
+            return Center(
+              child: Text(
+                  AppLocalizations.of(context)!.errorLoadingDataTryAgainLater),
+            );
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(color: MyTheme.coloredSecondary),
             );
           }
-
           var data = snapshot.data;
           return ListView.builder(
             physics: BouncingScrollPhysics(),

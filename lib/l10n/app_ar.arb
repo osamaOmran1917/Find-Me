@@ -77,7 +77,7 @@
     "searchByDateOfLose": "بحث بتاريخ الفقد",
     "searchByDateOfFinding": "بحث بتاريخ العثور",
     "searchByPhoto": "بحث بصورة",
-    "errorLoadingDataTryAgainLater": "خطأ في تحميل البيانات. حاول لاحقاً",
+    "errorLoadingDataTryAgainLater": "خطأ في تحميل البيانات. تأكد من الاتصال بالإنترنت أو حاول لاحقا.ً",
     "noLostPeople": "لم يتمكن بحثك من إيجاد مفقودين",
     "suggestions": "اقتراحات...",
     "editProfile": "تعديل الملف الشخصي",
@@ -111,5 +111,8 @@
     "natID": "الرقم القومي",
     "enterYourPhoneNumberToContinueWeWillSendYouCodeToVerify": "أدخل رقمك للتأكيد. سوف نرسل لك رقم تأكيدي",
     "requestVerificationCode": "طلب رقم تأكيدي",
-    "alreadyHaveAnAccount": "لديك حساب بالفعل؟"
+    "alreadyHaveAnAccount": "لديك حساب بالفعل؟",
+    "areYouSureYouWannaLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "yes": "نعم",
+    "no": "لا"
 }

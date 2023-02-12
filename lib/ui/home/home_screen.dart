@@ -8,6 +8,7 @@ import 'package:find_me_ii/ui/home/home_viewModel.dart';
 import 'package:find_me_ii/ui/home/notificationa_tab/notifications_tab.dart';
 import 'package:find_me_ii/ui/home/profile_tab/profile_tab.dart';
 import 'package:find_me_ii/ui/home/settings_tab/settings_tab.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -60,7 +61,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                                 context, InsertLostPersonScreen.routeName,
                                 arguments: InsertLostPersonScreen.lost = true);
                       },
-                      icon: Icon(Icons.add),
+                      icon: Icon(CupertinoIcons.add),
                       shape: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                       itemBuilder: (context) => [
@@ -89,7 +90,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                       onPressed: () {
                         Navigator.pushNamed(context, SearchScreen.routeName);
                       },
-                      icon: Icon(Icons.search)))
+                      icon: Icon(CupertinoIcons.search)))
               : Container(),
           HomeScreen.selectedIndex == 0
               ? SizedBox(
@@ -103,7 +104,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                       onPressed: () {
                         Navigator.pushNamed(context, ChatsScreen.routeName);
                       },
-                      icon: Icon(Icons.forward_to_inbox_outlined)),
+                      icon: Icon(CupertinoIcons.chat_bubble_2_fill)),
                 )
               : Container(),
           HomeScreen.selectedIndex == 0
@@ -124,27 +125,27 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(Icons.home),
+                icon: Icon(CupertinoIcons.home),
                 label: AppLocalizations.of(context)!.home),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(Icons.chat_outlined),
+                icon: Icon(CupertinoIcons.chat_bubble_text_fill),
                 label: AppLocalizations.of(context)!.chatbot),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(Icons.person),
+                icon: Icon(CupertinoIcons.person_alt),
                 label: AppLocalizations.of(context)!.profile),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(Icons.notifications_on),
+                icon: Icon(CupertinoIcons.bell_fill),
                 label: AppLocalizations.of(context)!.notifications),
             BottomNavigationBarItem(
                 backgroundColor:
                     Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(Icons.settings),
+                icon: Icon(CupertinoIcons.settings),
                 label: AppLocalizations.of(context)!.settings)
           ]),
     );
