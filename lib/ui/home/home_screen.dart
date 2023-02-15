@@ -1,5 +1,6 @@
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/latest_lost_tab.dart';
@@ -28,7 +29,9 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
   List<Widget> tabs = [
     LatestLost(),
     ChatBotTab(),
-    ProfileTab(),
+    ProfileTab(
+      user: SharedData.user!,
+    ),
     NotificationsTab(),
     SettingsTab(),
   ];

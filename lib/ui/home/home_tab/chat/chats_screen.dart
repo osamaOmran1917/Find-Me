@@ -16,7 +16,6 @@ class ChatsScreen extends StatelessWidget {
         title: const Text('Chat'),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
         ],
       ),
       floatingActionButton: Padding(
