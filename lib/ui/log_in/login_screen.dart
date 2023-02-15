@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
@@ -38,13 +39,20 @@ class _LogInScreenState extends BaseState<LogInScreen, LoginViewModel>
 
   _handleGoogleBtnClick() {
     Dialogs.showProgressBar(context);
-    _signInWithGoogle().then((user) {
+    _signInWithGoogle().then((user) async {
       Navigator.pop(context);
       if (user != null) {
         log('\n${AppLocalizations.of(context)!.user}: ${user.user}');
         log('\n${AppLocalizations.of(context)!.userAdditionalInfo}: ${user.additionalUserInfo}');
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName,
-            arguments: HomeScreen.selectedIndex = 0);
+        if ((await MyDataBase.userExists())) {
+          Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+              arguments: HomeScreen.selectedIndex = 0);
+        } else {
+          await MyDataBase.createUser().then((value) {
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName,
+                arguments: HomeScreen.selectedIndex = 0);
+          });
+        }
       }
     });
   }

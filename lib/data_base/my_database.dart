@@ -73,5 +73,29 @@ class MyDataBase {
   }*/
 
   static FirebaseAuth auth = FirebaseAuth.instance;
+
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  static User get user => auth.currentUser!;
+
+  static Future<bool> userExists() async {
+    return (await firestore.collection('Users').doc(user.uid).get()).exists;
+  }
+
+  static Future<void> createUser() async {
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
+    final chatUser = MyUser(
+        id: user.uid,
+        userName: user.displayName.toString(),
+        email: user.email.toString(),
+        image: user.photoURL.toString(),
+        created_at: time,
+        is_online: false,
+        last_active: time,
+        push_token: '');
+    return await firestore
+        .collection('Users')
+        .doc(user.uid)
+        .set(chatUser.toFireStore());
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
@@ -39,12 +40,18 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
 
   _handleGoogleBtnClick() {
     Dialogs.showProgressBar(context);
-    _signInWithGoogle().then((user) {
+    _signInWithGoogle().then((user) async {
       Navigator.pop(context);
       if (user != null) {
         log('\nUser: ${user.user}');
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
-        Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
+        if ((await MyDataBase.userExists())) {
+          Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
+        } else {
+          await MyDataBase.createUser().then((value) {
+            Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
+          });
+        }
       }
     });
   }
