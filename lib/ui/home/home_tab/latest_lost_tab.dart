@@ -33,10 +33,6 @@ class _LatestLostState extends State<LatestLost> {
             );
           }
           var data = snapshot.data;
-          print('dataaaaaaaaaaaaaaaaaaaaa: ${data![0].image}');
-          print(data![1].image);
-          print(data![2].image);
-          print(data![3].image);
           return ListView.builder(
             physics: BouncingScrollPhysics(),
             itemBuilder: (buildContext, index) {

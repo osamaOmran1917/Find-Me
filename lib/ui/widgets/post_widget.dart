@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PostWidget extends StatefulWidget {
@@ -65,11 +66,12 @@ class _PostWidgetState extends State<PostWidget> {
                       .of(context)
                       .size
                       .height * .1),
-              child: CachedNetworkImage(
+              child: /*CachedNetworkImage(
                   width: MediaQuery.of(context).size.height * .2,
                   height: MediaQuery.of(context).size.height * .2,
                   fit: BoxFit.cover,
                   imageUrl: widget.missingPerson.image ?? '',
+                  //imageUrl: widget.missingPerson.image!, دي اللي ودتني في داهية يوم بحاله ركز
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => CircleAvatar(
                         child: Image.network(
@@ -81,7 +83,33 @@ class _PostWidgetState extends State<PostWidget> {
                               .height * .15,
                           fit: BoxFit.cover,
                         ),
-                      )),
+                      ))*/
+                  widget.missingPerson.image == null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height * .1),
+                          child: Image.network(
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Semakar_white.svg/220px-Semakar_white.svg.png',
+                            width: MediaQuery.of(context).size.width * .2,
+                            height: MediaQuery.of(context).size.height * .15,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height * .1),
+                          child: CachedNetworkImage(
+                            width: MediaQuery.of(context).size.height * .2,
+                            height: MediaQuery.of(context).size.height * .2,
+                            fit: BoxFit.cover,
+                            imageUrl: widget.missingPerson.image ?? '',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                    child: Icon(CupertinoIcons.person_alt)),
+                          ),
+                        ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,

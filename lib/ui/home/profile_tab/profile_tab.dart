@@ -1,4 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
@@ -40,14 +42,14 @@ class _ProfileTabState extends State<ProfileTab> {
               showMessage(context,
                   AppLocalizations.of(context)!.areYouSureYouWannaLogout,
                   posAction: () async {
-                    await FirebaseAuth.instance.signOut().then((value) async {
-                      await GoogleSignIn().signOut().then((value) {
-                        Navigator.pushReplacementNamed(
-                            context, LogInScreen.routeName);
-                      });
-                    });
-                    SharedData.user = null;
-                  },
+                await FirebaseAuth.instance.signOut().then((value) async {
+                  await GoogleSignIn().signOut().then((value) {
+                    Navigator.pushReplacementNamed(
+                        context, LogInScreen.routeName);
+                  });
+                });
+                SharedData.user = null;
+              },
                   posActionName: AppLocalizations.of(context)!.yes,
                   negAction: () {},
                   negActionName: AppLocalizations.of(context)!.no);
@@ -60,67 +62,42 @@ class _ProfileTabState extends State<ProfileTab> {
           key: _formKey,
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery
-                    .of(context)
-                    .size
-                    .width * .05),
+                horizontal: MediaQuery.of(context).size.width * .05),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * .03,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * .03,
                   ),
                   Stack(
                     children: [
-                      _image != null ? ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height * .1),
-                        child: Image.file(
-                          File(_image!),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .height * .2,
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * .2,
-                          fit: BoxFit.cover,
-                        ),
-                      ) : ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height * .1),
-                        child: CachedNetworkImage(
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .height * .2,
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height * .2,
-                            fit: BoxFit.cover,
-                            imageUrl: 'http://${widget.user.image}' ?? '',
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                CircleAvatar(
-                                  child: Icon(CupertinoIcons.person_alt),
-                                )),
-                      ),
+                      _image != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.height * .1),
+                              child: Image.file(
+                                File(_image!),
+                                width: MediaQuery.of(context).size.height * .2,
+                                height: MediaQuery.of(context).size.height * .2,
+                                fit: BoxFit.cover,
+                                // placeholder: (context, url) => CircularProgressIndicator(),
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.height * .1),
+                              child: CachedNetworkImage(
+                                width: MediaQuery.of(context).size.height * .2,
+                                height: MediaQuery.of(context).size.height * .2,
+                                fit: BoxFit.cover,
+                                imageUrl: widget.user.image ?? '',
+                                // placeholder: (context, url) => CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const CircleAvatar(
+                                        child: Icon(CupertinoIcons.person_alt)),
+                              ),
+                            ),
                       Positioned(
                         bottom: 0,
                         right: 0,
@@ -140,26 +117,20 @@ class _ProfileTabState extends State<ProfileTab> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * .03,
+                    height: MediaQuery.of(context).size.height * .03,
                   ),
                   Text(
                     widget.user.userName!,
                     style: TextStyle(color: Colors.black54, fontSize: 16),
                   ),
                   SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * .05,
+                    height: MediaQuery.of(context).size.height * .05,
                   ),
                   TextFormField(
                     initialValue: widget.user.userName,
                     onSaved: (val) => MyDataBase.me.userName = val ?? '',
                     validator: (val) =>
-                    val != null && val.isNotEmpty ? null : 'Required Field',
+                        val != null && val.isNotEmpty ? null : 'Required Field',
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)),
@@ -171,16 +142,12 @@ class _ProfileTabState extends State<ProfileTab> {
                         label: Text('Name')),
                   ),
                   SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * .02,
+                    height: MediaQuery.of(context).size.height * .02,
                   ),
                   TextFormField(
                     keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 11,
-                    validator: (val) =>
-                    val!.length > 0 && val.length < 11
+                    validator: (val) => val!.length > 0 && val.length < 11
                         ? 'Enter a valid phone number'
                         : null,
                     initialValue: MyDataBase.me.phoneNumber,
@@ -196,10 +163,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         label: Text('Phone Number')),
                   ),
                   SizedBox(
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * .05,
+                    height: MediaQuery.of(context).size.height * .05,
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -222,14 +186,8 @@ class _ProfileTabState extends State<ProfileTab> {
                     style: ElevatedButton.styleFrom(
                         shape: StadiumBorder(),
                         minimumSize: Size(
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .width * .5,
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height * .06)),
+                            MediaQuery.of(context).size.width * .5,
+                            MediaQuery.of(context).size.height * .06)),
                   )
                 ],
               ),
@@ -247,14 +205,8 @@ class _ProfileTabState extends State<ProfileTab> {
           return ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
-                top: MediaQuery
-                    .of(context)
-                    .size
-                    .height * .02,
-                bottom: MediaQuery
-                    .of(context)
-                    .size
-                    .height * .05),
+                top: MediaQuery.of(context).size.height * .02,
+                bottom: MediaQuery.of(context).size.height * .05),
             children: [
               Text(
                 'Pick a picture',
@@ -262,10 +214,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * .02,
+                height: MediaQuery.of(context).size.height * .02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -275,23 +224,20 @@ class _ProfileTabState extends State<ProfileTab> {
                           backgroundColor: Colors.white,
                           shape: CircleBorder(),
                           fixedSize: Size(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * .3,
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * .15)),
+                              MediaQuery.of(context).size.width * .3,
+                              MediaQuery.of(context).size.height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
                         final XFile? image = await picker.pickImage(
-                            source: ImageSource.gallery);
-                        setState(() {
-                          _image = image!.path;
-                        });
-                        MyDataBase.updateProfilePicture(File(_image!));
-                        Navigator.pop(context);
+                            source: ImageSource.gallery, imageQuality: 80);
+                        if (image != null) {
+                          log('Image path: ${image.path} -- MimeType ${image.mimeType}');
+                          setState(() {
+                            _image = image.path;
+                          });
+                          MyDataBase.updateProfilePicture(File(_image!));
+                          Navigator.pop(context);
+                        }
                       },
                       child: Image.asset('assets/images/picture.png')),
                   ElevatedButton(
@@ -299,23 +245,20 @@ class _ProfileTabState extends State<ProfileTab> {
                           backgroundColor: Colors.white,
                           shape: CircleBorder(),
                           fixedSize: Size(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * .3,
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * .15)),
+                              MediaQuery.of(context).size.width * .3,
+                              MediaQuery.of(context).size.height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
                         final XFile? image = await picker.pickImage(
-                            source: ImageSource.camera);
-                        setState(() {
-                          _image = image!.path;
-                        });
-                        MyDataBase.updateProfilePicture(File(_image!));
-                        Navigator.pop(context);
+                            source: ImageSource.camera, imageQuality: 80);
+                        if (image != null) {
+                          log('Image path: ${image.path}');
+                          setState(() {
+                            _image = image.path;
+                          });
+                          MyDataBase.updateProfilePicture(File(_image!));
+                          Navigator.pop(context);
+                        }
                       },
                       child: Image.asset('assets/images/camera.png')),
                 ],

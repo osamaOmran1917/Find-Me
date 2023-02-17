@@ -1,21 +1,23 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/shared_data.dart';
+import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../my_theme.dart';
 import 'add_pic/addin_pic_screen.dart';
 import 'insert_lost_person_viewModel.dart';
-import 'dart:io';
 
 class InsertLostPersonScreen extends StatefulWidget {
   static const String routeName = 'Insert Missing Person Screen';
@@ -376,8 +378,10 @@ class _InsertLostPersonScreenState
   void thenMessage() {
     showMessage(context,
         AppLocalizations.of(context)!.missingPersonInsertedSuccessfuly);
-    Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);
+    /*Navigator.pushReplacementNamed(context, AddPic.routeName,
+        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);*/
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => HomeScreen()));
     print('ال أيدي     يييييييييييييييي${AddPic.missingPersonId}');
   }
 
@@ -390,13 +394,16 @@ class _InsertLostPersonScreenState
   @override
   void timeOutMessage() {
     showMessage(context, AppLocalizations.of(context)!.missingPersonAdded);
-    Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);
+    /*Navigator.pushReplacementNamed(context, AddPic.routeName,
+        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);*/
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => HomeScreen()));
   }
 
 
   //كانت في الviewmodel أصلا و جبتها هنا تجربة
-  void onAddMissingPersonClicked(String name,
+  Future<void> onAddMissingPersonClicked(
+      String name,
       String age,
       String desc,
       String gov,
@@ -406,14 +413,14 @@ class _InsertLostPersonScreenState
       bool foundPerson,
       void thenFun,
       void errorFun,
-      void timeOutFun) {
+      void timeOutFun) async {
     MissingPerson missingPerson = MissingPerson(
         name: name,
         age: age,
         desc: desc,
         gov: gov,
         adress: address,
-        image: image,
+        image: _image ?? '',
         dateTime: DateTime.now(),
         reachedToFamily: false,
         posterId: SharedData.user?.id,
@@ -423,15 +430,6 @@ class _InsertLostPersonScreenState
       //called when future is completed
       thenFun;
       InsertLostPersonScreen.id = missingPerson.id!;
-      final ext = File(_image!).path
-          .split('.')
-          .last;
-      final ref =
-      MyDataBase.storage.ref().child(
-          'lost_people_pictures/${missingPerson.id}.$ext');
-      await ref.putFile(
-          File(_image!), SettableMetadata(contentType: 'image/$ext'));
-      // me.image = await ref.getDownloadURL();
     }).onError((error, stackTrace) {
       //called when future fails
       errorFun;
@@ -439,16 +437,18 @@ class _InsertLostPersonScreenState
       //save changes in cache
       timeOutFun;
       InsertLostPersonScreen.id = missingPerson.id!;
-      final ext = File(_image!).path
-          .split('.')
-          .last;
-      final ref =
-      MyDataBase.storage.ref().child(
-          'lost_people_pictures/${missingPerson.id}.$ext');
-      await ref.putFile(
-          File(_image!), SettableMetadata(contentType: 'image/$ext'));
-      // me.image = await ref.getDownloadURL();
     });
+    final ext = File(_image!).path.split('.').last;
+    final ref = MyDataBase.storage
+        .ref()
+        .child('lost_people_pictures/${missingPerson.id}.$ext');
+    await ref.putFile(
+        File(_image!), SettableMetadata(contentType: 'image/$ext'));
+    missingPerson.image = await ref.getDownloadURL();
+    await MyDataBase.firestore
+        .collection('Missing Person')
+        .doc(missingPerson.id)
+        .update({'image': missingPerson.image});
   }
 
   void _showBottomSheet() {
@@ -496,12 +496,15 @@ class _InsertLostPersonScreenState
                                   .height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
+                        // Pick an image
                         final XFile? image = await picker.pickImage(
-                            source: ImageSource.gallery);
+                            source: ImageSource.gallery, imageQuality: 80);
                         if (image != null) {
-                          log('Image path: ${image.path}');
+                          log('Image path: ${image.path} -- MimeType ${image.mimeType}');
                           setState(() {
                             _image = image.path;
+                            print(
+                                ' أهيييييييييييييييي  ************************** الصورةةةةةةةةةةة$_image');
                           });
                           Navigator.pop(context);
                         }
@@ -522,8 +525,9 @@ class _InsertLostPersonScreenState
                                   .height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
+                        // Pick an image
                         final XFile? image = await picker.pickImage(
-                            source: ImageSource.camera);
+                            source: ImageSource.camera, imageQuality: 80);
                         if (image != null) {
                           log('Image path: ${image.path}');
                           setState(() {
