@@ -66,26 +66,15 @@ class _PostWidgetState extends State<PostWidget> {
                       .size
                       .height * .1),
               child: CachedNetworkImage(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .height * .2,
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * .2,
+                  width: MediaQuery.of(context).size.height * .2,
+                  height: MediaQuery.of(context).size.height * .2,
                   fit: BoxFit.cover,
-                  imageUrl: widget.missingPerson.image!,
-                  placeholder: (context, url) =>
-                      CircularProgressIndicator(),
-                  errorWidget: (context, url, error) =>
-                      CircleAvatar(
+                  imageUrl: widget.missingPerson.image ?? '',
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => CircleAvatar(
                         child: Image.network(
                           'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Semakar_white.svg/220px-Semakar_white.svg.png',
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * .2,
+                          width: MediaQuery.of(context).size.width * .2,
                           height: MediaQuery
                               .of(context)
                               .size
