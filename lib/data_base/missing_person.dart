@@ -2,18 +2,16 @@ import 'dart:io';
 
 class MissingPerson {
   static const String collectionName = 'Missing Person';
-  String? id, name, adress, desc, age, gov, posterId, posterName;
+  String? id, name, adress, desc, age, gov, posterId, posterName, image;
   DateTime? dateTime;
   bool? reachedToFamily, foundPerson;
-  File? image;
 
-  MissingPerson(
-      {this.id,
-      this.name,
-      this.adress,
-      this.desc,
-      this.age,
-      this.gov,
+  MissingPerson({this.id,
+    this.name,
+    this.adress,
+    this.desc,
+    this.age,
+    this.gov,
       this.dateTime,
       this.reachedToFamily,
       this.image,

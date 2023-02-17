@@ -1,15 +1,19 @@
+import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:find_me_ii/shared_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class MyDataBase {
   static CollectionReference<MyUser> getUsersCollection() {
     return FirebaseFirestore.instance
         .collection(MyUser.collectionName)
         .withConverter<MyUser>(
-            fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
-            toFirestore: (user, options) => user.toFireStore());
+        fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
+        toFirestore: (user, options) => user.toFireStore());
   }
 
   static Future<MyUser?> insertUser(MyUser user) async {
@@ -22,6 +26,13 @@ class MyDataBase {
   static Future<MyUser?> getUserById(String uid) async {
     var collection = getUsersCollection();
     var docRef = collection.doc(uid);
+    var res = await docRef.get();
+    return res.data();
+  }
+
+  static Future<MissingPerson?> getMissingPersonById(String id) async {
+    var collection = getMissingPersonsCollection();
+    var docRef = collection.doc(id);
     var res = await docRef.get();
     return res.data();
   }
@@ -45,9 +56,11 @@ class MyDataBase {
 
   static Future<List<MissingPerson>> getAllMissingPersons() async {
     QuerySnapshot<MissingPerson> querySnapshot =
-        await getMissingPersonsCollection().get();
+    await getMissingPersonsCollection()
+        .orderBy("dateTime", descending: true)
+        .get();
     List<MissingPerson> missingPersons =
-        querySnapshot.docs.map((e) => e.data()).toList();
+    querySnapshot.docs.map((e) => e.data()).toList();
     return missingPersons;
   }
 
@@ -76,14 +89,33 @@ class MyDataBase {
 
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  static FirebaseStorage storage = FirebaseStorage.instance;
+
+  static late MyUser me;
+
   static User get user => auth.currentUser!;
 
   static Future<bool> userExists() async {
     return (await firestore.collection('Users').doc(user.uid).get()).exists;
   }
 
+  static Future<void> getSelfInfo() async {
+    await firestore.collection('Users').doc(user.uid).get().then((user) async {
+      if (user.exists) {
+        me = MyUser.fromFierStore(user.data()!);
+        SharedData.user = me;
+        log('My Data: ${user.data()}');
+      } else {
+        await createUser().then((value) => getSelfInfo());
+      }
+    });
+  }
+
   static Future<void> createUser() async {
-    final time = DateTime.now().millisecondsSinceEpoch.toString();
+    final time = DateTime
+        .now()
+        .millisecondsSinceEpoch
+        .toString();
     final chatUser = MyUser(
         id: user.uid,
         userName: user.displayName.toString(),
@@ -98,4 +130,44 @@ class MyDataBase {
         .doc(user.uid)
         .set(chatUser.toFireStore());
   }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers() {
+    return firestore
+        .collection('Users')
+        .where('id', isNotEqualTo: user.uid)
+        .snapshots();
+  }
+
+  static Future<void> updateUserInfo() async {
+    await firestore
+        .collection('Users')
+        .doc(user.uid)
+        .update({'userName': me.userName, 'phoneNumber': me.phoneNumber});
+  }
+
+  static Future<void> updateProfilePicture(File file) async {
+    final ext = file.path
+        .split('.')
+        .last;
+    final ref = storage.ref().child('profile_pictures/${user.uid}.$ext');
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext'));
+    me.image = await ref.getDownloadURL();
+    await firestore
+        .collection('Users')
+        .doc(user.uid)
+        .update({'image': me.image});
+  }
+
+/*static Future<void> updateMissingPersonPicture(
+      File file) async {
+    final ext = file.path.split('.').last;
+    final ref =
+        storage.ref().child('lost_people_pictures/${SharedData.missingPerson!.id}.$ext');
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext'));
+    me.image = await ref.getDownloadURL();
+    await firestore
+        .collection('Missing Person')
+        .doc(SharedData.missingPerson!.id)
+        .update({'image': SharedData.missingPerson!.image});
+  }*/
 }

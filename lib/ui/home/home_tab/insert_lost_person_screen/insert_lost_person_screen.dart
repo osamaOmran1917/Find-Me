@@ -1,14 +1,21 @@
+import 'dart:developer';
+
 import 'package:find_me_ii/base/base.dart';
+import 'package:find_me_ii/data_base/missing_person.dart';
+import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../../../my_theme.dart';
 import 'add_pic/addin_pic_screen.dart';
 import 'insert_lost_person_viewModel.dart';
+import 'dart:io';
 
 class InsertLostPersonScreen extends StatefulWidget {
   static const String routeName = 'Insert Missing Person Screen';
@@ -27,6 +34,7 @@ class _InsertLostPersonScreenState
     return InsertLostPersonViewModel();
   }
 
+  String? _image;
   var nameController = TextEditingController();
   var ageController = TextEditingController();
   var describtionController = TextEditingController();
@@ -238,15 +246,61 @@ class _InsertLostPersonScreenState
                               .whereIsThiesPersonRightNow),
                     ),
                   ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      _showBottomSheet();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.photo,
+                      size: 25,
+                    ),
+                    label: Text(
+                      AppLocalizations.of(context)!.addPicToThisPerson,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        minimumSize: Size(
+                            MediaQuery
+                                .of(context)
+                                .size
+                                .width * .5,
+                            MediaQuery
+                                .of(context)
+                                .size
+                                .height * .06)),
+                  ),
+                  _image != null ? ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                        MediaQuery
+                            .of(context)
+                            .size
+                            .height * .1),
+                    child: Image.file(
+                      File(_image!),
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .height * .2,
+                      height: MediaQuery
+                          .of(context)
+                          .size
+                          .height * .2,
+                      fit: BoxFit.cover,
+                    ),
+                  ) : Container(
+                    height: 0,
+                    width: 0,
+                  ),
                   ElevatedButton(
                       style: ButtonStyle(
                         shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        )),
+                        MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            )),
                         backgroundColor:
-                            MaterialStateProperty.all(MyTheme.basicBlue),
+                        MaterialStateProperty.all(MyTheme.basicBlue),
                         padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
                       ),
@@ -279,25 +333,30 @@ class _InsertLostPersonScreenState
         void thenFun = thenMessage();
         void errorFun = onErrorMessage();
         void timeOutFun = timeOutMessage();
-        String name = nameController.text.trim().isEmpty
-                ? AppLocalizations.of(context)!.nameNotAvailable
-                : nameController.text,
+        String name = nameController.text
+            .trim()
+            .isEmpty
+            ? AppLocalizations.of(context)!.nameNotAvailable
+            : nameController.text,
             gover = gov == 'gov'
                 ? AppLocalizations.of(context)!.govNotAvailable
                 : gov,
             userId = SharedData.user?.id ?? '',
             address = addressController.text,
             desc = describtionController.text,
-            age = ageController.text;
+            age = ageController.text,
+            image = _image!;
+
         DateTime dateTime = DateTime.now();
 
-        viewModel.onAddMissingPersonClicked(
+        onAddMissingPersonClicked(
             name,
             age,
             desc,
             gover,
             userId,
             address,
+            image,
             !InsertLostPersonScreen.lost,
             thenFun,
             errorFun,
@@ -333,5 +392,154 @@ class _InsertLostPersonScreenState
     showMessage(context, AppLocalizations.of(context)!.missingPersonAdded);
     Navigator.pushReplacementNamed(context, AddPic.routeName,
         arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);
+  }
+
+
+  //كانت في الviewmodel أصلا و جبتها هنا تجربة
+  void onAddMissingPersonClicked(String name,
+      String age,
+      String desc,
+      String gov,
+      String userId,
+      String address,
+      String image,
+      bool foundPerson,
+      void thenFun,
+      void errorFun,
+      void timeOutFun) {
+    MissingPerson missingPerson = MissingPerson(
+        name: name,
+        age: age,
+        desc: desc,
+        gov: gov,
+        adress: address,
+        image: image,
+        dateTime: DateTime.now(),
+        reachedToFamily: false,
+        posterId: SharedData.user?.id,
+        posterName: SharedData.user?.userName,
+        foundPerson: foundPerson);
+    MyDataBase.insertMissingPerson(missingPerson).then((value) async {
+      //called when future is completed
+      thenFun;
+      InsertLostPersonScreen.id = missingPerson.id!;
+      final ext = File(_image!).path
+          .split('.')
+          .last;
+      final ref =
+      MyDataBase.storage.ref().child(
+          'lost_people_pictures/${missingPerson.id}.$ext');
+      await ref.putFile(
+          File(_image!), SettableMetadata(contentType: 'image/$ext'));
+      // me.image = await ref.getDownloadURL();
+    }).onError((error, stackTrace) {
+      //called when future fails
+      errorFun;
+    }).timeout(Duration(seconds: 15), onTimeout: () async {
+      //save changes in cache
+      timeOutFun;
+      InsertLostPersonScreen.id = missingPerson.id!;
+      final ext = File(_image!).path
+          .split('.')
+          .last;
+      final ref =
+      MyDataBase.storage.ref().child(
+          'lost_people_pictures/${missingPerson.id}.$ext');
+      await ref.putFile(
+          File(_image!), SettableMetadata(contentType: 'image/$ext'));
+      // me.image = await ref.getDownloadURL();
+    });
+  }
+
+  void _showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
+                bottom: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .05),
+            children: [
+              Text(
+                'Pick a picture',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: CircleBorder(),
+                          fixedSize: Size(
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * .3,
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * .15)),
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.gallery);
+                        if (image != null) {
+                          log('Image path: ${image.path}');
+                          setState(() {
+                            _image = image.path;
+                          });
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Image.asset('assets/images/picture.png')),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: CircleBorder(),
+                          fixedSize: Size(
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * .3,
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * .15)),
+                      onPressed: () async {
+                        final ImagePicker picker = ImagePicker();
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.camera);
+                        if (image != null) {
+                          log('Image path: ${image.path}');
+                          setState(() {
+                            _image = image.path;
+                          });
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Image.asset('assets/images/camera.png')),
+                ],
+              )
+            ],
+          );
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20), topLeft: Radius.circular(20))));
   }
 }
