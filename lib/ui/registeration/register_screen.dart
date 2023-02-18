@@ -5,10 +5,10 @@ import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:find_me_ii/ui/registeration/register_viewModel.dart';
-import 'package:find_me_ii/ui/registeration/welcome_screen/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -46,10 +46,10 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
         log('\nUser: ${user.user}');
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
         if ((await MyDataBase.userExists())) {
-          Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
+          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
         } else {
           await MyDataBase.createUser().then((value) {
-            Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
           });
         }
       }
@@ -77,7 +77,9 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
     } catch (e) {
       log('\n_signInWithGoogle: $e');
       Dialogs.showSnackbar(
-          context, 'Something went wrong (Check Internet Connection)!');
+          context,
+          AppLocalizations.of(context)!
+              .somethingWentWrongCheckInternetConnection);
       return null;
     }
   }
@@ -92,7 +94,7 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
         child: AppBar(
           shape: Theme.of(context).appBarTheme.shape,
           centerTitle: true,
-          title: Text('Find Me'),
+          title: Text(AppLocalizations.of(context)!.app_title),
         ),
       ),
       body: Form(
@@ -119,12 +121,14 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                               controller: userNameController,
                               validator: (text) {
                                 if (text == null || text.trim().isEmpty) {
-                                  return 'User Name Is Required';
+                                  return AppLocalizations.of(context)!
+                                      .userNameIsRequired;
                                 }
                                 return null;
                               },
-                              decoration:
-                              InputDecoration(labelText: 'User Name'),
+                              decoration: InputDecoration(
+                                  labelText:
+                                      AppLocalizations.of(context)!.userName),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * .02,
@@ -133,15 +137,18 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                               controller: emailController,
                               validator: (text) {
                                 if (text == null || text.trim().isEmpty) {
-                                  return 'E-mail Adress Is Required';
+                                  return AppLocalizations.of(context)!
+                                      .emailAdressIsRequired;
                                 }
                                 if (!ValidationUtils.isValidEmail(text)) {
-                                  return 'Pleas Enter A Valid E-mail';
+                                  return AppLocalizations.of(context)!
+                                      .pleasEnterAValidEmail;
                                 }
                                 return null;
                               },
-                              decoration:
-                              InputDecoration(labelText: 'E-mail Adress'),
+                              decoration: InputDecoration(
+                                  labelText: AppLocalizations.of(context)!
+                                      .emailAdress),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * .02,
@@ -150,10 +157,12 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                               controller: passwordController,
                               validator: (text) {
                                 if (text == null || text.trim().isEmpty) {
-                                  return 'Please Enter Password';
+                                  return AppLocalizations.of(context)!
+                                      .pleaseEnterPassword;
                                 }
                                 if (text.length < 6) {
-                                  return 'Passord Must Be At Least 6 Characters.';
+                                  return AppLocalizations.of(context)!
+                                      .passwordMustBeAtLeastSixCharacters;
                                 }
                                 return null;
                               },
@@ -167,7 +176,8 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                       child: Icon(securePasswordI
                                           ? Icons.visibility
                                           : Icons.visibility_off)),
-                                  labelText: 'Password'),
+                                  labelText:
+                                      AppLocalizations.of(context)!.password),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * .02,
@@ -175,10 +185,12 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                             TextFormField(
                               validator: (text) {
                                 if (text == null || text.trim().isEmpty) {
-                                  return 'Please Confirm Password';
+                                  return AppLocalizations.of(context)!
+                                      .pleaseConfirmPassword;
                                 }
                                 if (text != passwordController.text) {
-                                  return 'The Two Passwords Are Not Identical.';
+                                  return AppLocalizations.of(context)!
+                                      .theTwoPasswordsAreNotIdentical;
                                 }
                                 return null;
                               },
@@ -192,14 +204,15 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                       child: Icon(securePasswordII
                                           ? Icons.visibility
                                           : Icons.visibility_off)),
-                                  labelText: 'Confirm Password'),
+                                  labelText: AppLocalizations.of(context)!
+                                      .confirmPassword),
                             ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height * .09,
                             ),
                             ElevatedButton(
                               child: Text(
-                                'Create Account',
+                                AppLocalizations.of(context)!.createAccount,
                                 style: TextStyle(color: MyTheme.basicWhite),
                               ),
                               onPressed: () {
@@ -265,7 +278,9 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
                                   Navigator.pushReplacementNamed(
                                       context, LogInScreen.routeName);
                                 },
-                                child: Text('Already Have An Account?',
+                                child: Text(
+                                    AppLocalizations.of(context)!
+                                        .alreadyHaveAnAccount,
                                     style: TextStyle(color: MyTheme.basicBlue)))
                           ],
                         ),
@@ -318,7 +333,8 @@ class _RegisterScreenState extends BaseState<RegisterScreen, RegisterViewModel>
   }
 
   @override
-  void goToWelcomeScreen() {
-    Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
+  void goToHome() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => HomeScreen()));
   }
 }

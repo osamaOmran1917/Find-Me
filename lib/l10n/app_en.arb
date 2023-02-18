@@ -114,5 +114,13 @@
     "alreadyHaveAnAccount": "Already have an account?",
     "areYouSureYouWannaLogout": "Are you sure you wanna logout?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "userNameIsRequired": "User Name Is Required",
+    "userName": "User Name",
+    "pleaseConfirmPassword": "Please Confirm Password",
+    "theTwoPasswordsAreNotIdentical": "The Two Passwords Are Not Identical.",
+    "confirmPassword": "Confirm Password",
+    "createAccount": "Create Account",
+    "alreadyHaveAnAccount": "Already Have An Account?",
+    "lastSeenNotAvailable": "last seen not available"
 }

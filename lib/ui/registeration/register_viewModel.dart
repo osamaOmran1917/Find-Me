@@ -5,7 +5,7 @@ import 'package:find_me_ii/shared_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class RegisterNavigator extends BaseNavigator {
-  void goToWelcomeScreen();
+  void goToHome();
 }
 
 class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
@@ -25,7 +25,7 @@ class RegisterViewModel extends BaseViewModel<RegisterNavigator> {
       navigator?.hideLoadinDialog();
       if (insertedUser != null) {
         SharedData.user = insertedUser;
-        navigator?.goToWelcomeScreen();
+        navigator?.goToHome();
       } else {
         navigator
             ?.showMessageDialog('Something Went Wrong. Error With DataBase');

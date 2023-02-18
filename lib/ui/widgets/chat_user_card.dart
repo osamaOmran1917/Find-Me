@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:find_me_ii/ui/home/home_tab/chat/chat_room.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,36 +22,44 @@ class _ChatUserCardState extends State<ChatUserCard> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: .5,
       child: InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => ChatRoom(
+                          user: widget.user,
+                        )));
+          },
           child: ListTile(
-        leading: ClipRRect(
-          borderRadius:
-              BorderRadius.circular(MediaQuery.of(context).size.height * .3),
-          child: CachedNetworkImage(
-              width: MediaQuery.of(context).size.height * .055,
-              height: MediaQuery.of(context).size.height * .055,
-              imageUrl: widget.user.image ?? '',
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => CircleAvatar(
-                    child: Icon(CupertinoIcons.person_alt),
-                  )),
-        ),
-        title: Text(widget.user.userName ?? ''),
-        subtitle: Text(
-          widget.user.id ?? '',
-          maxLines: 1,
-        ),
-        /*trailing: Text(
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.height * .3),
+              child: CachedNetworkImage(
+                  width: MediaQuery.of(context).size.height * .055,
+                  height: MediaQuery.of(context).size.height * .055,
+                  imageUrl: widget.user.image ?? '',
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => CircleAvatar(
+                        child: Icon(CupertinoIcons.person_alt),
+                      )),
+            ),
+            title: Text(widget.user.userName ?? ''),
+            subtitle: Text(
+              widget.user.id ?? '',
+              maxLines: 1,
+            ),
+            /*trailing: Text(
           '12:00 PM',
           style: TextStyle(color: Colors.black54),
         ),*/
-        trailing: Container(
-          width: 15,
-          height: 15,
-          decoration: BoxDecoration(
-              color: Colors.greenAccent.shade400,
-              borderRadius: BorderRadius.circular(10)),
-        ),
-      )),
+            trailing: Container(
+              width: 15,
+              height: 15,
+              decoration: BoxDecoration(
+                  color: Colors.greenAccent.shade400,
+                  borderRadius: BorderRadius.circular(10)),
+            ),
+          )),
     );
   }
 }

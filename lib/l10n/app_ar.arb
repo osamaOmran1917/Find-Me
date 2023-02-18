@@ -114,5 +114,13 @@
     "alreadyHaveAnAccount": "لديك حساب بالفعل؟",
     "areYouSureYouWannaLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "userNameIsRequired": "يجب إدخال اسم المستخدم",
+    "userName": "اسم المستخدم",
+    "pleaseConfirmPassword": "أعد إدخال كلمة المرور",
+    "theTwoPasswordsAreNotIdentical": "كلمتا المرور ليستا متطابقتان",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "createAccount": "إنشاء حساب",
+    "alreadyHaveAnAccount": "لديك حساب بالفعل؟",
+    "lastSeenNotAvailable": "آخر ظهور غير متوفر"
 }

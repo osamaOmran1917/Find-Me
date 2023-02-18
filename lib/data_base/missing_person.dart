@@ -1,18 +1,18 @@
-import 'dart:io';
-
 class MissingPerson {
   static const String collectionName = 'Missing Person';
   String? id, name, adress, desc, age, gov, posterId, posterName, image;
-  DateTime? dateTime;
+  DateTime? dateTime, loseDate;
   bool? reachedToFamily, foundPerson;
 
-  MissingPerson({this.id,
-    this.name,
-    this.adress,
-    this.desc,
-    this.age,
-    this.gov,
+  MissingPerson(
+      {this.id,
+      this.name,
+      this.adress,
+      this.desc,
+      this.age,
+      this.gov,
       this.dateTime,
+      this.loseDate,
       this.reachedToFamily,
       this.image,
       this.posterId,
@@ -28,6 +28,7 @@ class MissingPerson {
             age: data['age'],
             gov: data['gov'],
             dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
+            loseDate: DateTime.fromMillisecondsSinceEpoch(data['loseDate']),
             reachedToFamily: data['reachedToFamily'],
             image: data['image'],
             posterId: data['posterId'],
@@ -43,6 +44,7 @@ class MissingPerson {
       'age': age,
       'gov': gov,
       'dateTime': dateTime?.millisecondsSinceEpoch,
+      'loseDate': loseDate?.millisecondsSinceEpoch,
       'reachedToFamily': reachedToFamily,
       'image': image,
       'posterId': posterId,

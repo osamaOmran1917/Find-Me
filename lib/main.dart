@@ -10,10 +10,8 @@ import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
 import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
-import 'package:find_me_ii/ui/registeration/complete_user_info/complete_user_info_screen.dart';
 import 'package:find_me_ii/ui/registeration/phone_number_section/enter_phone_number_screen.dart';
 import 'package:find_me_ii/ui/registeration/register_screen.dart';
-import 'package:find_me_ii/ui/registeration/welcome_screen/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -64,8 +62,6 @@ class MyApp extends StatelessWidget {
         EnterPhoneNumberScreen.routeName: (_) => EnterPhoneNumberScreen(),
         ManageAcc.routeName: (_) => ManageAcc(),
         ContactUs.routeName: (_) => ContactUs(),
-        CompleteUserInfo.routeName: (_) => CompleteUserInfo(),
-        WelcomeScreen.routeName: (_) => WelcomeScreen(),
         AddPic.routeName: (_) => AddPic(),
         PostDetails.routeName: (_) => PostDetails(),
         ChatsScreen.routeName: (_) => ChatsScreen(),
