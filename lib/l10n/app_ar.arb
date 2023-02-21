@@ -122,5 +122,15 @@
     "confirmPassword": "تأكيد كلمة المرور",
     "createAccount": "إنشاء حساب",
     "alreadyHaveAnAccount": "لديك حساب بالفعل؟",
-    "lastSeenNotAvailable": "آخر ظهور غير متوفر"
+    "lastSeenNotAvailable": "آخر ظهور غير متوفر",
+    "searchByPostDate": "بحث بتاريخ المنشور",
+    "postDate": "تاريخ المنشور",
+    "describeThePersonYouAreSearchingFor": "صف الشخص الذي تبحث عنه",
+    "whereIsThisPersonFrom": "من أين هذا الشخص؟",
+    "requiredField": "يجب إدخال بيان",
+    "egAhmedAdam": "على سبيل المثال: أحمد آدم",
+    "egphone": "على سبيل المثال: 01234567890",
+    "profileUpdatedSuccessfully": "تم تعديل البيانات بنجاح",
+    "update": "تأكيد التعديل",
+    "pickAPicture": "أضف صورة"
 }

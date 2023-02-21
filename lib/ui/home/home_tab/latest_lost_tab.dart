@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/my_theme.dart';
@@ -20,7 +21,7 @@ class _LatestLostState extends State<LatestLost> {
     return RefreshIndicator(
       key: refreshKey,
       onRefresh: refreshList,
-      child: FutureBuilder<List<MissingPerson>>(
+      child: StreamBuilder<QuerySnapshot<MissingPerson>>(
         builder: (buildContext, snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -32,7 +33,7 @@ class _LatestLostState extends State<LatestLost> {
               child: CircularProgressIndicator(color: MyTheme.coloredSecondary),
             );
           }
-          var data = snapshot.data;
+          var data = snapshot.data?.docs.map((e) => e.data()).toList();
           return ListView.builder(
             physics: BouncingScrollPhysics(),
             itemBuilder: (buildContext, index) {
@@ -46,16 +47,17 @@ class _LatestLostState extends State<LatestLost> {
                     )
                   : InkWell(
                       onTap: () {
-                    Navigator.pushNamed(context, PostDetails.routeName,
-                        arguments: SharedData.missingPerson = data[index]);
-                    print(data![index].id);
-                  },
-                  child: PostWidget(data![index]));
+                        Navigator.pushNamed(context, PostDetails.routeName,
+                            arguments: SharedData.missingPerson = data[index]);
+                        print(data[index].id);
+                      },
+                      child: PostWidget(data[index]));
             },
             itemCount: data!.length,
           );
         },
-        future: MyDataBase.getAllMissingPersons(),
+        // future: MyDataBase.getAllMissingPersons(),
+        stream: MyDataBase.listenForMissingPersonsRealTimeUpdates(),
       ),
     );
   }

@@ -122,5 +122,15 @@
     "confirmPassword": "Confirm Password",
     "createAccount": "Create Account",
     "alreadyHaveAnAccount": "Already Have An Account?",
-    "lastSeenNotAvailable": "last seen not available"
+    "lastSeenNotAvailable": "last seen not available",
+    "searchByPostDate": "Search By Post Date",
+    "postDate": "Post Date",
+    "describeThePersonYouAreSearchingFor": "Describe The Person You Are Searching For",
+    "whereIsThisPersonFrom": "Where is this person from?",
+    "requiredField": "Required Field",
+    "egAhmedAdam": "eg. Ahmed Adam",
+    "egphone": "eg. 01234567890",
+    "profileUpdatedSuccessfully": "Profile Updated Successfully!",
+    "update": "Update",
+    "pickAPicture": "Pick a picture"
 }

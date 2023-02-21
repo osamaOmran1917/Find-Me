@@ -4,7 +4,6 @@ import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/chat/chats_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/add_pic/addin_pic_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
 import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
@@ -62,7 +61,6 @@ class MyApp extends StatelessWidget {
         EnterPhoneNumberScreen.routeName: (_) => EnterPhoneNumberScreen(),
         ManageAcc.routeName: (_) => ManageAcc(),
         ContactUs.routeName: (_) => ContactUs(),
-        AddPic.routeName: (_) => AddPic(),
         PostDetails.routeName: (_) => PostDetails(),
         ChatsScreen.routeName: (_) => ChatsScreen(),
       },

@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class ChatRoom extends StatefulWidget {
   final MyUser user;
@@ -16,13 +19,14 @@ class ChatRoom extends StatefulWidget {
 class _ChatRoomState extends State<ChatRoom> {
   @override
   Widget build(BuildContext context) {
+    var settingsProvder = Provider.of<SettingsProvider>(context);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          flexibleSpace: _appBar(),
-        ),
-      ),
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            flexibleSpace: _appBar(),
+          ),
+          body: Column(children: [_chatInput(settingsProvder)])),
     );
   }
 
@@ -72,6 +76,80 @@ class _ChatRoomState extends State<ChatRoom> {
                     fontSize: 13, color: Theme.of(context).primaryColor),
               )
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _chatInput(SettingsProvider settingsProvider) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * .01,
+          horizontal: MediaQuery.of(context).size.width * .025),
+      child: Row(
+        children: [
+          Expanded(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      MediaQuery.of(context).size.width * .0400001)),
+              child: Row(children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      CupertinoIcons.smiley,
+                      color: settingsProvider.isDarkMode()
+                          ? MyTheme.coloredTertiary
+                          : MyTheme.basicBlack,
+                      size: 25,
+                    )),
+                Expanded(
+                    child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                      hintText: 'type a message...', border: InputBorder.none),
+                )),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      CupertinoIcons.photo_on_rectangle,
+                      color: settingsProvider.isDarkMode()
+                          ? MyTheme.coloredTertiary
+                          : MyTheme.basicBlack,
+                      size: 26,
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      CupertinoIcons.camera,
+                      color: settingsProvider.isDarkMode()
+                          ? MyTheme.coloredTertiary
+                          : MyTheme.basicBlack,
+                      size: 26,
+                    )),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .02,
+                )
+              ]),
+            ),
+          ),
+          MaterialButton(
+            onPressed: () {},
+            minWidth: 0,
+            shape: CircleBorder(),
+            padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
+            color: settingsProvider.isDarkMode()
+                ? MyTheme.coloredSecondary
+                : MyTheme.basicBlue,
+            child: Icon(
+              Icons.send,
+              color: settingsProvider.isDarkMode()
+                  ? MyTheme.coloredTertiary
+                  : MyTheme.basicWhite,
+              size: 28,
+            ),
           )
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/my_theme.dart';
@@ -76,9 +77,9 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
       ),
       body: showResult
           ? RefreshIndicator(
-              key: refreshKey,
-              onRefresh: refreshList,
-              child: FutureBuilder<List<MissingPerson>>(
+        key: refreshKey,
+        onRefresh: refreshList,
+        child: FutureBuilder<QuerySnapshot<MissingPerson>>(
                 builder: (buildContext, snapshot) {
                   if (snapshot.hasError) {
                     return Text(AppLocalizations.of(context)!
@@ -91,7 +92,7 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
                     );
                   }
 
-                  var data = snapshot.data;
+                  var data = snapshot.data?.docs.map((e) => e.data()).toList();
                   return ListView.builder(
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (buildContext, index) {
@@ -103,37 +104,37 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
                                     color: MyTheme.coloredSecondary,
                                     fontSize: 30),
                               ),
-                            )
-                          : !(data[index]
-                          .name!
-                          .contains(searchController.text) ||
-                          data[index]
-                              .adress!
-                              .contains(searchController.text) ||
-                          data[index]
-                              .gov!
-                              .contains(searchController.text) ||
-                          data[index]
-                              .desc!
-                              .contains(searchController.text) ||
-                          data[index].age! == searchController.text)
-                          ? Container()
-                          : InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, PostDetails.routeName,
-                                arguments: SharedData.missingPerson =
-                                data[index]);
-                            print(data![index].id);
-                          },
-                          child: PostWidget(data![index]));
+                )
+                    : !(data[index]
+                    .name!
+                    .contains(searchController.text) ||
+                    data[index]
+                        .adress!
+                        .contains(searchController.text) ||
+                    data[index]
+                        .gov!
+                        .contains(searchController.text) ||
+                    data[index]
+                        .desc!
+                        .contains(searchController.text) ||
+                    data[index].age! == searchController.text)
+                    ? Container()
+                    : InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, PostDetails.routeName,
+                          arguments: SharedData.missingPerson =
+                          data[index]);
+                      print(data![index].id);
                     },
-                    itemCount: data!.length,
-                  );
-                },
-                future: MyDataBase.getAllMissingPersons(),
-              ),
-            )
+                    child: PostWidget(data![index]));
+              },
+              itemCount: data!.length,
+            );
+          },
+          future: MyDataBase.getAllMissingPersons(),
+        ),
+      )
           : null,
     );
   }

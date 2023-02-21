@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
+import 'package:find_me_ii/date_utils.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:find_me_ii/shared_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,8 +14,8 @@ class MyDataBase {
     return FirebaseFirestore.instance
         .collection(MyUser.collectionName)
         .withConverter<MyUser>(
-        fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
-        toFirestore: (user, options) => user.toFireStore());
+            fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
+            toFirestore: (user, options) => user.toFireStore());
   }
 
   static Future<MyUser?> insertUser(MyUser user) async {
@@ -54,14 +56,47 @@ class MyDataBase {
     return doc.set(missingPerson); // get doc -> then set //update
   }
 
-  static Future<List<MissingPerson>> getAllMissingPersons() async {
-    QuerySnapshot<MissingPerson> querySnapshot =
-    await getMissingPersonsCollection()
+  static Future<QuerySnapshot<MissingPerson>>
+      getAllMissingPersonsDependingOnDate(DateTime selectedDate) async {
+    // Read data once.
+    return await getMissingPersonsCollection()
+        .where('dateTime',
+            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+        .get();
+  }
+
+  static Future<QuerySnapshot<MissingPerson>> getAllMissingPersons() async {
+    // Read data once.
+    return await getMissingPersonsCollection()
         .orderBy("dateTime", descending: true)
         .get();
-    List<MissingPerson> missingPersons =
-    querySnapshot.docs.map((e) => e.data()).toList();
-    return missingPersons;
+  }
+
+  static Stream<QuerySnapshot<MissingPerson>>
+      listenForMissingPersonsRealTimeUpdates() {
+    // Listen for realtime update
+    return getMissingPersonsCollection()
+        .orderBy("dateTime", descending: true)
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot<MissingPerson>>
+      listenForMissingPersonsRealTimeUpdatesDependingOnUser(MyUser user) {
+    // Listen for realtime update
+    return getMissingPersonsCollection()
+        .where('posterId', isEqualTo: user.id)
+        .orderBy("dateTime", descending: true)
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot<MissingPerson>>
+      listenForMissingPersonsRealTimeUpdatesDependingOnDate(
+          DateTime selectedDate) {
+    // Listen for realtime update
+    return getMissingPersonsCollection()
+        .where('dateTime',
+            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+        .snapshots();
   }
 
   static Future<List<MissingPerson>?> getUserPosts(String uid) async {
@@ -112,10 +147,7 @@ class MyDataBase {
   }
 
   static Future<void> createUser() async {
-    final time = DateTime
-        .now()
-        .millisecondsSinceEpoch
-        .toString();
+    final time = DateTime.now().millisecondsSinceEpoch.toString();
     final chatUser = MyUser(
         id: user.uid,
         userName: user.displayName.toString(),
@@ -146,9 +178,7 @@ class MyDataBase {
   }
 
   static Future<void> updateProfilePicture(File file) async {
-    final ext = file.path
-        .split('.')
-        .last;
+    final ext = file.path.split('.').last;
     final ref = storage.ref().child('profile_pictures/${user.uid}.$ext');
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext'));
     me.image = await ref.getDownloadURL();

@@ -2,11 +2,16 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/shared_data.dart';
+import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
+import 'package:find_me_ii/ui/widgets/post_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +24,7 @@ class ProfileTab extends StatefulWidget {
 
   const ProfileTab({super.key, required this.user});
 
-  static const String routeName = 'Chat Screen';
+  static const String routeName = 'Profile Tab';
 
   @override
   State<ProfileTab> createState() => _ProfileTabState();
@@ -129,8 +134,9 @@ class _ProfileTabState extends State<ProfileTab> {
                   TextFormField(
                     initialValue: widget.user.userName,
                     onSaved: (val) => MyDataBase.me.userName = val ?? '',
-                    validator: (val) =>
-                        val != null && val.isNotEmpty ? null : 'Required Field',
+                    validator: (val) => val != null && val.isNotEmpty
+                        ? null
+                        : AppLocalizations.of(context)!.requiredField,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)),
@@ -138,8 +144,8 @@ class _ProfileTabState extends State<ProfileTab> {
                           CupertinoIcons.person_alt,
                           color: Colors.blue,
                         ),
-                        hintText: 'eg. Ahmed Adam',
-                        label: Text('Name')),
+                        hintText: AppLocalizations.of(context)!.egAhmedAdam,
+                        label: Text(AppLocalizations.of(context)!.name)),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * .02,
@@ -147,8 +153,10 @@ class _ProfileTabState extends State<ProfileTab> {
                   TextFormField(
                     keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 11,
-                    validator: (val) => val!.length > 0 && val.length < 11
-                        ? 'Enter a valid phone number'
+                    validator: (val) =>
+                    val!.length > 0 && val.length < 11
+                        ? AppLocalizations.of(context)!
+                            .pleasEnterAValidPhoneNumber
                         : null,
                     initialValue: MyDataBase.me.phoneNumber,
                     onSaved: (val) => MyDataBase.me.phoneNumber = val ?? '',
@@ -159,8 +167,8 @@ class _ProfileTabState extends State<ProfileTab> {
                           CupertinoIcons.phone_fill,
                           color: Colors.blue,
                         ),
-                        hintText: 'eg. +201234567890',
-                        label: Text('Phone Number')),
+                        hintText: AppLocalizations.of(context)!.egphone,
+                        label: Text(AppLocalizations.of(context)!.phoneNumber)),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * .05,
@@ -171,7 +179,9 @@ class _ProfileTabState extends State<ProfileTab> {
                         _formKey.currentState!.save();
                         MyDataBase.updateUserInfo().then((value) {
                           Dialogs.showSnackbar(
-                              context, 'Profile Updated Successfully!');
+                              context,
+                              AppLocalizations.of(context)!
+                                  .profileUpdatedSuccessfully);
                         });
                       }
                     },
@@ -180,7 +190,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       size: 25,
                     ),
                     label: Text(
-                      'UPDATE',
+                      AppLocalizations.of(context)!.update,
                       style: TextStyle(fontSize: 16),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -188,6 +198,52 @@ class _ProfileTabState extends State<ProfileTab> {
                         minimumSize: Size(
                             MediaQuery.of(context).size.width * .5,
                             MediaQuery.of(context).size.height * .06)),
+                  ),
+                  StreamBuilder<QuerySnapshot<MissingPerson>>(
+                    builder: (buildContext, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text(AppLocalizations.of(context)!
+                              .errorLoadingDataTryAgainLater),
+                        );
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                              color: MyTheme.coloredSecondary),
+                        );
+                      }
+                      var data =
+                          snapshot.data?.docs.map((e) => e.data()).toList();
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (buildContext, index) {
+                          return data.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.noLostPeople,
+                                    style: TextStyle(
+                                        color: MyTheme.coloredSecondary,
+                                        fontSize: 30),
+                                  ),
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, PostDetails.routeName,
+                                        arguments: SharedData.missingPerson =
+                                            data[index]);
+                                    print(data[index].id);
+                                  },
+                                  child: PostWidget(data[index]));
+                        },
+                        itemCount: data!.length,
+                      );
+                    },
+                    stream: MyDataBase
+                        .listenForMissingPersonsRealTimeUpdatesDependingOnUser(
+                            SharedData.user!),
                   )
                 ],
               ),
@@ -209,7 +265,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 bottom: MediaQuery.of(context).size.height * .05),
             children: [
               Text(
-                'Pick a picture',
+                AppLocalizations.of(context)!.pickAPicture,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
               ),

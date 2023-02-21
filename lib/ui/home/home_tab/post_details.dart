@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/shared_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostDetails extends StatelessWidget {
   static const String routeName = 'Post Details';
@@ -41,9 +44,40 @@ class PostDetails extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                          'Post Date: ${missingPerson?.dateTime?.year.toString()}'
+                          '${AppLocalizations.of(context)!.postDate}: ${missingPerson?.dateTime?.year.toString()}'
                           '/${missingPerson?.dateTime?.month.toString()}'
                           '/${missingPerson?.dateTime?.day.toString()}'),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .1,
+                      ),
+                      missingPerson?.image == null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.height * .1),
+                              child: Image.network(
+                                'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Semakar_white.svg/220px-Semakar_white.svg.png',
+                                width: MediaQuery.of(context).size.width * .2,
+                                height:
+                                    MediaQuery.of(context).size.height * .15,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(
+                                  MediaQuery.of(context).size.height * .021),
+                              child: CachedNetworkImage(
+                                width: MediaQuery.of(context).size.height * .41,
+                                height:
+                                    MediaQuery.of(context).size.height * .31,
+                                fit: BoxFit.fill,
+                                imageUrl: missingPerson?.image ?? '',
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const CircleAvatar(
+                                        child: Icon(CupertinoIcons.person_alt)),
+                              ),
+                            ),
                     ],
                   ),
                 ),

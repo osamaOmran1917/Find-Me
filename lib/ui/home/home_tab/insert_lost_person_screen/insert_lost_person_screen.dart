@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/date_utils.dart';
 import 'package:find_me_ii/dialog_utils.dart';
 import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
@@ -16,7 +17,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../my_theme.dart';
-import 'add_pic/addin_pic_screen.dart';
 import 'insert_lost_person_viewModel.dart';
 
 class InsertLostPersonScreen extends StatefulWidget {
@@ -112,7 +112,8 @@ class _InsertLostPersonScreenState
         child: Text(
           AppLocalizations.of(context)!
               .allOfThisDataIsOptionalButTryToFillInAllOfThemSoThatWeCanConnectTheMissingWithTheirFamiliesAndIfYouCannotThenFillOutAtLeastOneStatement,
-          style: TextStyle(fontSize: 10),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: MediaQuery.of(context).size.width * .0261),
         ),
       ),
       body: Center(
@@ -122,7 +123,9 @@ class _InsertLostPersonScreenState
             width: MediaQuery.of(context).size.width * .8,
             height: MediaQuery.of(context).size.height * .8,
             decoration: BoxDecoration(
-                color: MyTheme.coloredSecondary,
+                color: settingsProvider.isDarkMode()
+                    ? MyTheme.coloredSecondary
+                    : MyTheme.basicBlack,
                 borderRadius: BorderRadius.circular(40)),
             padding: EdgeInsets.all(12),
             child: Form(
@@ -187,8 +190,11 @@ class _InsertLostPersonScreenState
                       minLines: 1,
                       maxLines: 5,
                       decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!
-                              .describeThePersonYouVeFound),
+                          labelText: InsertLostPersonScreen.lost
+                              ? AppLocalizations.of(context)!
+                                  .describeThePersonYouAreSearchingFor
+                              : AppLocalizations.of(context)!
+                                  .describeThePersonYouVeFound),
                     ),
                   ),
                   Container(
@@ -244,8 +250,11 @@ class _InsertLostPersonScreenState
                       minLines: 1,
                       maxLines: 3,
                       decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!
-                              .whereIsThiesPersonRightNow),
+                          labelText: InsertLostPersonScreen.lost
+                              ? AppLocalizations.of(context)!
+                                  .whereIsThisPersonFrom
+                              : AppLocalizations.of(context)!
+                                  .whereIsThiesPersonRightNow),
                     ),
                   ),
                   ElevatedButton.icon(
@@ -382,7 +391,6 @@ class _InsertLostPersonScreenState
         arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);*/
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (_) => HomeScreen()));
-    print('ال أيدي     يييييييييييييييي${AddPic.missingPersonId}');
   }
 
   @override
@@ -421,7 +429,7 @@ class _InsertLostPersonScreenState
         gov: gov,
         adress: address,
         image: _image ?? '',
-        dateTime: DateTime.now(),
+        dateTime: dateOnly(DateTime.now()),
         reachedToFamily: false,
         posterId: SharedData.user?.id,
         posterName: SharedData.user?.userName,
