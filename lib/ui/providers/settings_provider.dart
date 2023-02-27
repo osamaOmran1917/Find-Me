@@ -28,4 +28,8 @@ class SettingsProvider extends ChangeNotifier {
   bool isDarkMode() {
     return currentTheme == ThemeMode.dark;
   }
+
+  bool isArabic() {
+    return currentLang == 'ar';
+  }
 }

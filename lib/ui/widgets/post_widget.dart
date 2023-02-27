@@ -21,7 +21,7 @@ class _PostWidgetState extends State<PostWidget> {
     var settingsProvider = Provider.of<SettingsProvider>(context);
     bool status = widget.missingPerson.foundPerson ?? false;
     return Stack(
-      alignment: AlignmentDirectional.bottomEnd,
+      alignment: AlignmentDirectional.center,
       children: [
         Column(
           children: [
@@ -105,13 +105,18 @@ class _PostWidgetState extends State<PostWidget> {
         ),
         Visibility(
           visible: widget.missingPerson.reachedToFamily!,
-          child: Positioned(
-            // left: settingsProvider.currentLang == 'ar'? 0: null,
-            bottom: MediaQuery.of(context).size.height * .15,
-            child: Image.asset(
-              'assets/images/check.png',
-              height: MediaQuery.of(context).size.height * .03,
-            ),
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * .34,
+            color: Colors.grey.withOpacity(.59),
+          ),
+        ),
+        Visibility(
+          visible: widget.missingPerson.reachedToFamily!,
+          child: Image.asset(
+            'assets/images/check.png',
+            height: MediaQuery.of(context).size.height * .3,
+            width: MediaQuery.of(context).size.height * .3,
           ),
         )
       ],

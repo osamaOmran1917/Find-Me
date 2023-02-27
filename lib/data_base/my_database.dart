@@ -189,11 +189,13 @@ class MyDataBase {
   }
 
   static Future<void> updateMissingPersonInfo(
-      {required String missingPersonId, bool? reachedFamily}) async {
+      {required String missingPersonId,
+      bool? reachedFamily,
+      String? name}) async {
     await firestore
         .collection('Missing Person')
         .doc(missingPersonId)
-        .update({'reachedToFamily': reachedFamily});
+        .update({'reachedToFamily': reachedFamily, 'name': name});
   }
 
 /*static Future<void> updateMissingPersonPicture(

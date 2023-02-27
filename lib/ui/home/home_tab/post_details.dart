@@ -28,13 +28,12 @@ class _PostDetailsState extends State<PostDetails> {
                 child: FloatingActionButton.extended(
                   backgroundColor: Colors.grey,
                   onPressed: () {
-                    print(missingPerson?.reachedToFamily);
                     setState(() {
                       MyDataBase.updateMissingPersonInfo(
                           missingPersonId: (missingPerson?.id)!,
                           reachedFamily: !((missingPerson?.reachedToFamily)!));
                     });
-                    print(missingPerson?.reachedToFamily);
+                    Navigator.pop(context);
                   },
                   icon: Icon(
                     CupertinoIcons.person_crop_circle_badge_checkmark,
@@ -122,7 +121,9 @@ class _PostDetailsState extends State<PostDetails> {
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => EditMissingPersonScreen()))
+                              builder: (_) => EditMissingPersonScreen(
+                                    missingPerson: missingPerson!,
+                                  )))
                       : null;
                 },
                 child: Text(
