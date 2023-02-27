@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
+import 'package:find_me_ii/ui/widgets/message_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,6 +21,8 @@ class ChatRoom extends StatefulWidget {
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  List<Message> _list = [];
+
   @override
   Widget build(BuildContext context) {
     var settingsProvder = Provider.of<SettingsProvider>(context);
@@ -27,6 +32,7 @@ class _ChatRoomState extends State<ChatRoom> {
             automaticallyImplyLeading: false,
             flexibleSpace: _appBar(),
           ),
+          backgroundColor: Color.fromARGB(255, 234, 248, 255),
           body: Column(children: [
             Expanded(
               child: StreamBuilder(
@@ -43,7 +49,22 @@ class _ChatRoomState extends State<ChatRoom> {
                             data?.map((e) => MyUser.fromFierStore(e.data()))
                                 .toList() ??
                                 [];*/
-                        final _list = ['Hi', 'Hello'];
+                        _list.clear();
+                        _list.add(Message(
+                            toId: 'xyz',
+                            msg: 'Hii',
+                            read: '',
+                            type: Type.text,
+                            sent: '12:00 AM',
+                            fromId:
+                                SharedData.user?.id ?? MyDataBase.user.uid));
+                        _list.add(Message(
+                            toId: SharedData.user?.id ?? MyDataBase.user.uid,
+                            msg: 'Hello',
+                            read: '',
+                            type: Type.text,
+                            sent: '12:05 AM',
+                            fromId: 'xyz'));
                         if (_list.isNotEmpty) {
                           return ListView.builder(
                             padding: EdgeInsets.only(
@@ -51,15 +72,17 @@ class _ChatRoomState extends State<ChatRoom> {
                             physics: BouncingScrollPhysics(),
                             itemCount: _list.length,
                             itemBuilder: (context, index) {
-                              return Text('Message: ${_list[index]}');
+                              return MessageCard(
+                                message: _list[index],
+                              );
                             },
                           );
                         } else {
                           return Center(
                               child: Text(
-                            AppLocalizations.of(context)!.sayHi,
-                            style: TextStyle(fontSize: 20),
-                          ));
+                                AppLocalizations.of(context)!.sayHi,
+                                style: TextStyle(fontSize: 20),
+                              ));
                         }
                     }
                   }),
@@ -84,15 +107,15 @@ class _ChatRoomState extends State<ChatRoom> {
               )),
           ClipRRect(
             borderRadius:
-                BorderRadius.circular(MediaQuery.of(context).size.height * .3),
+            BorderRadius.circular(MediaQuery.of(context).size.height * .3),
             child: CachedNetworkImage(
                 width: MediaQuery.of(context).size.height * .05,
                 height: MediaQuery.of(context).size.height * .05,
                 imageUrl: widget.user.image ?? '',
                 placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => CircleAvatar(
-                      child: Icon(CupertinoIcons.person_alt),
-                    )),
+                  child: Icon(CupertinoIcons.person_alt),
+                )),
           ),
           SizedBox(
             width: 10,
@@ -145,11 +168,11 @@ class _ChatRoomState extends State<ChatRoom> {
                     )),
                 Expanded(
                     child: TextField(
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      hintText: 'type a message...', border: InputBorder.none),
-                )),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                          hintText: 'type a message...', border: InputBorder.none),
+                    )),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
