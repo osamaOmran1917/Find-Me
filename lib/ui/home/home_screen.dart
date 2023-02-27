@@ -114,28 +114,46 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                   Navigator.pushNamed(context, ChatsScreen.routeName);
                 },
                 icon: Icon(CupertinoIcons.chat_bubble_2_fill)),
-          )
-              : Container(),
-          HomeScreen.selectedIndex == 0
-              ? SizedBox(
-            width: MediaQuery.of(context).size.width * .03,
-          )
-              : Container(),
+                  )
+                : Container(),
+            HomeScreen.selectedIndex == 0
+                ? SizedBox(
+                    width: MediaQuery.of(context).size.width * .03,
+                  )
+                : Container(),
+          ],
+        ),
+        body: tabs[HomeScreen.selectedIndex],
+        bottomNavigationBar: /*AnimatedBottomNavigationBar(
+        icons: [CupertinoIcons.home,
+          CupertinoIcons.chat_bubble_text_fill,
+          CupertinoIcons.person_alt,
+          CupertinoIcons.bell_fill,
+          CupertinoIcons.settings
         ],
-      ),
-      body: tabs[HomeScreen.selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: HomeScreen.selectedIndex,
-          onTap: (index) {
-            onTabClicked(index);
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(
-                backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(CupertinoIcons.home),
-                label: AppLocalizations.of(context)!.home),
+        activeIndex: HomeScreen.selectedIndex,
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.verySmoothEdge,
+        onTap: (index) {
+          onTabClicked(index);
+          setState(() {});
+        },
+        backgroundColor: Colors.blue,
+
+      )*/
+            BottomNavigationBar(
+                currentIndex: HomeScreen.selectedIndex,
+                onTap: (index) {
+                  onTabClicked(index);
+                  setState(() {});
+                },
+                items: [
+              BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor,
+                  icon: Icon(CupertinoIcons.home),
+                  label: AppLocalizations.of(context)!.home),
             BottomNavigationBarItem(
                 backgroundColor:
                 Theme.of(context).bottomNavigationBarTheme.backgroundColor,
@@ -146,18 +164,19 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                 Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                 icon: Icon(CupertinoIcons.person_alt),
                 label: AppLocalizations.of(context)!.profile),
-            BottomNavigationBarItem(
-                backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(CupertinoIcons.bell_fill),
-                label: AppLocalizations.of(context)!.notifications),
-            BottomNavigationBarItem(
-                backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(CupertinoIcons.settings),
-                label: AppLocalizations.of(context)!.settings)
-          ]),
-    );
+              BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor,
+                  icon: Icon(CupertinoIcons.bell_fill),
+                  label: AppLocalizations.of(context)!.notifications),
+              BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor,
+                  icon: Icon(CupertinoIcons.settings),
+                  label: AppLocalizations.of(context)!.settings)
+            ]));
   }
 
   void onTabClicked(index) {

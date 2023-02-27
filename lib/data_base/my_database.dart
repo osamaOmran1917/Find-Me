@@ -188,6 +188,14 @@ class MyDataBase {
         .update({'image': me.image});
   }
 
+  static Future<void> updateMissingPersonInfo(
+      {required String missingPersonId, bool? reachedFamily}) async {
+    await firestore
+        .collection('Missing Person')
+        .doc(missingPersonId)
+        .update({'reachedToFamily': reachedFamily});
+  }
+
 /*static Future<void> updateMissingPersonPicture(
       File file) async {
     final ext = file.path.split('.').last;
@@ -200,4 +208,8 @@ class MyDataBase {
         .doc(SharedData.missingPerson!.id)
         .update({'image': SharedData.missingPerson!.image});
   }*/
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages() {
+    return firestore.collection('messages').snapshots();
+  }
 }

@@ -132,5 +132,9 @@
     "egphone": "eg. 01234567890",
     "profileUpdatedSuccessfully": "Profile Updated Successfully!",
     "update": "Update",
-    "pickAPicture": "Pick a picture"
+    "pickAPicture": "Pick a picture",
+    "chat": "Chat",
+    "reachedToHisFamily": "reached his family?",
+    "haventReachedHisFamilyYet": "haven'tReachedHisFamilyYet?",
+    "sayHi": "Say Hi! 👋"
 }

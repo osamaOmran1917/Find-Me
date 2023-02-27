@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
@@ -26,7 +27,45 @@ class _ChatRoomState extends State<ChatRoom> {
             automaticallyImplyLeading: false,
             flexibleSpace: _appBar(),
           ),
-          body: Column(children: [_chatInput(settingsProvder)])),
+          body: Column(children: [
+            Expanded(
+              child: StreamBuilder(
+                  stream: MyDataBase.getAllMessages(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                      case ConnectionState.none:
+                        return const Center(child: CircularProgressIndicator());
+                      case ConnectionState.active:
+                      case ConnectionState.done:
+                        final data = snapshot.data?.docs;
+                        /*_list =
+                            data?.map((e) => MyUser.fromFierStore(e.data()))
+                                .toList() ??
+                                [];*/
+                        final _list = ['Hi', 'Hello'];
+                        if (_list.isNotEmpty) {
+                          return ListView.builder(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * .01),
+                            physics: BouncingScrollPhysics(),
+                            itemCount: _list.length,
+                            itemBuilder: (context, index) {
+                              return Text('Message: ${_list[index]}');
+                            },
+                          );
+                        } else {
+                          return Center(
+                              child: Text(
+                            AppLocalizations.of(context)!.sayHi,
+                            style: TextStyle(fontSize: 20),
+                          ));
+                        }
+                    }
+                  }),
+            ),
+            _chatInput(settingsProvder)
+          ])),
     );
   }
 
