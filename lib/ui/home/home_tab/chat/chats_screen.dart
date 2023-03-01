@@ -39,9 +39,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
                 ? TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Name, Email, ...',
-                hintStyle: TextStyle(color: Colors.white),
-              ),
+                      hintText: AppLocalizations.of(context)!.nameEmailEtc,
+                      hintStyle: TextStyle(color: Colors.white),
+                    ),
               autofocus: true,
               style: TextStyle(
                   color: Colors.white, fontSize: 17, letterSpacing: .5),
@@ -51,17 +51,19 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   if (i.userName!.toLowerCase().contains(val.toLowerCase()) ||
                       i.phoneNumber!
                           .toLowerCase()
-                          .contains(val.toLowerCase()) ||
-                      i.email!.toLowerCase().contains(val.toLowerCase())) {
-                    _searchList.add(i);
-                  }
-                  setState(() {
-                    _searchList;
-                  });
-                }
-              },
-            )
-                : Text('Chat'),
+                                .contains(val.toLowerCase()) ||
+                            i.email!
+                                .toLowerCase()
+                                .contains(val.toLowerCase())) {
+                          _searchList.add(i);
+                        }
+                        setState(() {
+                          _searchList;
+                        });
+                      }
+                    },
+                  )
+                : Text(AppLocalizations.of(context)!.chat),
             actions: [
               IconButton(
                   onPressed: () {
@@ -114,9 +116,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     } else {
                       return Center(
                           child: Text(
-                            'No Connections Found!',
-                            style: TextStyle(fontSize: 20),
-                          ));
+                            AppLocalizations.of(context)!.noConnectionsFound,
+                        style: TextStyle(fontSize: 20),
+                      ));
                     }
                 }
               }),

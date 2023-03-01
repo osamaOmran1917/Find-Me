@@ -146,5 +146,9 @@
     "howToUseFindMe": "How to use Find Me",
     "whoAreWe": "Who are we?",
     "needHelp": "Need help?",
-    "wannaLogOut": "Wanna log out?"
+    "wannaLogOut": "Wanna log out?",
+    "nameEmailEtc": "Name, Email, ...",
+    "noConnectionsFound": "No Connections Found!",
+    "findMeUser": "Find Me User",
+    "typeAMessage": "type a message..."
 }

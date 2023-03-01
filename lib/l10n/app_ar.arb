@@ -146,5 +146,9 @@
     "howToUseFindMe": "كيفية استخدام فايند مِي",
     "whoAreWe": "من نكون؟",
     "needHelp": "تحتاج مساعدة؟",
-    "wannaLogOut": "تريد تسجيل الخروج؟"
+    "wannaLogOut": "تريد تسجيل الخروج؟",
+    "nameEmailEtc": "اسم، بريد، ...",
+    "noConnectionsFound": "لا يوجد جهات محادثة!",
+    "findMeUser": "مستخدم فايندمِي",
+    "typeAMessage": "اكتب رسالة..."
 }

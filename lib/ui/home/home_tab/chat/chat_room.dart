@@ -26,7 +26,7 @@ class _ChatRoomState extends State<ChatRoom> {
 
   @override
   Widget build(BuildContext context) {
-    var settingsProvder = Provider.of<SettingsProvider>(context);
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -72,7 +72,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     }
                   }),
             ),
-            _chatInput(settingsProvder)
+            _chatInput(settingsProvider)
           ])),
     );
   }
@@ -110,7 +110,8 @@ class _ChatRoomState extends State<ChatRoom> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.user.userName ?? 'Find Me User',
+                widget.user.userName ??
+                    AppLocalizations.of(context)!.findMeUser,
                 style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).primaryColor,
@@ -153,11 +154,12 @@ class _ChatRoomState extends State<ChatRoom> {
                     )),
                 Expanded(
                     child: TextField(
-                  controller: _textController,
+                      controller: _textController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   decoration: InputDecoration(
-                      hintText: 'type a message...', border: InputBorder.none),
+                      hintText: AppLocalizations.of(context)!.typeAMessage,
+                      border: InputBorder.none),
                 )),
                 IconButton(
                     onPressed: () {},
@@ -192,7 +194,11 @@ class _ChatRoomState extends State<ChatRoom> {
             },
             minWidth: 0,
             shape: CircleBorder(),
-            padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
+            padding: EdgeInsets.only(
+                top: 10,
+                bottom: 10,
+                right: settingsProvider.isArabic() ? 10 : 5,
+                left: settingsProvider.isArabic() ? 5 : 10),
             color: settingsProvider.isDarkMode()
                 ? MyTheme.coloredSecondary
                 : MyTheme.basicBlue,

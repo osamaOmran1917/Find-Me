@@ -126,30 +126,13 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
           ],
         ),
         body: tabs[HomeScreen.selectedIndex],
-        bottomNavigationBar: /*AnimatedBottomNavigationBar(
-        icons: [CupertinoIcons.home,
-          CupertinoIcons.chat_bubble_text_fill,
-          CupertinoIcons.person_alt,
-          CupertinoIcons.bell_fill,
-          CupertinoIcons.settings
-        ],
-        activeIndex: HomeScreen.selectedIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.verySmoothEdge,
-        onTap: (index) {
-          onTabClicked(index);
-          setState(() {});
-        },
-        backgroundColor: Colors.blue,
-
-      )*/
-            BottomNavigationBar(
-                currentIndex: HomeScreen.selectedIndex,
-                onTap: (index) {
-                  onTabClicked(index);
-                  setState(() {});
-                },
-                items: [
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: HomeScreen.selectedIndex,
+            onTap: (index) {
+              onTabClicked(index);
+              setState(() {});
+            },
+            items: [
               BottomNavigationBarItem(
                   backgroundColor: Theme.of(context)
                       .bottomNavigationBarTheme
