@@ -136,5 +136,15 @@
     "chat": "Chat",
     "reachedToHisFamily": "reached his family?",
     "haventReachedHisFamilyYet": "haven'tReachedHisFamilyYet?",
-    "sayHi": "Say Hi! 👋"
+    "sayHi": "Say Hi! 👋",
+    "dashboard": "Dashboard",
+    "searchForAMissingPerson": "Search for a missing person",
+    "postAMissingPerson": "Post a missing person",
+    "postFoundPerson": "Post found person",
+    "chatWithSomeone": "Chat with someone",
+    "changeAppTheme": "Change app theme",
+    "howToUseFindMe": "How to use Find Me",
+    "whoAreWe": "Who are we?",
+    "needHelp": "Need help?",
+    "wannaLogOut": "Wanna log out?"
 }

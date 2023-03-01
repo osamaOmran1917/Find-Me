@@ -2,7 +2,7 @@ import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/my_theme.dart';
 import 'package:find_me_ii/shared_data.dart';
-import 'package:find_me_ii/ui/home/chatbot_tab/chatbot_tab.dart';
+import 'package:find_me_ii/ui/home/dashboard_tab/dashboard.dart';
 import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
 import 'package:find_me_ii/ui/home/home_tab/latest_lost_tab.dart';
 import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
@@ -36,8 +36,10 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
 
   List<Widget> tabs = [
     LatestLost(),
-    ChatBotTab(),
-    ProfileTab(user: SharedData.user!,),
+    DashboardTab(),
+    ProfileTab(
+      user: SharedData.user!,
+    ),
     NotificationsTab(),
     SettingsTab(),
   ];
@@ -154,16 +156,18 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                       .backgroundColor,
                   icon: Icon(CupertinoIcons.home),
                   label: AppLocalizations.of(context)!.home),
-            BottomNavigationBarItem(
-                backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(CupertinoIcons.chat_bubble_text_fill),
-                label: AppLocalizations.of(context)!.chatbot),
-            BottomNavigationBarItem(
-                backgroundColor:
-                Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                icon: Icon(CupertinoIcons.person_alt),
-                label: AppLocalizations.of(context)!.profile),
+              BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor,
+                  icon: Icon(CupertinoIcons.chat_bubble_text_fill),
+                  label: AppLocalizations.of(context)!.dashboard),
+              BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor,
+                  icon: Icon(CupertinoIcons.person_alt),
+                  label: AppLocalizations.of(context)!.profile),
               BottomNavigationBarItem(
                   backgroundColor: Theme.of(context)
                       .bottomNavigationBarTheme

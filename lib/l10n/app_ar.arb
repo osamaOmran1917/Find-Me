@@ -136,5 +136,15 @@
     "chat": "محادثة",
     "reachedToHisFamily": "وصل لذويه؟",
     "haventReachedHisFamilyYet": "لم يصل لذويه بعد؟",
-    "sayHi": "قل مرحبا! 👋"
+    "sayHi": "قل مرحبا! 👋",
+    "dashboard": "التحكم",
+    "searchForAMissingPerson": "ابحث عن مفقود",
+    "postAMissingPerson": "نوِّه عن مفقود",
+    "postFoundPerson": "اعلن عن شخص عثر عليه",
+    "chatWithSomeone": "محادثات",
+    "changeAppTheme": "غيّر مظهر التطبيق",
+    "howToUseFindMe": "كيفية استخدام فايند مِي",
+    "whoAreWe": "من نكون؟",
+    "needHelp": "تحتاج مساعدة؟",
+    "wannaLogOut": "تريد تسجيل الخروج؟"
 }
