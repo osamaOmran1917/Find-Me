@@ -3,7 +3,6 @@ import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:find_me_ii/ui/widgets/message_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +22,8 @@ class ChatRoom extends StatefulWidget {
 class _ChatRoomState extends State<ChatRoom> {
   List<Message> _list = [];
 
+  final _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var settingsProvder = Provider.of<SettingsProvider>(context);
@@ -36,35 +37,19 @@ class _ChatRoomState extends State<ChatRoom> {
           body: Column(children: [
             Expanded(
               child: StreamBuilder(
-                  stream: MyDataBase.getAllMessages(),
+                  stream: MyDataBase.getAllMessages(widget.user),
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
                       case ConnectionState.none:
-                        return const Center(child: CircularProgressIndicator());
+                        return const SizedBox();
                       case ConnectionState.active:
                       case ConnectionState.done:
                         final data = snapshot.data?.docs;
-                        /*_list =
-                            data?.map((e) => MyUser.fromFierStore(e.data()))
+                        _list = data
+                                ?.map((e) => Message.fromJson(e.data()))
                                 .toList() ??
-                                [];*/
-                        _list.clear();
-                        _list.add(Message(
-                            toId: 'xyz',
-                            msg: 'Hii',
-                            read: '',
-                            type: Type.text,
-                            sent: '12:00 AM',
-                            fromId:
-                                SharedData.user?.id ?? MyDataBase.user.uid));
-                        _list.add(Message(
-                            toId: SharedData.user?.id ?? MyDataBase.user.uid,
-                            msg: 'Hello',
-                            read: '',
-                            type: Type.text,
-                            sent: '12:05 AM',
-                            fromId: 'xyz'));
+                            [];
                         if (_list.isNotEmpty) {
                           return ListView.builder(
                             padding: EdgeInsets.only(
@@ -80,9 +65,9 @@ class _ChatRoomState extends State<ChatRoom> {
                         } else {
                           return Center(
                               child: Text(
-                                AppLocalizations.of(context)!.sayHi,
-                                style: TextStyle(fontSize: 20),
-                              ));
+                            AppLocalizations.of(context)!.sayHi,
+                            style: TextStyle(fontSize: 20),
+                          ));
                         }
                     }
                   }),
@@ -107,15 +92,15 @@ class _ChatRoomState extends State<ChatRoom> {
               )),
           ClipRRect(
             borderRadius:
-            BorderRadius.circular(MediaQuery.of(context).size.height * .3),
+                BorderRadius.circular(MediaQuery.of(context).size.height * .3),
             child: CachedNetworkImage(
                 width: MediaQuery.of(context).size.height * .05,
                 height: MediaQuery.of(context).size.height * .05,
                 imageUrl: widget.user.image ?? '',
                 placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => CircleAvatar(
-                  child: Icon(CupertinoIcons.person_alt),
-                )),
+                      child: Icon(CupertinoIcons.person_alt),
+                    )),
           ),
           SizedBox(
             width: 10,
@@ -168,11 +153,12 @@ class _ChatRoomState extends State<ChatRoom> {
                     )),
                 Expanded(
                     child: TextField(
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                          hintText: 'type a message...', border: InputBorder.none),
-                    )),
+                  controller: _textController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                      hintText: 'type a message...', border: InputBorder.none),
+                )),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
@@ -198,7 +184,12 @@ class _ChatRoomState extends State<ChatRoom> {
             ),
           ),
           MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              if (_textController.text.isNotEmpty) {
+                MyDataBase.sendMessage(widget.user, _textController.text);
+                _textController.text = '';
+              }
+            },
             minWidth: 0,
             shape: CircleBorder(),
             padding: EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),

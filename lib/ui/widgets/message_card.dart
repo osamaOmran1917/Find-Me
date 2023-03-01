@@ -1,4 +1,5 @@
 import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/date_utils.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/shared_data.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,9 @@ class _MessageCardState extends State<MessageCard> {
   }
 
   Widget _blueMessage() {
+    if (widget.message.read.isEmpty) {
+      MyDataBase.updateMessageReadStatus(widget.message);
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -46,7 +50,8 @@ class _MessageCardState extends State<MessageCard> {
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * .04),
-          child: Text(widget.message.sent,
+          child: Text(
+              getFormattedTime(context: context, time: widget.message.sent),
               style: TextStyle(fontSize: 13, color: Colors.black54)),
         ),
       ],
@@ -62,15 +67,16 @@ class _MessageCardState extends State<MessageCard> {
             SizedBox(
               width: MediaQuery.of(context).size.width * .04,
             ),
-            Icon(
-              Icons.done_all_rounded,
-              color: Colors.blue,
-              size: 20,
-            ),
+            if (widget.message.read.isNotEmpty)
+              Icon(
+                Icons.done_all_rounded,
+                color: Colors.blue,
+                size: 20,
+              ),
             SizedBox(
               width: 2,
             ),
-            Text(widget.message.read + '12:00 AM',
+            Text(getFormattedTime(context: context, time: widget.message.sent),
                 style: TextStyle(fontSize: 13, color: Colors.black54)),
           ],
         ),
