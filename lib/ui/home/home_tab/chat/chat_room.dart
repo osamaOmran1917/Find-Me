@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
@@ -8,6 +11,7 @@ import 'package:find_me_ii/ui/widgets/message_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -23,57 +27,102 @@ class _ChatRoomState extends State<ChatRoom> {
   List<Message> _list = [];
 
   final _textController = TextEditingController();
+  bool _showEmoji = false, _isUploading = false;
 
   @override
   Widget build(BuildContext context) {
     var settingsProvider = Provider.of<SettingsProvider>(context);
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            flexibleSpace: _appBar(),
-          ),
-          backgroundColor: Color.fromARGB(255, 234, 248, 255),
-          body: Column(children: [
-            Expanded(
-              child: StreamBuilder(
-                  stream: MyDataBase.getAllMessages(widget.user),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                      case ConnectionState.none:
-                        return const SizedBox();
-                      case ConnectionState.active:
-                      case ConnectionState.done:
-                        final data = snapshot.data?.docs;
-                        _list = data
-                                ?.map((e) => Message.fromJson(e.data()))
-                                .toList() ??
-                            [];
-                        if (_list.isNotEmpty) {
-                          return ListView.builder(
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * .01),
-                            physics: BouncingScrollPhysics(),
-                            itemCount: _list.length,
-                            itemBuilder: (context, index) {
-                              return MessageCard(
-                                message: _list[index],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: SafeArea(
+        child: WillPopScope(
+          onWillPop: () {
+            if (_showEmoji) {
+              setState(() {
+                _showEmoji = !_showEmoji;
+              });
+              return Future.value(false);
+            } else {
+              return Future.value(true);
+            }
+          },
+          child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                flexibleSpace: _appBar(),
+              ),
+              backgroundColor: Color.fromARGB(255, 234, 248, 255),
+              body: Column(children: [
+                Expanded(
+                  child: StreamBuilder(
+                      stream: MyDataBase.getAllMessages(widget.user),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                            return const SizedBox();
+                          case ConnectionState.active:
+                          case ConnectionState.done:
+                            final data = snapshot.data?.docs;
+                            _list = data
+                                    ?.map((e) => Message.fromJson(e.data()))
+                                    .toList() ??
+                                [];
+                            if (_list.isNotEmpty) {
+                              return ListView.builder(
+                                reverse: true,
+                                padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        .01),
+                                physics: BouncingScrollPhysics(),
+                                itemCount: _list.length,
+                                itemBuilder: (context, index) {
+                                  return MessageCard(
+                                    message: _list[index],
+                                  );
+                                },
                               );
-                            },
-                          );
-                        } else {
-                          return Center(
-                              child: Text(
-                            AppLocalizations.of(context)!.sayHi,
-                            style: TextStyle(fontSize: 20),
-                          ));
+                            } else {
+                              return Center(
+                                  child: Text(
+                                AppLocalizations.of(context)!.sayHi,
+                                style: TextStyle(fontSize: 20),
+                              ));
+                            }
                         }
-                    }
-                  }),
-            ),
-            _chatInput(settingsProvider)
-          ])),
+                      }),
+                ),
+                if (_isUploading)
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      )),
+                _chatInput(settingsProvider),
+                if (_showEmoji)
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .35,
+                    child: EmojiPicker(
+                      onBackspacePressed: () {},
+                      textEditingController: _textController,
+                      // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
+                      config: Config(
+                        bgColor: Color.fromARGB(255, 234, 248, 255),
+                        columns: 8,
+                        emojiSizeMax: 32 *
+                            (Platform.isIOS
+                                ? 1.30
+                                : 1.0), // Issue: https://github.com/flutter/flutter/issues/28894
+                      ),
+                    ),
+                  )
+              ])),
+        ),
+      ),
     );
   }
 
@@ -92,15 +141,15 @@ class _ChatRoomState extends State<ChatRoom> {
               )),
           ClipRRect(
             borderRadius:
-                BorderRadius.circular(MediaQuery.of(context).size.height * .3),
+            BorderRadius.circular(MediaQuery.of(context).size.height * .3),
             child: CachedNetworkImage(
                 width: MediaQuery.of(context).size.height * .05,
                 height: MediaQuery.of(context).size.height * .05,
                 imageUrl: widget.user.image ?? '',
                 placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => CircleAvatar(
-                      child: Icon(CupertinoIcons.person_alt),
-                    )),
+                  child: Icon(CupertinoIcons.person_alt),
+                )),
           ),
           SizedBox(
             width: 10,
@@ -144,7 +193,10 @@ class _ChatRoomState extends State<ChatRoom> {
                       MediaQuery.of(context).size.width * .0400001)),
               child: Row(children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      setState(() => _showEmoji = !_showEmoji);
+                    },
                     icon: Icon(
                       CupertinoIcons.smiley,
                       color: settingsProvider.isDarkMode()
@@ -157,12 +209,25 @@ class _ChatRoomState extends State<ChatRoom> {
                       controller: _textController,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
+                  onTap: () {
+                    if (_showEmoji) setState(() => _showEmoji = !_showEmoji);
+                  },
                   decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.typeAMessage,
                       border: InputBorder.none),
                 )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final ImagePicker picker = ImagePicker();
+                      final List<XFile> images =
+                          await picker.pickMultiImage(imageQuality: 70);
+                      for (var i in images) {
+                        setState(() => _isUploading = true);
+                        await MyDataBase.sendChatImage(
+                            widget.user, File(i.path));
+                        setState(() => _isUploading = false);
+                      }
+                    },
                     icon: Icon(
                       CupertinoIcons.photo_on_rectangle,
                       color: settingsProvider.isDarkMode()
@@ -171,7 +236,17 @@ class _ChatRoomState extends State<ChatRoom> {
                       size: 26,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final ImagePicker picker = ImagePicker();
+                      final XFile? image = await picker.pickImage(
+                          source: ImageSource.camera, imageQuality: 70);
+                      if (image != null) {
+                        setState(() => _isUploading = true);
+                        await MyDataBase.sendChatImage(
+                            widget.user, File(image.path));
+                        setState(() => _isUploading = false);
+                      }
+                    },
                     icon: Icon(
                       CupertinoIcons.camera,
                       color: settingsProvider.isDarkMode()
@@ -188,7 +263,8 @@ class _ChatRoomState extends State<ChatRoom> {
           MaterialButton(
             onPressed: () {
               if (_textController.text.isNotEmpty) {
-                MyDataBase.sendMessage(widget.user, _textController.text);
+                MyDataBase.sendMessage(
+                    widget.user, _textController.text, Type.text);
                 _textController.text = '';
               }
             },

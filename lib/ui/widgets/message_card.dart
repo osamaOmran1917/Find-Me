@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/date_utils.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/shared_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessageCard extends StatefulWidget {
@@ -17,7 +19,7 @@ class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
     return SharedData.user?.id == widget.message.fromId ||
-            MyDataBase.user.uid == widget.message.fromId
+        MyDataBase.user.uid == widget.message.fromId
         ? _greenMessage()
         : _blueMessage();
   }
@@ -31,21 +33,38 @@ class _MessageCardState extends State<MessageCard> {
       children: [
         Flexible(
           child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.lightBlue),
-                  color: Color.fromARGB(255, 221, 245, 255),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                      bottomRight: Radius.circular(30))),
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width * .04),
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * .04,
-                  vertical: MediaQuery.of(context).size.height * .01),
-              child: Text(
-                widget.message.msg,
-                style: TextStyle(fontSize: 15, color: Colors.black87),
-              )),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.lightBlue),
+                color: Color.fromARGB(255, 221, 245, 255),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                    bottomRight: Radius.circular(30))),
+            padding: EdgeInsets.all(widget.message.type == Type.image
+                ? MediaQuery.of(context).size.width * .03
+                : MediaQuery.of(context).size.width * .04),
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .04,
+                vertical: MediaQuery.of(context).size.height * .01),
+            child: widget.message.type == Type.text
+                ? Text(
+                    widget.message.msg,
+                    style: TextStyle(fontSize: 15, color: Colors.black87),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: CachedNetworkImage(
+                        imageUrl: widget.message.msg,
+                        placeholder: (context, url) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                        errorWidget: (context, url, error) => Icon(
+                              CupertinoIcons.photo_fill_on_rectangle_fill,
+                              size: 70,
+                            )),
+                  ),
+          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(
@@ -89,14 +108,32 @@ class _MessageCardState extends State<MessageCard> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30))),
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width * .04),
+              padding: EdgeInsets.all(widget.message.type == Type.image
+                  ? MediaQuery.of(context).size.width * .03
+                  : MediaQuery.of(context).size.width * .04),
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * .04,
                   vertical: MediaQuery.of(context).size.height * .01),
-              child: Text(
-                widget.message.msg,
-                style: TextStyle(fontSize: 15, color: Colors.black87),
-              )),
+              child: widget.message.type == Type.text
+                  ? Text(
+                      widget.message.msg,
+                      style: TextStyle(fontSize: 15, color: Colors.black87),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                          imageUrl: widget.message.msg,
+                          placeholder: (context, url) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                          errorWidget: (context, url, error) => Icon(
+                                CupertinoIcons.photo_fill_on_rectangle_fill,
+                                size: 70,
+                              )),
+                    )),
         )
       ],
     );
