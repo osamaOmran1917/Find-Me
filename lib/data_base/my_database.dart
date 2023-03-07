@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
-import 'package:find_me_ii/date_utils.dart';
+import 'package:find_me_ii/helpers/date_utils.dart';
+import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
-import 'package:find_me_ii/shared_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -187,6 +187,21 @@ class MyDataBase {
         .collection('Users')
         .doc(user.uid)
         .update({'image': me.image});
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(
+      MyUser myUser) {
+    return firestore
+        .collection('Users')
+        .where('id', isEqualTo: myUser.id)
+        .snapshots();
+  }
+
+  static Future<void> updateActiveStatus(bool isOnline) async {
+    firestore.collection('Users').doc(SharedData.user?.id ?? user.uid).update({
+      'is_online': isOnline,
+      'last_active': DateTime.now().millisecondsSinceEpoch.toString()
+    });
   }
 
   static Future<void> updateMissingPersonInfo(

@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
-import 'package:find_me_ii/date_utils.dart';
+import 'package:find_me_ii/helpers/date_utils.dart';
+import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
-import 'package:find_me_ii/shared_data.dart';
-import 'package:find_me_ii/ui/home/home_tab/chat/chat_room.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/chat/chat_room.dart';
+import 'package:find_me_ii/ui/widgets/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -44,19 +45,25 @@ class _ChatUserCardState extends State<ChatUserCard> {
                     data?.map((e) => Message.fromJson(e.data())).toList() ?? [];
                 if (list.isNotEmpty) _message = list[0];
                 return ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.height * .3),
-                    child: CachedNetworkImage(
-                        width: MediaQuery.of(context).size.height * .055,
-                        height: MediaQuery.of(context).size.height * .055,
-                        imageUrl: widget.user.image ?? '',
-                        placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => CircleAvatar(
-                              child: Icon(CupertinoIcons.person_alt),
-                            )),
-                  ),
+                  leading: InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => ProfileDialog(user: widget.user));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.height * .3),
+                        child: CachedNetworkImage(
+                            width: MediaQuery.of(context).size.height * .055,
+                            height: MediaQuery.of(context).size.height * .055,
+                            imageUrl: widget.user.image ?? '',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => CircleAvatar(
+                                  child: Icon(CupertinoIcons.person_alt),
+                                )),
+                      )),
                   title: Text(widget.user.userName ?? ''),
                   subtitle: Text(
                     _message != null
@@ -76,11 +83,11 @@ class _ChatUserCardState extends State<ChatUserCard> {
                               _message!.fromId != MyDataBase.user.uid &&
                               _message!.fromId != SharedData.user?.id
                           ? Container(
-                              width: 15,
-                              height: 15,
+                              width: 25,
+                              height: 25,
                               decoration: BoxDecoration(
-                                  color: Colors.greenAccent.shade400,
                                   borderRadius: BorderRadius.circular(10)),
+                              child: Image.asset('assets/images/download.png'),
                             )
                           : Text(
                               getLastMessageTime(

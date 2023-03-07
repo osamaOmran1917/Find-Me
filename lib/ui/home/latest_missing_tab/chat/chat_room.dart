@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/helpers/date_utils.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
-import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/ui/home/view_profile_screen.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:find_me_ii/ui/widgets/message_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -128,53 +130,79 @@ class _ChatRoomState extends State<ChatRoom> {
 
   Widget _appBar() {
     return InkWell(
-      onTap: () {},
-      child: Row(
-        children: [
-          IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Theme.of(context).primaryColor,
-              )),
-          ClipRRect(
-            borderRadius:
-            BorderRadius.circular(MediaQuery.of(context).size.height * .3),
-            child: CachedNetworkImage(
-                width: MediaQuery.of(context).size.height * .05,
-                height: MediaQuery.of(context).size.height * .05,
-                imageUrl: widget.user.image ?? '',
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => CircleAvatar(
-                  child: Icon(CupertinoIcons.person_alt),
-                )),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => ViewProfileScreen(user: widget.user)));
+      },
+      child: StreamBuilder(
+        stream: MyDataBase.getUserInfo(widget.user),
+        builder: (context, snapshot) {
+          final data = snapshot.data?.docs;
+          final list =
+              data?.map((e) => MyUser.fromFierStore(e.data())).toList() ?? [];
+          return Row(
             children: [
-              Text(
-                widget.user.userName ??
-                    AppLocalizations.of(context)!.findMeUser,
-                style: TextStyle(
-                    fontSize: 16,
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
                     color: Theme.of(context).primaryColor,
-                    fontWeight: FontWeight.w500),
+                  )),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.height * .3),
+                child: CachedNetworkImage(
+                    width: MediaQuery.of(context).size.height * .05,
+                    height: MediaQuery.of(context).size.height * .05,
+                    imageUrl:
+                        (list.isNotEmpty ? list[0].image : widget.user.image) ??
+                            '',
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => CircleAvatar(
+                          child: Icon(CupertinoIcons.person_alt),
+                        )),
               ),
-              SizedBox(height: 2),
-              Text(
-                AppLocalizations.of(context)!.lastSeenNotAvailable,
-                style: TextStyle(
-                    fontSize: 13, color: Theme.of(context).primaryColor),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    (list.isNotEmpty
+                            ? list[0].userName
+                            : widget.user.userName) ??
+                        AppLocalizations.of(context)!.findMeUser,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    (list.isNotEmpty
+                            ? (list[0].is_online ?? false)
+                                ? 'online'
+                                : getLastActiveTime(
+                                    context: context,
+                                    lastActive: list[0].last_active ?? '')
+                            : getLastActiveTime(
+                                context: context,
+                                lastActive: widget.user.last_active ?? '')) ??
+                        AppLocalizations.of(context)!.lastSeenNotAvailable,
+                    style: TextStyle(
+                        fontSize: 13, color: Theme.of(context).primaryColor),
+                  )
+                ],
               )
             ],
-          )
-        ],
+          );
+        },
       ),
     );
   }

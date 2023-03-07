@@ -2,7 +2,7 @@ import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../shared_data.dart';
+import '../../helpers/shared_data.dart';
 
 abstract class LoginNavigator extends BaseNavigator {
   void goToHome();

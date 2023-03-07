@@ -1,4 +1,4 @@
-import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:flutter/material.dart';
 
 class OneOfUsWidget extends StatelessWidget {

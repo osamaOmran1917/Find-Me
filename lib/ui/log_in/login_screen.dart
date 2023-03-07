@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
-import 'package:find_me_ii/dialog_utils.dart';
-import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/helpers/dialog_utils.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_viewModel.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
@@ -15,7 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
-import '../../validation_utils.dart';
+import '../../helpers/validation_utils.dart';
 
 class LogInScreen extends StatefulWidget {
   static const String routeName = 'Log In Screen';

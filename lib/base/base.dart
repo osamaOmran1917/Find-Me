@@ -1,4 +1,4 @@
-import 'package:find_me_ii/dialog_utils.dart';
+import 'package:find_me_ii/helpers/dialog_utils.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseNavigator {

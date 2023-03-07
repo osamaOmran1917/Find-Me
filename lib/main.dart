@@ -1,12 +1,12 @@
 import 'package:find_me_ii/firebase_options.dart';
-import 'package:find_me_ii/my_theme.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/chat/chats_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
-import 'package:find_me_ii/ui/home/home_tab/search_screen/search_screen.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/chat/chats_screen.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/insert_lost_person_screen/insert_lost_person_screen.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/post_details.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/search_screen/search_screen.dart';
 import 'package:find_me_ii/ui/log_in/login_screen.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:find_me_ii/ui/registeration/phone_number_section/enter_phone_number_screen.dart';

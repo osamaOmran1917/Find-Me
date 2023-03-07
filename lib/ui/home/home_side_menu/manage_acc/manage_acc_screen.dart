@@ -1,5 +1,5 @@
-import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/shared_data.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
+import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

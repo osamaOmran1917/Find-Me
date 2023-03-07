@@ -5,18 +5,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
-import 'package:find_me_ii/dialog_utils.dart';
+import 'package:find_me_ii/helpers/dialog_utils.dart';
+import 'package:find_me_ii/helpers/log_out.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
+import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/my_user.dart';
-import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/shared_data.dart';
-import 'package:find_me_ii/ui/home/home_tab/post_details.dart';
-import 'package:find_me_ii/ui/log_in/login_screen.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/post_details.dart';
 import 'package:find_me_ii/ui/widgets/post_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -43,21 +41,8 @@ class _ProfileTabState extends State<ProfileTab> {
           padding: const EdgeInsets.only(bottom: 10),
           child: FloatingActionButton.extended(
             backgroundColor: Colors.redAccent,
-            onPressed: () async {
-              showMessage(context,
-                  AppLocalizations.of(context)!.areYouSureYouWannaLogout,
-                  posAction: () async {
-                await FirebaseAuth.instance.signOut().then((value) async {
-                  await GoogleSignIn().signOut().then((value) {
-                    Navigator.pushReplacementNamed(
-                        context, LogInScreen.routeName);
-                  });
-                });
-                SharedData.user = null;
-              },
-                  posActionName: AppLocalizations.of(context)!.yes,
-                  negAction: () {},
-                  negActionName: AppLocalizations.of(context)!.no);
+            onPressed: () {
+              logOut(context);
             },
             icon: Icon(Icons.logout),
             label: Text(AppLocalizations.of(context)!.logOut),

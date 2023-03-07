@@ -1,17 +1,12 @@
-import 'package:find_me_ii/dialog_utils.dart';
-import 'package:find_me_ii/shared_data.dart';
+import 'package:find_me_ii/helpers/log_out.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/about_us/about_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/contact_us/contact_us_screen.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/home_side_menu_viewModel.dart';
 import 'package:find_me_ii/ui/home/home_side_menu/manage_acc/manage_acc_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-
-import '../../log_in/login_screen.dart';
 
 class HomeSideMenu extends StatefulWidget {
   @override
@@ -95,19 +90,8 @@ class _HomeSideMenuState extends State<HomeSideMenu>
                 icon: Icon(CupertinoIcons.phone),
                 label: Text(AppLocalizations.of(context)!.contactUs)),
             TextButton.icon(
-                onPressed: () async {
-                  showMessage(context,
-                      AppLocalizations.of(context)!.areYouSureYouWannaLogout,
-                      posAction: () async {
-                    await FirebaseAuth.instance.signOut();
-                    await GoogleSignIn().signOut();
-                    SharedData.user = null;
-                    Navigator.pushReplacementNamed(
-                        context, LogInScreen.routeName);
-                  },
-                      posActionName: AppLocalizations.of(context)!.yes,
-                      negAction: () {},
-                      negActionName: AppLocalizations.of(context)!.no);
+                onPressed: () {
+                  logOut(context);
                 },
                 icon: Icon(Icons.logout_outlined),
                 label: Text(AppLocalizations.of(context)!.logOut)),

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
-import 'package:find_me_ii/date_utils.dart';
+import 'package:find_me_ii/helpers/date_utils.dart';
+import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/message.dart';
-import 'package:find_me_ii/shared_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

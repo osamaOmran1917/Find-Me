@@ -1,6 +1,6 @@
-import 'package:find_me_ii/my_theme.dart';
-import 'package:find_me_ii/ui/home/home_tab/search_screen/date_search_screen.dart';
-import 'package:find_me_ii/ui/home/home_tab/search_screen/text_search_screen.dart';
+import 'package:find_me_ii/helpers/my_theme.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/search_screen/date_search_screen.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/search_screen/text_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
