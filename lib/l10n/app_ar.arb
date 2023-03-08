@@ -150,5 +150,6 @@
     "nameEmailEtc": "اسم، بريد، ...",
     "noConnectionsFound": "لا يوجد جهات محادثة!",
     "findMeUser": "مستخدم فايندمِي",
-    "typeAMessage": "اكتب رسالة..."
+    "typeAMessage": "اكتب رسالة...",
+    "viewPicture": "عرض الصورة"
 }

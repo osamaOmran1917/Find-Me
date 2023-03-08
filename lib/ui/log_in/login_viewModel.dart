@@ -17,7 +17,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
       var credential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       var retrievedUser =
-          await MyDataBase.getUserById(credential.user?.uid ?? '');
+          await MyDataBase.getFutureOfUserById(credential.user?.uid ?? '');
       navigator?.hideLoadinDialog();
       if (retrievedUser == null) {
         navigator?.showMessageDialog('Something Went Wrong. Try Again Later');
@@ -36,7 +36,7 @@ class LoginViewModel extends BaseViewModel<LoginNavigator> {
   void checkLoggedInUser() async {
     if (auth.currentUser != null) {
       var retrievedUser =
-          await MyDataBase.getUserById(auth.currentUser?.uid ?? '');
+          await MyDataBase.getFutureOfUserById(auth.currentUser?.uid ?? '');
       SharedData.user = retrievedUser;
       navigator?.goToHome();
     }

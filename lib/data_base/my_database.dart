@@ -26,11 +26,15 @@ class MyDataBase {
     return user;
   }
 
-  static Future<MyUser?> getUserById(String uid) async {
+  static Future<MyUser?> getFutureOfUserById(String uid) async {
     var collection = getUsersCollection();
     var docRef = collection.doc(uid);
     var res = await docRef.get();
     return res.data();
+  }
+
+  static MyUser getUserById(String uid) {
+    return getFutureOfUserById(uid) as MyUser;
   }
 
   static Future<MissingPerson?> getMissingPersonById(String id) async {

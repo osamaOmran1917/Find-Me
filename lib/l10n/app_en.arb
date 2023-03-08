@@ -150,5 +150,6 @@
     "nameEmailEtc": "Name, Email, ...",
     "noConnectionsFound": "No Connections Found!",
     "findMeUser": "Find Me User",
-    "typeAMessage": "type a message..."
+    "typeAMessage": "type a message...",
+    "viewPicture": "View Picture"
 }
