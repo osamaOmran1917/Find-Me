@@ -32,7 +32,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
   void initState() {
     super.initState();
     MyDataBase.getSelfInfo();
-    MyDataBase.updateActiveStatus(true);
+
     SystemChannels.lifecycle.setMessageHandler((message) {
       if (MyDataBase.auth.currentUser != null && SharedData.user != null) {
         if (message.toString().contains('resume'))

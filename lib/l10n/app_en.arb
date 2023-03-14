@@ -151,5 +151,7 @@
     "noConnectionsFound": "No Connections Found!",
     "findMeUser": "Find Me User",
     "typeAMessage": "type a message...",
-    "viewPicture": "View Picture"
+    "viewPicture": "View Picture",
+    "delete": "Delete",
+    "areYouSureYouWannaDeleteThisMissingPerson": "Are you sure you wanna delete this missing person?"
 }

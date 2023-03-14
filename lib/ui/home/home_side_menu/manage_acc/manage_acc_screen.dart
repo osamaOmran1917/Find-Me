@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
@@ -6,8 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class ManageAcc extends StatelessWidget {
+class ManageAcc extends StatefulWidget {
   static const String routeName = 'Manage Account';
+
+  @override
+  State<ManageAcc> createState() => _ManageAccState();
+}
+
+class _ManageAccState extends State<ManageAcc> {
+  String? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +57,33 @@ class ManageAcc extends StatelessWidget {
                       ))
                 ],
               ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(1500),
-                      border: Border.all(color: Colors.black, width: 3.3)),
-                  width: MediaQuery.of(context).size.width * .45,
-                  height: MediaQuery.of(context).size.height * .25,
-                  child: ClipOval(
-                    child: Image.network(
-                      'https://img.freepik.com/free-icon/important-person_318-10744.jpg?w=2000',
-                      width: 300,
-                      height: 300,
-                      fit: BoxFit.cover,
+              _image != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.height * .1),
+                      child: Image.file(
+                        File(_image!),
+                        width: MediaQuery.of(context).size.height * .2,
+                        height: MediaQuery.of(context).size.height * .2,
+                        fit: BoxFit.cover,
+                        // placeholder: (context, url) => CircularProgressIndicator(),
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.height * .1),
+                      child: CachedNetworkImage(
+                        width: MediaQuery.of(context).size.height * .2,
+                        height: MediaQuery.of(context).size.height * .2,
+                        fit: BoxFit.cover,
+                        imageUrl:
+                            MyDataBase.me.image ?? SharedData.user?.image ?? '',
+                        // placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const CircleAvatar(
+                                child: Icon(CupertinoIcons.person_alt)),
+                      ),
                     ),
-                  )),
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * .03,

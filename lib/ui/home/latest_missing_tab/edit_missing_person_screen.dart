@@ -52,7 +52,7 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
                 height: MediaQuery.of(context).size.height * .02,
               ),
               TextFormField(
-                initialValue: widget.missingPerson.name,
+                initialValue: widget.missingPerson.adress,
                 onSaved: (val) => MyDataBase.updateMissingPersonInfo(
                     missingPersonId: widget.missingPerson.id!, name: val),
                 validator: (val) => val != null && val.isNotEmpty
@@ -66,7 +66,7 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
                       color: Colors.blue,
                     ),
                     hintText: AppLocalizations.of(context)!.egAhmedAdam,
-                    label: Text(AppLocalizations.of(context)!.name)),
+                    label: Text(AppLocalizations.of(context)!.detailedAddress)),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * .02,

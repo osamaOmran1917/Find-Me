@@ -8,6 +8,7 @@ import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class MyDataBase {
@@ -135,6 +136,19 @@ class MyDataBase {
 
   static User get user => auth.currentUser!;
 
+  static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
+
+  static Future<void> getFirebaseMessagingToken() async {
+    await fMessaging.requestPermission();
+    await fMessaging.getToken().then((t) {
+      if (t != null) {
+        me.push_token = t;
+        SharedData.user?.push_token = t;
+        log('Push Token: ===> $t');
+      }
+    });
+  }
+
   static Future<bool> userExists() async {
     return (await firestore.collection('Users').doc(user.uid).get()).exists;
   }
@@ -144,6 +158,8 @@ class MyDataBase {
       if (user.exists) {
         me = MyUser.fromFierStore(user.data()!);
         SharedData.user = me;
+        await getFirebaseMessagingToken();
+        MyDataBase.updateActiveStatus(true);
         log('My Data: ${user.data()}');
       } else {
         await createUser().then((value) => getSelfInfo());
@@ -204,7 +220,8 @@ class MyDataBase {
   static Future<void> updateActiveStatus(bool isOnline) async {
     firestore.collection('Users').doc(SharedData.user?.id ?? user.uid).update({
       'is_online': isOnline,
-      'last_active': DateTime.now().millisecondsSinceEpoch.toString()
+      'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
+      'push_token': me.push_token
     });
   }
 
@@ -284,5 +301,10 @@ class MyDataBase {
     });
     final imageUrl = await ref.getDownloadURL();
     await sendMessage(myUser, imageUrl, Type.image);
+  }
+
+  static Future<void> deleteMissingPerson(
+      {required String missingPersonId}) async {
+    await firestore.collection('Missing Person').doc(missingPersonId).delete();
   }
 }

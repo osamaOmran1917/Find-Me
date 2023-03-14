@@ -57,6 +57,7 @@ dependencies:
   calendar_timeline: ^1.1.1
   emoji_picker_flutter: ^1.5.2
   flutter_slidable: ^2.0.0
+  firebase_messaging: ^14.2.6
 
 dev_dependencies:
   flutter_test:

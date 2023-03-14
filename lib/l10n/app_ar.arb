@@ -151,5 +151,7 @@
     "noConnectionsFound": "لا يوجد جهات محادثة!",
     "findMeUser": "مستخدم فايندمِي",
     "typeAMessage": "اكتب رسالة...",
-    "viewPicture": "عرض الصورة"
+    "viewPicture": "عرض الصورة",
+    "delete": "حذف",
+    "areYouSureYouWannaDeleteThisMissingPerson": "هل أنت متأكد من حذف هذا الشخص؟"
 }

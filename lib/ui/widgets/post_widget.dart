@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/helpers/dialog_utils.dart';
 import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:find_me_ii/ui/home/latest_missing_tab/chat/chat_room.dart';
@@ -66,6 +67,25 @@ class _PostWidgetState extends State<PostWidget> {
               },
               icon: CupertinoIcons.viewfinder,
               label: AppLocalizations.of(context)!.viewPicture,
+            ),
+          if (SharedData.user?.id == widget.missingPerson.posterId)
+            SlidableAction(
+              backgroundColor: Colors.red,
+              onPressed: (_) {
+                showMessage(
+                    context,
+                    AppLocalizations.of(context)!
+                        .areYouSureYouWannaDeleteThisMissingPerson,
+                    posAction: () async {
+                  await MyDataBase.deleteMissingPerson(
+                      missingPersonId: widget.missingPerson.id ?? '');
+                },
+                    posActionName: AppLocalizations.of(context)!.yes,
+                    negAction: () {},
+                    negActionName: AppLocalizations.of(context)!.no);
+              },
+              icon: CupertinoIcons.delete_solid,
+              label: AppLocalizations.of(context)!.delete,
             )
         ],
       ),
