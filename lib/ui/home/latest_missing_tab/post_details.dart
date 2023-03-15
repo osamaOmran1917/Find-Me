@@ -29,7 +29,7 @@ class _PostDetailsState extends State<PostDetails> {
                   onPressed: () {
                     setState(() {
                       MyDataBase.updateMissingPersonInfo(
-                          missingPersonId: (missingPerson?.id)!,
+                          missingPerson: missingPerson!,
                           reachedFamily: !((missingPerson?.reachedToFamily)!));
                     });
                     Navigator.pop(context);
@@ -62,6 +62,7 @@ class _PostDetailsState extends State<PostDetails> {
                     border: Border.all(color: MyTheme.coloredSecondary),
                     borderRadius: BorderRadius.circular(6)),
                 child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       Text(
@@ -85,31 +86,31 @@ class _PostDetailsState extends State<PostDetails> {
                       missingPerson?.image == null
                           ? ClipRRect(
                         borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.height * .1),
-                              child: Image.asset(
-                                'assets/images/missing.jpg',
-                                /*width: MediaQuery.of(context).size.width * .2,
+                            MediaQuery.of(context).size.height * .1),
+                        child: Image.asset(
+                          'assets/images/missing.jpg',
+                          /*width: MediaQuery.of(context).size.width * .2,
                           height:
                           MediaQuery.of(context).size.height * .15,*/
-                                fit: BoxFit.cover,
-                              ),
-                            )
+                          fit: BoxFit.cover,
+                        ),
+                      )
                           : ClipRRect(
                         borderRadius: BorderRadius.circular(
                             MediaQuery.of(context).size.height * .021),
                         child: CachedNetworkImage(
                           width: MediaQuery.of(context).size.height * .41,
-                                /* height:
+                          /* height:
                           MediaQuery.of(context).size.height * .31,*/
-                                fit: BoxFit.fill,
-                                imageUrl: missingPerson?.image ?? '',
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                        child: Icon(CupertinoIcons.person_alt)),
-                              ),
-                            ),
+                          fit: BoxFit.fill,
+                          imageUrl: missingPerson?.image ?? '',
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                          const CircleAvatar(
+                              child: Icon(CupertinoIcons.person_alt)),
+                        ),
+                      ),
                     ],
                   ),
                 ),

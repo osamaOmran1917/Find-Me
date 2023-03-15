@@ -33,8 +33,8 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
             children: [
               TextFormField(
                 initialValue: widget.missingPerson.name,
-                onSaved: (val) => MyDataBase.updateMissingPersonInfo(
-                    missingPersonId: widget.missingPerson.id!, name: val),
+                /*onSaved: (val) => MyDataBase.updateMissingPersonInfo(
+                    missingPersonId: widget.missingPerson.id!, name: val),*/
                 validator: (val) => val != null && val.isNotEmpty
                     ? null
                     : AppLocalizations.of(context)!.requiredField,
@@ -53,8 +53,8 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
               ),
               TextFormField(
                 initialValue: widget.missingPerson.adress,
-                onSaved: (val) => MyDataBase.updateMissingPersonInfo(
-                    missingPersonId: widget.missingPerson.id!, name: val),
+                /*onSaved: (val) => MyDataBase.updateMissingPersonInfo(
+                    missingPersonId: widget.missingPerson.id!, name: val),*/
                 validator: (val) => val != null && val.isNotEmpty
                     ? null
                     : AppLocalizations.of(context)!.requiredField,
@@ -73,8 +73,8 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
               ),
               TextFormField(
                 initialValue: widget.missingPerson.name,
-                onSaved: (val) => MyDataBase.updateMissingPersonInfo(
-                    missingPersonId: widget.missingPerson.id!, name: val),
+                /*onSaved: (val) => MyDataBase.updateMissingPersonInfo(
+                    missingPersonId: widget.missingPerson.id!, name: val),*/
                 validator: (val) => val != null && val.isNotEmpty
                     ? null
                     : AppLocalizations.of(context)!.requiredField,
@@ -93,8 +93,8 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
               ),
               TextFormField(
                 initialValue: widget.missingPerson.name,
-                onSaved: (val) => MyDataBase.updateMissingPersonInfo(
-                    missingPersonId: widget.missingPerson.id!, name: val),
+                /*onSaved: (val) => MyDataBase.updateMissingPersonInfo(
+                    missingPersonId: widget.missingPerson.id!, name: val),*/
                 validator: (val) => val != null && val.isNotEmpty
                     ? null
                     : AppLocalizations.of(context)!.requiredField,

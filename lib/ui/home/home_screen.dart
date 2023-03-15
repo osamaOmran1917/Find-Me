@@ -15,7 +15,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'home_side_menu/home_side_menu.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,7 +31,6 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
   void initState() {
     super.initState();
     MyDataBase.getSelfInfo();
-
     SystemChannels.lifecycle.setMessageHandler((message) {
       if (MyDataBase.auth.currentUser != null && SharedData.user != null) {
         if (message.toString().contains('resume'))
@@ -42,6 +40,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
       }
       return Future.value(message);
     });
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   List<Widget> tabs = [

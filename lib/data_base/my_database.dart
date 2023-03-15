@@ -119,13 +119,6 @@ class MyDataBase {
         {'reachedToFamily': missingPerson.reachedToFamily! ? false : true});
   }
 
-  /*editMissingPersonPic(MissingPerson missingPerson) {
-    CollectionReference findMeRef = getMissingPersonsCollection();
-    findMeRef.doc(missingPerson.id).update({
-
-    });
-  }*/
-
   static FirebaseAuth auth = FirebaseAuth.instance;
 
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -144,7 +137,7 @@ class MyDataBase {
       if (t != null) {
         me.push_token = t;
         SharedData.user?.push_token = t;
-        log('Push Token: ===> $t');
+        log('البوشتوكننننننننن: $t');
       }
     });
   }
@@ -221,32 +214,20 @@ class MyDataBase {
     firestore.collection('Users').doc(SharedData.user?.id ?? user.uid).update({
       'is_online': isOnline,
       'last_active': DateTime.now().millisecondsSinceEpoch.toString(),
-      'push_token': me.push_token
+      'push_token': me.push_token,
     });
   }
 
   static Future<void> updateMissingPersonInfo(
-      {required String missingPersonId,
+      {required MissingPerson missingPerson,
       bool? reachedFamily,
       String? name}) async {
-    await firestore
-        .collection('Missing Person')
-        .doc(missingPersonId)
-        .update({'reachedToFamily': reachedFamily, 'name': name});
+    await firestore.collection('Missing Person').doc(missingPerson.id).update({
+      'reachedToFamily': reachedFamily ?? missingPerson.reachedToFamily,
+      'name': name ?? missingPerson.name
+    });
   }
 
-/*static Future<void> updateMissingPersonPicture(
-      File file) async {
-    final ext = file.path.split('.').last;
-    final ref =
-        storage.ref().child('lost_people_pictures/${SharedData.missingPerson!.id}.$ext');
-    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext'));
-    me.image = await ref.getDownloadURL();
-    await firestore
-        .collection('Missing Person')
-        .doc(SharedData.missingPerson!.id)
-        .update({'image': SharedData.missingPerson!.image});
-  }*/
   static String getConversationID(String id) => user.uid.hashCode <= id.hashCode
       ? '${user.uid}_$id'
       : '${id}_${user.uid}';
