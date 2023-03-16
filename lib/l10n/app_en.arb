@@ -153,5 +153,7 @@
     "typeAMessage": "type a message...",
     "viewPicture": "View Picture",
     "delete": "Delete",
-    "areYouSureYouWannaDeleteThisMissingPerson": "Are you sure you wanna delete this missing person?"
+    "areYouSureYouWannaDeleteThisMissingPerson": "Are you sure you wanna delete this missing person?",
+    "addYourInstagram": "Add Your Instagram",
+    "addYourWhatsApp": "Add Your WhatsApp Or Phone Number"
 }

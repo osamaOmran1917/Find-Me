@@ -1,5 +1,4 @@
 import 'package:find_me_ii/ui/widgets/chat_user_card.dart';
-
 import '../data_base/missing_person.dart';
 
 class MyUser {
@@ -14,8 +13,10 @@ class MyUser {
       image,
       created_at,
       last_active,
-      push_token;
-  bool? is_online;
+      push_token,
+      facebook,
+      instagram;
+  bool? is_online, male;
   List<MissingPerson>? userMissingList;
   List<ChatUserCard>? chatSections;
 
@@ -31,7 +32,10 @@ class MyUser {
       this.created_at,
       this.last_active,
       this.push_token,
+      this.facebook,
+      this.instagram,
       this.is_online,
+      this.male,
       this.userMissingList,
       this.chatSections});
 
@@ -48,7 +52,10 @@ class MyUser {
             created_at: data['created_at'],
             last_active: data['last_active'],
             push_token: data['push_token'],
+            facebook: data['facebook'],
+            instagram: data['instagram'],
             is_online: data['is_online'],
+            male: data['male'],
             userMissingList: data['userMissingList'],
             chatSections: data['chatSections']);
 
@@ -65,7 +72,10 @@ class MyUser {
       'created_at': created_at,
       'last_active': last_active,
       'push_token': push_token,
+      'facebook': facebook,
+      'instagram': instagram,
       'is_online': is_online,
+      'male': male,
       'userMissingList': userMissingList,
       'chatSections': chatSections,
     };

@@ -39,6 +39,39 @@ void showMessage(BuildContext context, String message,
       barrierDismissible: isCancelable);
 }
 
+void showWidget(BuildContext context, Widget widget,
+    {String? posActionName,
+    VoidCallback? posAction,
+    String? negActionName,
+    VoidCallback? negAction,
+    bool isCancelable = true}) {
+  List<Widget> actions = [];
+  if (posActionName != null) {
+    actions.add(TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+          if (posAction != null) posAction();
+        },
+        child: Text(posActionName)));
+  }
+
+  if (negActionName != null) {
+    actions.add(TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+          if (negAction != null) negAction();
+        },
+        child: Text(negActionName)));
+  }
+
+  showDialog(
+      context: context,
+      builder: (buildContext) {
+        return AlertDialog(content: widget, actions: actions);
+      },
+      barrierDismissible: isCancelable);
+}
+
 void showLoading(BuildContext context, String loadingMessage,
     {bool isCancelable = true}) {
   showDialog(

@@ -1,5 +1,5 @@
 {
-    "app_title": "أين أنا",
+    "app_title": "فايند مِي",
     "home": "الرئسية",
     "chatbot": "المتحدث الآلي",
     "notifications": "الإشعارات",
@@ -140,7 +140,7 @@
     "dashboard": "التحكم",
     "searchForAMissingPerson": "ابحث عن مفقود",
     "postAMissingPerson": "نوِّه عن مفقود",
-    "postFoundPerson": "اعلن عن شخص عثر عليه",
+    "postFoundPerson": "أعلن عن شخص عثر عليه",
     "chatWithSomeone": "محادثات",
     "changeAppTheme": "غيّر مظهر التطبيق",
     "howToUseFindMe": "كيفية استخدام فايند مِي",
@@ -153,5 +153,7 @@
     "typeAMessage": "اكتب رسالة...",
     "viewPicture": "عرض الصورة",
     "delete": "حذف",
-    "areYouSureYouWannaDeleteThisMissingPerson": "هل أنت متأكد من حذف هذا الشخص؟"
+    "areYouSureYouWannaDeleteThisMissingPerson": "هل أنت متأكد من حذف هذا الشخص؟",
+    "addYourInstagram": "أضف الإنستجرام الخاص بك",
+    "addYourWhatsApp": "أضف الواتساب الخاص بك أو رقم هاتفك"
 }

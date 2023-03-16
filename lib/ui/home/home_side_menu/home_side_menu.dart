@@ -81,7 +81,7 @@ class _HomeSideMenuState extends State<HomeSideMenu>
                 onPressed: () {
                   viewModel.onAboutUsPrsd();
                 },
-                icon: Icon(CupertinoIcons.group),
+                icon: ImageIcon(AssetImage('assets/images/team.png')),
                 label: Text(AppLocalizations.of(context)!.aboutUs)),
             TextButton.icon(
                 onPressed: () {

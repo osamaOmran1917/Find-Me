@@ -191,6 +191,13 @@ class MyDataBase {
         .update({'userName': me.userName, 'phoneNumber': me.phoneNumber});
   }
 
+  static Future<void> customUpdateUserInfo({String? address}) async {
+    await firestore
+        .collection('Users')
+        .doc(SharedData.user?.id ?? me.id)
+        .update({'gov': address});
+  }
+
   static Future<void> updateProfilePicture(File file) async {
     final ext = file.path.split('.').last;
     final ref = storage.ref().child('profile_pictures/${user.uid}.$ext');

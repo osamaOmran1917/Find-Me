@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'home_side_menu/home_side_menu.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -155,7 +156,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                   backgroundColor: Theme.of(context)
                       .bottomNavigationBarTheme
                       .backgroundColor,
-                  icon: Icon(CupertinoIcons.chat_bubble_text_fill),
+                  icon: ImageIcon(AssetImage('assets/images/dashboard.png')),
                   label: AppLocalizations.of(context)!.dashboard),
               BottomNavigationBarItem(
                   backgroundColor: Theme.of(context)

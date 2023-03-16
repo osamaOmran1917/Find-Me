@@ -28,7 +28,7 @@ class ShowPicture extends StatelessWidget {
               // width: MediaQuery.of(context).size.height * .41,
               /* height:
                           MediaQuery.of(context).size.height * .31,*/
-              fit: BoxFit.fill,
+              fit: BoxFit.contain,
               imageUrl: missingPerson.image ?? '',
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) =>
