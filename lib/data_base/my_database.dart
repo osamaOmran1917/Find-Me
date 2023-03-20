@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -10,14 +11,15 @@ import 'package:find_me_ii/model/my_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart';
 
 class MyDataBase {
   static CollectionReference<MyUser> getUsersCollection() {
     return FirebaseFirestore.instance
         .collection(MyUser.collectionName)
         .withConverter<MyUser>(
-            fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
-            toFirestore: (user, options) => user.toFireStore());
+        fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
+        toFirestore: (user, options) => user.toFireStore());
   }
 
   static Future<MyUser?> insertUser(MyUser user) async {
@@ -63,11 +65,11 @@ class MyDataBase {
   }
 
   static Future<QuerySnapshot<MissingPerson>>
-      getAllMissingPersonsDependingOnDate(DateTime selectedDate) async {
+  getAllMissingPersonsDependingOnDate(DateTime selectedDate) async {
     // Read data once.
     return await getMissingPersonsCollection()
         .where('dateTime',
-            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+        isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
         .get();
   }
 
@@ -79,7 +81,7 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-      listenForMissingPersonsRealTimeUpdates() {
+  listenForMissingPersonsRealTimeUpdates() {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .orderBy("dateTime", descending: true)
@@ -87,7 +89,7 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-      listenForMissingPersonsRealTimeUpdatesDependingOnUser(MyUser user) {
+  listenForMissingPersonsRealTimeUpdatesDependingOnUser(MyUser user) {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .where('posterId', isEqualTo: user.id)
@@ -96,12 +98,11 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-      listenForMissingPersonsRealTimeUpdatesDependingOnDate(
-          DateTime selectedDate) {
+  listenForMissingPersonsRealTimeUpdatesDependingOnDate(DateTime selectedDate) {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .where('dateTime',
-            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+        isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
         .snapshots();
   }
 
@@ -137,9 +138,45 @@ class MyDataBase {
       if (t != null) {
         me.push_token = t;
         SharedData.user?.push_token = t;
-        log('البوشتوكننننننننن: $t');
+        log('Push Token Harsh: $t');
       }
     });
+    /*FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      log('Got a message whilst in the foreground!');
+      log('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        log('Message also contained a notification: ${message.notification}');
+      }
+    });*/
+  }
+
+  static Future<void> sendPushNotification(
+      MyUser sender, MyUser receiver, String msg) async {
+    try {
+      final body = {
+        "to": receiver.push_token,
+        "notification": {
+          "title": sender.userName,
+          "body": msg,
+          "android_channel_id": "chats",
+        },
+        "data": {
+          "some_data": "User ID: ${me.id}",
+        },
+      };
+      var res = await post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+            HttpHeaders.authorizationHeader:
+                'key=AAAAC4MkweQ:APA91bGDZYK3xUc9woCoS3UVVQ2ZmsgLoUelf_EywNHixnJCbRndPLpgvmlI__CKAJ0pzJQdg9qRVuisfoZr07iL0D44LJ2PyqSfO0EcJheKQ0oj_GlOMP7EFLdtrcxnnRzEyyX-f5Kl'
+          },
+          body: jsonEncode(body));
+      log('Response status: ${res.statusCode}');
+      log('Response body: ${res.body}');
+    } catch (e) {
+      log('\nsendPushNotificationE: $e');
+    }
   }
 
   static Future<bool> userExists() async {
@@ -209,8 +246,7 @@ class MyDataBase {
         .update({'image': me.image});
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(
-      MyUser myUser) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(MyUser myUser) {
     return firestore
         .collection('Users')
         .where('id', isEqualTo: myUser.id)
@@ -225,10 +261,9 @@ class MyDataBase {
     });
   }
 
-  static Future<void> updateMissingPersonInfo(
-      {required MissingPerson missingPerson,
-      bool? reachedFamily,
-      String? name}) async {
+  static Future<void> updateMissingPersonInfo({required MissingPerson missingPerson,
+    bool? reachedFamily,
+    String? name}) async {
     await firestore.collection('Missing Person').doc(missingPerson.id).update({
       'reachedToFamily': reachedFamily ?? missingPerson.reachedToFamily,
       'name': name ?? missingPerson.name
@@ -239,16 +274,14 @@ class MyDataBase {
       ? '${user.uid}_$id'
       : '${id}_${user.uid}';
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(
-      MyUser user) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(MyUser user) {
     return firestore
         .collection('chats/${getConversationID(user.id!)}/messages')
         .orderBy('sent', descending: true)
         .snapshots();
   }
 
-  static Future<void> sendMessage(
-      MyUser chatUser, String msg, Type type) async {
+  static Future<void> sendMessage(MyUser chatUser, String msg, Type type) async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
     final Message message = Message(
         toId: chatUser.id!,
@@ -259,7 +292,9 @@ class MyDataBase {
         sent: time);
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id!)}/messages/');
-    await ref.doc(time).set(message.toJson());
+    await ref.doc(time).set(message.toJson()).then((value) =>
+        sendPushNotification(
+            user as MyUser, chatUser, type == Type.text ? msg : 'image'));
   }
 
   static Future<void> updateMessageReadStatus(Message message) async {
@@ -269,8 +304,7 @@ class MyDataBase {
         .update({'read': DateTime.now().millisecondsSinceEpoch.toString()});
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessage(
-      MyUser user) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessage(MyUser user) {
     return firestore
         .collection('chats/${getConversationID(user.id!)}/messages')
         .orderBy('sent', descending: true)
@@ -291,8 +325,7 @@ class MyDataBase {
     await sendMessage(myUser, imageUrl, Type.image);
   }
 
-  static Future<void> deleteMissingPerson(
-      {required String missingPersonId}) async {
+  static Future<void> deleteMissingPerson({required String missingPersonId}) async {
     await firestore.collection('Missing Person').doc(missingPersonId).delete();
   }
 }

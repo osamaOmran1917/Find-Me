@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:find_me_ii/firebase_options.dart';
 import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
@@ -15,12 +17,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_notification_channel/flutter_notification_channel.dart';
+import 'package:flutter_notification_channel/notification_importance.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  _initializeFirebase();
   runApp(ChangeNotifierProvider<SettingsProvider>(
       create: (buildContext) {
         return SettingsProvider();
@@ -76,4 +81,15 @@ class MyApp extends StatelessWidget {
       settingsProvider.changeTheme(ThemeMode.dark);
     }
   }
+}
+
+_initializeFirebase() async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  var result = await FlutterNotificationChannel.registerNotificationChannel(
+    description: 'For Showing Message Notification',
+    id: 'chats',
+    importance: NotificationImportance.IMPORTANCE_HIGH,
+    name: 'Chats',
+  );
+  log('\nNotification Channel Result: $result');
 }
