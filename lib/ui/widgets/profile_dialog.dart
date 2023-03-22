@@ -29,6 +29,7 @@ class ProfileDialog extends StatelessWidget {
                       MediaQuery.of(context).size.height * .25),
                   child: CachedNetworkImage(
                     width: MediaQuery.of(context).size.width * .5,
+                    height: MediaQuery.of(context).size.width * .5,
                     fit: BoxFit.cover,
                     imageUrl: user.image ?? '',
                     // placeholder: (context, url) => CircularProgressIndicator(),

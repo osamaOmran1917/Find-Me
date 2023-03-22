@@ -4,6 +4,7 @@ import 'package:find_me_ii/helpers/date_utils.dart';
 import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:find_me_ii/ui/home/home_screen.dart';
 import 'package:find_me_ii/ui/home/latest_missing_tab/chat/chat_room.dart';
 import 'package:find_me_ii/ui/widgets/profile_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +44,16 @@ class _ChatUserCardState extends State<ChatUserCard> {
                 final data = snapshot.data?.docs;
                 final list =
                     data?.map((e) => Message.fromJson(e.data())).toList() ?? [];
-                if (list.isNotEmpty) _message = list[0];
+                if (list.isNotEmpty) {
+                  _message = list[0];
+                  if (_message != null &&
+                      _message!.read.isEmpty &&
+                      _message!.fromId != MyDataBase.user.uid &&
+                      _message!.fromId != SharedData.user?.id)
+                    HomeScreen.hasMessage = true;
+                  else
+                    HomeScreen.hasMessage = false;
+                }
                 return ListTile(
                   leading: InkWell(
                       onTap: () {

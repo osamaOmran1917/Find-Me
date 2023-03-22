@@ -37,17 +37,41 @@ class _SettingsTabState extends State<SettingsTab> {
                         Border.all(color: MyTheme.coloredSecondary, width: 1),
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white),
-                child: Text(
-                  settingsProvider.currentLang == 'en' ? 'English' : 'العربية',
-                  style: Theme.of(context).textTheme.headline5,
+                child: Row(
+                  children: [
+                    Text(
+                      settingsProvider.currentLang == 'en'
+                          ? 'English'
+                          : 'العربية',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                    ImageIcon(AssetImage(settingsProvider.currentLang == 'en'
+                        ? 'assets/images/abc.png'
+                        : 'assets/images/arabic-language.png'))
+                  ],
                 )),
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * .05,
           ),
-          Text(
-            AppLocalizations.of(context)!.theme,
-            style: Theme.of(context).textTheme.bodyText1,
+          Row(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.theme,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .05,
+              ),
+              Image.asset(
+                'assets/images/themes.png',
+                width: MediaQuery.of(context).size.width * .05,
+                height: MediaQuery.of(context).size.height * .05,
+              )
+            ],
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * .0125,

@@ -151,13 +151,12 @@ class MyDataBase {
     });*/
   }
 
-  static Future<void> sendPushNotification(
-      MyUser sender, MyUser receiver, String msg) async {
+  static Future<void> sendPushNotification(MyUser myUser, String msg) async {
     try {
       final body = {
-        "to": receiver.push_token,
+        "to": myUser.push_token,
         "notification": {
-          "title": sender.userName,
+          "title": myUser.userName,
           "body": msg,
           "android_channel_id": "chats",
         },
@@ -292,9 +291,9 @@ class MyDataBase {
         sent: time);
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id!)}/messages/');
+    var sender = getUserById(user.uid);
     await ref.doc(time).set(message.toJson()).then((value) =>
-        sendPushNotification(
-            user as MyUser, chatUser, type == Type.text ? msg : 'image'));
+        sendPushNotification(chatUser, type == Type.text ? msg : 'image'));
   }
 
   static Future<void> updateMessageReadStatus(Message message) async {
