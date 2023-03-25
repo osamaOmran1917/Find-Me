@@ -8,6 +8,7 @@ import 'package:find_me_ii/helpers/date_utils.dart';
 import 'package:find_me_ii/helpers/dialog_utils.dart';
 import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/latest_lost_tab.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -385,10 +386,8 @@ class _InsertLostPersonScreenState
 
   @override
   void thenMessage() {
-    showMessage(context,
+    Dialogs.showSnackbar(context,
         AppLocalizations.of(context)!.missingPersonInsertedSuccessfuly);
-    /*Navigator.pushReplacementNamed(context, AddPic.routeName,
-        arguments: AddPic.missingPersonId = InsertLostPersonScreen.id);*/
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (_) => HomeScreen()));
   }
@@ -407,7 +406,6 @@ class _InsertLostPersonScreenState
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (_) => HomeScreen()));
   }
-
 
   //كانت في الviewmodel أصلا و جبتها هنا تجربة
   Future<void> onAddMissingPersonClicked(
@@ -436,14 +434,14 @@ class _InsertLostPersonScreenState
         foundPerson: foundPerson);
     MyDataBase.insertMissingPerson(missingPerson).then((value) async {
       //called when future is completed
-      thenFun;
+      thenMessage();
       InsertLostPersonScreen.id = missingPerson.id!;
     }).onError((error, stackTrace) {
       //called when future fails
-      errorFun;
+      onErrorMessage();
     }).timeout(Duration(seconds: 15), onTimeout: () async {
       //save changes in cache
-      timeOutFun;
+      timeOutMessage();
       InsertLostPersonScreen.id = missingPerson.id!;
     });
     final ext = File(_image!).path.split('.').last;

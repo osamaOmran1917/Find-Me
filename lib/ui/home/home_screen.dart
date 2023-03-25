@@ -90,7 +90,8 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                                     arguments: InsertLostPersonScreen.lost =
                                         true);
                           },
-                          icon: Icon(CupertinoIcons.add),
+                          icon: ImageIcon(
+                              AssetImage('assets/images/add-user.png')),
                           shape: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
                           itemBuilder: (context) => [
@@ -227,7 +228,7 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
                       child: Text('cancel')),
                   TextButton(
                       onPressed: () => Navigator.pop(context, true),
-                      child: Text('Yes'))
+                      child: Text('yes'))
                 ],
               ));
   }

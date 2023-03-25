@@ -18,10 +18,13 @@ class MessageCard extends StatefulWidget {
 class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
-    return SharedData.user?.id == widget.message.fromId ||
-        MyDataBase.user.uid == widget.message.fromId
-        ? _greenMessage()
-        : _blueMessage();
+    bool isMe = SharedData.user?.id == widget.message.fromId ||
+        MyDataBase.user.uid == widget.message.fromId;
+    return InkWell(
+        onLongPress: () {
+          _showBottomSheet();
+        },
+        child: isMe ? _greenMessage() : _blueMessage());
   }
 
   Widget _blueMessage() {
@@ -136,6 +139,103 @@ class _MessageCardState extends State<MessageCard> {
                     )),
         )
       ],
+    );
+  }
+
+  void _showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return ListView(
+            shrinkWrap: true,
+            children: [
+              Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(8)),
+                  height: 4,
+                  margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * .015,
+                      horizontal: MediaQuery.of(context).size.width * .4)),
+              _OptionItem(
+                  icon: Icon(
+                    Icons.copy_all_rounded,
+                    color: Colors.blue,
+                    size: 26,
+                  ),
+                  name: 'copy text',
+                  onTap: () {}),
+              _OptionItem(
+                  icon: Icon(
+                    Icons.copy_all_rounded,
+                    color: Colors.blue,
+                    size: 26,
+                  ),
+                  name: 'copy text',
+                  onTap: () {}),
+              _OptionItem(
+                  icon: Icon(
+                    Icons.copy_all_rounded,
+                    color: Colors.blue,
+                    size: 26,
+                  ),
+                  name: 'copy text',
+                  onTap: () {}),
+              _OptionItem(
+                  icon: Icon(
+                    Icons.copy_all_rounded,
+                    color: Colors.blue,
+                    size: 26,
+                  ),
+                  name: 'copy text',
+                  onTap: () {}),
+              _OptionItem(
+                  icon: Icon(
+                    Icons.copy_all_rounded,
+                    color: Colors.blue,
+                    size: 26,
+                  ),
+                  name: 'copy text',
+                  onTap: () {})
+            ],
+          );
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))));
+  }
+}
+
+class _OptionItem extends StatelessWidget {
+  final Widget icon;
+  final String name;
+  final VoidCallback onTap;
+
+  const _OptionItem(
+      {required this.icon, required this.name, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onTap(),
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * .05,
+            right: MediaQuery.of(context).size.width * .05,
+            top: MediaQuery.of(context).size.height * .015,
+            bottom: MediaQuery.of(context).size.height * .025),
+        child: Row(
+          children: [
+            icon,
+            Flexible(
+                child: Text(
+              '    $name',
+              style: TextStyle(
+                  fontSize: 15, color: Colors.black54, letterSpacing: .5),
+            ))
+          ],
+        ),
+      ),
     );
   }
 }

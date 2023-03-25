@@ -8,6 +8,7 @@ import 'package:find_me_ii/helpers/date_utils.dart';
 import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/model/message.dart';
 import 'package:find_me_ii/model/my_user.dart';
+import 'package:find_me_ii/ui/home/latest_missing_tab/latest_lost_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -61,6 +62,21 @@ class MyDataBase {
     var missingPersonsCollection = getMissingPersonsCollection();
     var doc = missingPersonsCollection.doc(); //create new doc
     missingPerson.id = doc.id;
+    var docRef;
+    for (int i = 0; i < all.length; i++) {
+      docRef = FirebaseFirestore.instance
+          .collection(MissingPerson.collectionName)
+          .doc(all[i].id);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          if (all[i].name == missingPerson.name) {
+            print('أهو');
+          }
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+    }
     return doc.set(missingPerson); // get doc -> then set //update
   }
 
@@ -291,7 +307,6 @@ class MyDataBase {
         sent: time);
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id!)}/messages/');
-    var sender = getUserById(user.uid);
     await ref.doc(time).set(message.toJson()).then((value) =>
         sendPushNotification(chatUser, type == Type.text ? msg : 'image'));
   }
