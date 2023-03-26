@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:provider/provider.dart';
 
 import '../home/latest_missing_tab/edit_missing_person_screen.dart';
@@ -40,20 +43,17 @@ class _PostWidgetState extends State<PostWidget> {
                   widget.missingPerson.posterId!) as MyUser;
               SharedData.user?.id == widget.missingPerson.posterId
                   ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => EditMissingPersonScreen(
-                                missingPerson: widget.missingPerson,
-                              )))
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => EditMissingPersonScreen(
+                        missingPerson: widget.missingPerson,
+                      )))
                   : Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ChatRoom(user: dUser)));
+                  MaterialPageRoute(builder: (_) => ChatRoom(user: dUser)));
             },
             icon: SharedData.user?.id == widget.missingPerson.posterId
                 ? Icons.edit
                 : CupertinoIcons.chat_bubble_2,
-            label: SharedData.user?.id == widget.missingPerson.posterId
-                ? AppLocalizations.of(context)!.edit
-                : AppLocalizations.of(context)!.chat,
           ),
           if (widget.missingPerson.image != null)
             SlidableAction(
@@ -66,7 +66,23 @@ class _PostWidgetState extends State<PostWidget> {
                             ShowPicture(missingPerson: widget.missingPerson)));
               },
               icon: CupertinoIcons.viewfinder,
-              label: AppLocalizations.of(context)!.viewPicture,
+            ),
+          if (widget.missingPerson.image != null)
+            SlidableAction(
+              backgroundColor: Colors.green,
+              onPressed: (_) async {
+                try {
+                  await GallerySaver.saveImage(widget.missingPerson.image ?? '',
+                          albumName: 'Find Me')
+                      .then((success) {
+                    if (success != null && success)
+                      Dialogs.showSnackbar(context, 'Saved To Gallery!');
+                  });
+                } catch (e) {
+                  log('Error While Saving Image $e');
+                }
+              },
+              icon: Icons.download_rounded,
             ),
           if (SharedData.user?.id == widget.missingPerson.posterId)
             SlidableAction(
@@ -79,13 +95,12 @@ class _PostWidgetState extends State<PostWidget> {
                     posAction: () async {
                   await MyDataBase.deleteMissingPerson(
                       missingPersonId: widget.missingPerson.id ?? '');
-                },
+                    },
                     posActionName: AppLocalizations.of(context)!.yes,
                     negAction: () {},
                     negActionName: AppLocalizations.of(context)!.no);
               },
               icon: CupertinoIcons.delete_solid,
-              label: AppLocalizations.of(context)!.delete,
             )
         ],
       ),
@@ -115,30 +130,30 @@ class _PostWidgetState extends State<PostWidget> {
                     MediaQuery.of(context).size.height * .1),
                 child: widget.missingPerson.image == null
                     ? ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height * .1),
-                        child: Image.asset(
-                          'assets/images/missing.jpg',
-                          width: MediaQuery.of(context).size.height * .2,
-                          height: MediaQuery.of(context).size.height * .2,
-                          fit: BoxFit.cover,
-                        ),
-                      )
+                  borderRadius: BorderRadius.circular(
+                      MediaQuery.of(context).size.height * .1),
+                  child: Image.asset(
+                    'assets/images/missing.jpg',
+                    width: MediaQuery.of(context).size.height * .2,
+                    height: MediaQuery.of(context).size.height * .2,
+                    fit: BoxFit.cover,
+                  ),
+                )
                     : ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.height * .1),
-                        child: CachedNetworkImage(
-                          width: MediaQuery.of(context).size.height * .2,
-                          height: MediaQuery.of(context).size.height * .2,
-                          fit: BoxFit.cover,
-                          imageUrl: widget.missingPerson.image ?? '',
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const CircleAvatar(
-                                  child: Icon(CupertinoIcons.person_alt)),
-                        ),
-                      ),
+                  borderRadius: BorderRadius.circular(
+                      MediaQuery.of(context).size.height * .1),
+                  child: CachedNetworkImage(
+                    width: MediaQuery.of(context).size.height * .2,
+                    height: MediaQuery.of(context).size.height * .2,
+                    fit: BoxFit.cover,
+                    imageUrl: widget.missingPerson.image ?? '',
+                    placeholder: (context, url) =>
+                        CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                    const CircleAvatar(
+                        child: Icon(CupertinoIcons.person_alt)),
+                  ),
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -159,8 +174,8 @@ class _PostWidgetState extends State<PostWidget> {
             right: status
                 ? 0
                 : settingsProvider.currentLang == 'en'
-                    ? MediaQuery.of(context).size.width * .75
-                    : null,
+                ? MediaQuery.of(context).size.width * .75
+                : null,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(status

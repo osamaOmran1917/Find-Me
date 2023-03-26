@@ -19,8 +19,8 @@ class MyDataBase {
     return FirebaseFirestore.instance
         .collection(MyUser.collectionName)
         .withConverter<MyUser>(
-        fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
-        toFirestore: (user, options) => user.toFireStore());
+            fromFirestore: (doc, _) => MyUser.fromFierStore(doc.data()!),
+            toFirestore: (user, options) => user.toFireStore());
   }
 
   static Future<MyUser?> insertUser(MyUser user) async {
@@ -81,11 +81,11 @@ class MyDataBase {
   }
 
   static Future<QuerySnapshot<MissingPerson>>
-  getAllMissingPersonsDependingOnDate(DateTime selectedDate) async {
+      getAllMissingPersonsDependingOnDate(DateTime selectedDate) async {
     // Read data once.
     return await getMissingPersonsCollection()
         .where('dateTime',
-        isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
         .get();
   }
 
@@ -97,7 +97,7 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-  listenForMissingPersonsRealTimeUpdates() {
+      listenForMissingPersonsRealTimeUpdates() {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .orderBy("dateTime", descending: true)
@@ -105,7 +105,7 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-  listenForMissingPersonsRealTimeUpdatesDependingOnUser(MyUser user) {
+      listenForMissingPersonsRealTimeUpdatesDependingOnUser(MyUser user) {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .where('posterId', isEqualTo: user.id)
@@ -114,11 +114,12 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-  listenForMissingPersonsRealTimeUpdatesDependingOnDate(DateTime selectedDate) {
+      listenForMissingPersonsRealTimeUpdatesDependingOnDate(
+          DateTime selectedDate) {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .where('dateTime',
-        isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
         .snapshots();
   }
 
@@ -261,7 +262,8 @@ class MyDataBase {
         .update({'image': me.image});
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(MyUser myUser) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(
+      MyUser myUser) {
     return firestore
         .collection('Users')
         .where('id', isEqualTo: myUser.id)
@@ -276,9 +278,10 @@ class MyDataBase {
     });
   }
 
-  static Future<void> updateMissingPersonInfo({required MissingPerson missingPerson,
-    bool? reachedFamily,
-    String? name}) async {
+  static Future<void> updateMissingPersonInfo(
+      {required MissingPerson missingPerson,
+      bool? reachedFamily,
+      String? name}) async {
     await firestore.collection('Missing Person').doc(missingPerson.id).update({
       'reachedToFamily': reachedFamily ?? missingPerson.reachedToFamily,
       'name': name ?? missingPerson.name
@@ -289,14 +292,16 @@ class MyDataBase {
       ? '${user.uid}_$id'
       : '${id}_${user.uid}';
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(MyUser user) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(
+      MyUser user) {
     return firestore
         .collection('chats/${getConversationID(user.id!)}/messages')
         .orderBy('sent', descending: true)
         .snapshots();
   }
 
-  static Future<void> sendMessage(MyUser chatUser, String msg, Type type) async {
+  static Future<void> sendMessage(
+      MyUser chatUser, String msg, Type type) async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
     final Message message = Message(
         toId: chatUser.id!,
@@ -318,7 +323,8 @@ class MyDataBase {
         .update({'read': DateTime.now().millisecondsSinceEpoch.toString()});
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessage(MyUser user) {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessage(
+      MyUser user) {
     return firestore
         .collection('chats/${getConversationID(user.id!)}/messages')
         .orderBy('sent', descending: true)
@@ -339,7 +345,17 @@ class MyDataBase {
     await sendMessage(myUser, imageUrl, Type.image);
   }
 
-  static Future<void> deleteMissingPerson({required String missingPersonId}) async {
+  static Future<void> deleteMissingPerson(
+      {required String missingPersonId}) async {
     await firestore.collection('Missing Person').doc(missingPersonId).delete();
+  }
+
+  static Future<void> deleteMessage(Message message) async {
+    await firestore
+        .collection('chats/${getConversationID(message.toId)}/messages/')
+        .doc(message.sent)
+        .delete();
+    if (message.type == Type.image)
+      await storage.refFromURL(message.msg).delete();
   }
 }
