@@ -145,6 +145,8 @@ class MyDataBase {
 
   static late MyUser me;
 
+  static late MissingPerson currentMissing;
+
   static User get user => auth.currentUser!;
 
   static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
@@ -357,5 +359,17 @@ class MyDataBase {
         .delete();
     if (message.type == Type.image)
       await storage.refFromURL(message.msg).delete();
+  }
+
+  static Future<void> updateAllMissingPersonInfo(
+      {required MissingPerson missingPerson,
+      required String? name,
+      required String? address,
+      required String? desc,
+      required String? age}) async {
+    await firestore
+        .collection('Missing Person')
+        .doc(missingPerson.id)
+        .update({'name': name, 'adress': address, 'desc': desc, 'age': age});
   }
 }

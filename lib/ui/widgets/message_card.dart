@@ -207,7 +207,10 @@ class _MessageCardState extends State<MessageCard> {
                       color: Colors.blue,
                     ),
                     name: 'edit message',
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _showMessageUpdateDialog();
+                    }),
               if (isMe)
                 _OptionItem(
                     icon: Icon(
@@ -250,6 +253,26 @@ class _MessageCardState extends State<MessageCard> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))));
+  }
+
+  void _showMessageUpdateDialog() {
+    String updatedMessage = widget.message.msg;
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              title: Row(children: [
+                Icon(CupertinoIcons.text_bubble, color: Colors.blue, size: 28),
+                Text('  update message')
+              ]),
+              content: TextFormField(
+                  initialValue: updatedMessage,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)))),
+              actions: [],
+            ));
   }
 }
 

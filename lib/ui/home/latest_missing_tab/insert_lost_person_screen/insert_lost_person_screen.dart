@@ -8,7 +8,6 @@ import 'package:find_me_ii/helpers/date_utils.dart';
 import 'package:find_me_ii/helpers/dialog_utils.dart';
 import 'package:find_me_ii/helpers/shared_data.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';
-import 'package:find_me_ii/ui/home/latest_missing_tab/latest_lost_tab.dart';
 import 'package:find_me_ii/ui/providers/settings_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';

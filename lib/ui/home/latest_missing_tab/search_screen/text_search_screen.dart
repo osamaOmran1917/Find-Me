@@ -23,18 +23,6 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(CupertinoIcons.search),
-        onPressed: () {
-          if (searchController.text == null ||
-              searchController.text.trim().isEmpty)
-            return;
-          else
-            setState(() {
-              showResult = true;
-            });
-        },
-      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Container(
@@ -48,10 +36,15 @@ class _TextSearchScreenState extends State<TextSearchScreen> {
             children: [
               TextFormField(
                 onChanged: (text) {
-                  if (text.trim().isNotEmpty || text == null)
+                  if (text.trim().isNotEmpty && text != null) {
+                    setState(() {
+                      showResult = true;
+                    });
+                  } else {
                     setState(() {
                       showResult = false;
                     });
+                  }
                 },
                 controller: searchController,
                 decoration: InputDecoration(

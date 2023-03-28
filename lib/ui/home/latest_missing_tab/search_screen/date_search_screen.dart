@@ -33,7 +33,7 @@ class _DateSearchScreenState extends State<DateSearchScreen> {
           showYears: true,
           initialDate: widget.selectedDate,
           firstDate: DateTime.now().subtract(Duration(days: 365 * 25 + 6)),
-          lastDate: DateTime.now().add(Duration(days: 365 * 25 + 6)),
+          lastDate: DateTime.now(),
           onDateSelected: (date) {
             if (date == null) return;
             setState(() {
