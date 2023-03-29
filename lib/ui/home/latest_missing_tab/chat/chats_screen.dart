@@ -1,4 +1,5 @@
 import 'package:find_me_ii/data_base/my_database.dart';
+import 'package:find_me_ii/helpers/dialog_utils.dart';
 import 'package:find_me_ii/model/my_user.dart';
 import 'package:find_me_ii/ui/widgets/chat_user_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,51 +80,116 @@ class _ChatsScreenState extends State<ChatsScreen> {
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                _addUserDialog();
+              },
               child: Icon(Icons.add_comment_rounded),
             ),
           ),
           body: StreamBuilder(
-              stream: MyDataBase.getAllUsers(),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.none:
-                    return const Center(child: CircularProgressIndicator());
-                  case ConnectionState.active:
-                  case ConnectionState.done:
-                    final data = snapshot.data?.docs;
-                    _list =
-                        data?.map((e) => MyUser.fromFierStore(e.data()))
-                            .toList() ??
-                            [];
-                    if (_list.isNotEmpty) {
-                      return ListView.builder(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * .01),
-                        physics: BouncingScrollPhysics(),
-                        itemCount: _isSearching ? _searchList.length : _list
-                            .length,
-                        itemBuilder: (context, index) {
-                          return ChatUserCard(user: _isSearching
-                              ? _searchList[index]
-                              : _list[index]);
-                        },
-                      );
-                    } else {
-                      return Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.noConnectionsFound,
-                        style: TextStyle(fontSize: 20),
-                      ));
-                    }
-                }
-              }),
+            stream: MyDataBase.getMyUsersIDs(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  return const Center(child: CircularProgressIndicator());
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  return StreamBuilder(
+                      stream: MyDataBase.getAllUsers(
+                          snapshot.data?.docs.map((e) => e.id).toList() ?? []),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          case ConnectionState.none:
+                          // return const Center(child: CircularProgressIndicator());
+                          case ConnectionState.active:
+                          case ConnectionState.done:
+                            final data = snapshot.data?.docs;
+                            _list = data
+                                    ?.map((e) => MyUser.fromFierStore(e.data()))
+                                    .toList() ??
+                                [];
+                            if (_list.isNotEmpty) {
+                              return ListView.builder(
+                                padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        .01),
+                                physics: BouncingScrollPhysics(),
+                                itemCount: _isSearching
+                                    ? _searchList.length
+                                    : _list.length,
+                                itemBuilder: (context, index) {
+                                  return ChatUserCard(
+                                      user: _isSearching
+                                          ? _searchList[index]
+                                          : _list[index]);
+                                },
+                              );
+                            } else {
+                              return Center(
+                                  child: Text(
+                                AppLocalizations.of(context)!
+                                    .noConnectionsFound,
+                                style: TextStyle(fontSize: 20),
+                              ));
+                            }
+                        }
+                      });
+              }
+            },
+          ),
         ),
       ),
     );
+  }
+
+  void _addUserDialog() {
+    String email = '';
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              contentPadding:
+                  EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 10),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              title: Row(children: [
+                Icon(CupertinoIcons.person_add_solid,
+                    color: Colors.blue, size: 28),
+                Text('  add user')
+              ]),
+              content: TextFormField(
+                  maxLines: null,
+                  onChanged: (value) => email = value,
+                  decoration: InputDecoration(
+                      hintText: 'Email ID',
+                      prefixIcon: Icon(
+                        CupertinoIcons.mail_solid,
+                        color: Colors.blue,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)))),
+              actions: [
+                MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('cancel',
+                        style: TextStyle(color: Colors.blue, fontSize: 16))),
+                MaterialButton(
+                    onPressed: () async {
+                      if (email.isNotEmpty)
+                        await MyDataBase.addUser(email).then((value) {
+                          if (!value) {
+                            Dialogs.showSnackbar(
+                                context, 'There is no users with this email');
+                          }
+                        });
+                      Navigator.pop(context);
+                    },
+                    child: Text('add',
+                        style: TextStyle(color: Colors.blue, fontSize: 16)))
+              ],
+            ));
   }
 }

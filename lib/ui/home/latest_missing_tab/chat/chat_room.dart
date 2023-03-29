@@ -291,8 +291,12 @@ class _ChatRoomState extends State<ChatRoom> {
           MaterialButton(
             onPressed: () {
               if (_textController.text.isNotEmpty) {
-                MyDataBase.sendMessage(
-                    widget.user, _textController.text, Type.text);
+                if (_list.isEmpty) {
+                  MyDataBase.sendFirstMessage(
+                      widget.user, _textController.text, Type.text);
+                } else
+                  MyDataBase.sendMessage(
+                      widget.user, _textController.text, Type.text);
                 _textController.text = '';
               }
             },

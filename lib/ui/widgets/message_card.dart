@@ -256,10 +256,12 @@ class _MessageCardState extends State<MessageCard> {
   }
 
   void _showMessageUpdateDialog() {
-    String updatedMessage = widget.message.msg;
+    String updatedMsg = widget.message.msg;
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
+              contentPadding:
+                  EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 10),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               title: Row(children: [
@@ -267,11 +269,29 @@ class _MessageCardState extends State<MessageCard> {
                 Text('  update message')
               ]),
               content: TextFormField(
-                  initialValue: updatedMessage,
+                  initialValue: updatedMsg,
+                  maxLines: null,
+                  onChanged: (value) => updatedMsg = value,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15)))),
-              actions: [],
+              actions: [
+                MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('cancel',
+                        style: TextStyle(color: Colors.blue, fontSize: 16))),
+                MaterialButton(
+                    onPressed: () {
+                      MyDataBase.updateMessage(widget.message, updatedMsg);
+                      Dialogs.showSnackbar(
+                          context, 'Message updated successfully');
+                      Navigator.pop(context);
+                    },
+                    child: Text('update',
+                        style: TextStyle(color: Colors.blue, fontSize: 16)))
+              ],
             ));
   }
 }
