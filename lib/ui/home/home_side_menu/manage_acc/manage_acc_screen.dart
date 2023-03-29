@@ -23,6 +23,7 @@ class ManageAcc extends StatefulWidget {
 class _ManageAccState extends State<ManageAcc> {
   String? _image;
   var addressController = TextEditingController();
+  var fbController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +123,7 @@ class _ManageAccState extends State<ManageAcc> {
                               addressController.text.trim().toString().isEmpty)
                             return;
                           else {
-                            MyDataBase.customUpdateUserInfo(
+                            MyDataBase.updateUserAddress(
                                 address: addressController.text.toString());
                             Dialogs.showSnackbar(
                                 context, 'Restart The App To See Changes');
@@ -201,8 +202,33 @@ class _ManageAccState extends State<ManageAcc> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .045,
                   ),
-                  Text(SharedData.user?.facebook ??
-                      AppLocalizations.of(context)!.addYourFaceBook)
+                  TextButton(
+                    child: Text(SharedData.user?.facebook ??
+                        AppLocalizations.of(context)!.addYourFaceBook),
+                    onPressed: () {
+                      showWidget(
+                          context,
+                          TextField(
+                            controller: fbController,
+                            decoration: InputDecoration(
+                              labelText: 'Facebook',
+                            ),
+                          ), posAction: () {
+                        if (fbController.text.trim().toString() == null ||
+                            addressController.text.trim().toString().isEmpty)
+                          return;
+                        else {
+                          MyDataBase.updateUserFB(
+                              fbLink: fbController.text.toString());
+                          Dialogs.showSnackbar(
+                              context, 'Restart The App To See Changes');
+                        }
+                      },
+                          posActionName: 'Done',
+                          negAction: () {},
+                          negActionName: 'Cancel');
+                    },
+                  )
                 ],
               ),
               SizedBox(

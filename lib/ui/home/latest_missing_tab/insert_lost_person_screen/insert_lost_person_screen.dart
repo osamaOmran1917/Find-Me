@@ -130,202 +130,214 @@ class _InsertLostPersonScreenState
             padding: EdgeInsets.all(12),
             child: Form(
               key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: MyTheme.basicWhite,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: TextFormField(
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          b1 = true;
-                          return null;
-                        } else {
-                          b1 = false;
-                          return null;
-                        }
-                      },
-                      controller: nameController,
-                      decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.name),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: MyTheme.basicWhite,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: TextFormField(
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          b2 = true;
-                          return null;
-                        } else {
-                          b2 = false;
-                          return null;
-                        }
-                      },
-                      controller: ageController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.age),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: MyTheme.basicWhite,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: TextFormField(
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          b3 = true;
-                          return null;
-                        } else {
-                          b3 = false;
-                          return null;
-                        }
-                      },
-                      controller: describtionController,
-                      minLines: 1,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                          labelText: InsertLostPersonScreen.lost
-                              ? AppLocalizations.of(context)!
-                                  .describeThePersonYouAreSearchingFor
-                              : AppLocalizations.of(context)!
-                                  .describeThePersonYouVeFound),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: MyTheme.basicWhite,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: settingsProvider.currentLang == 'en'
-                        ? DropdownButton<String>(
-                      items: govs.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      hint: Text(gov),
-                      onChanged: (value) {
-                        setState(() {
-                          gov = value.toString();
-                        });
-                      },
-                    )
-                        : DropdownButton<String>(
-                      items: govsAR.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      hint: Text(gov),
-                      onChanged: (value) {
-                        setState(() {
-                          gov = value.toString();
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: MyTheme.basicWhite,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: TextFormField(
-                      validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
-                          b4 = true;
-                          return null;
-                        } else {
-                          b4 = false;
-                          return null;
-                        }
-                      },
-                      controller: addressController,
-                      minLines: 1,
-                      maxLines: 3,
-                      decoration: InputDecoration(
-                          labelText: InsertLostPersonScreen.lost
-                              ? AppLocalizations.of(context)!
-                                  .whereIsThisPersonFrom
-                              : AppLocalizations.of(context)!
-                                  .whereIsThiesPersonRightNow),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      _showBottomSheet();
-                    },
-                    icon: Icon(
-                      CupertinoIcons.photo,
-                      size: 25,
-                    ),
-                    label: Text(
-                      AppLocalizations.of(context)!.addPicToThisPerson,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
-                        minimumSize: Size(
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .width * .5,
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height * .06)),
-                  ),
-                  _image != null ? ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        MediaQuery
-                            .of(context)
-                            .size
-                            .height * .1),
-                    child: Image.file(
-                      File(_image!),
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .height * .2,
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * .2,
-                      fit: BoxFit.cover,
-                    ),
-                  ) : Container(
-                    height: 0,
-                    width: 0,
-                  ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                        MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            )),
-                        backgroundColor:
-                        MaterialStateProperty.all(MyTheme.basicBlue),
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 50, vertical: 15)),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: MyTheme.basicWhite,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            b1 = true;
+                            return null;
+                          } else {
+                            b1 = false;
+                            return null;
+                          }
+                        },
+                        controller: nameController,
+                        decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.name),
                       ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: MyTheme.basicWhite,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            b2 = true;
+                            return null;
+                          } else {
+                            b2 = false;
+                            return null;
+                          }
+                        },
+                        controller: ageController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.age),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: MyTheme.basicWhite,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            b3 = true;
+                            return null;
+                          } else {
+                            b3 = false;
+                            return null;
+                          }
+                        },
+                        controller: describtionController,
+                        minLines: 1,
+                        maxLines: 5,
+                        decoration: InputDecoration(
+                            labelText: InsertLostPersonScreen.lost
+                                ? AppLocalizations.of(context)!
+                                    .describeThePersonYouAreSearchingFor
+                                : AppLocalizations.of(context)!
+                                    .describeThePersonYouVeFound),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: MyTheme.basicWhite,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: settingsProvider.currentLang == 'en'
+                          ? DropdownButton<String>(
+                              items: govs.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              hint: Text(gov),
+                              onChanged: (value) {
+                                setState(() {
+                                  gov = value.toString();
+                                });
+                              },
+                            )
+                          : DropdownButton<String>(
+                              items: govsAR.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              hint: Text(gov),
+                              onChanged: (value) {
+                                setState(() {
+                                  gov = value.toString();
+                                });
+                              },
+                            ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width * .03),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: MyTheme.basicWhite,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: InkWell(
+                        onTap: () {
+                          showDateDialoge();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            InsertLostPersonScreen.lost
+                                ? 'lose date: ${selectedDate.year}/${selectedDate.month}/${selectedDate.day}'
+                                : 'finding date: ${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: MyTheme.basicWhite,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            b4 = true;
+                            return null;
+                          } else {
+                            b4 = false;
+                            return null;
+                          }
+                        },
+                        controller: addressController,
+                        minLines: 1,
+                        maxLines: 3,
+                        decoration: InputDecoration(
+                            labelText: InsertLostPersonScreen.lost
+                                ? AppLocalizations.of(context)!
+                                    .whereIsThisPersonFrom
+                                : AppLocalizations.of(context)!
+                                    .whereIsThiesPersonRightNow),
+                      ),
+                    ),
+                    ElevatedButton.icon(
                       onPressed: () {
-                        addMissingPerson();
+                        _showBottomSheet();
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(AppLocalizations.of(context)!.insert),
-                          Icon(Icons.add_circle_outlined),
-                        ],
-                      ))
-                ],
+                      icon: Icon(
+                        CupertinoIcons.photo,
+                        size: 25,
+                      ),
+                      label: Text(
+                        AppLocalizations.of(context)!.addPicToThisPerson,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          minimumSize: Size(
+                              MediaQuery.of(context).size.width * .5,
+                              MediaQuery.of(context).size.height * .06)),
+                    ),
+                    _image != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.height * .1),
+                            child: Image.file(
+                              File(_image!),
+                              width: MediaQuery.of(context).size.height * .2,
+                              height: MediaQuery.of(context).size.height * .2,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Container(
+                            height: 0,
+                            width: 0,
+                          ),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          )),
+                          backgroundColor:
+                              MaterialStateProperty.all(MyTheme.basicBlue),
+                          padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15)),
+                        ),
+                        onPressed: () {
+                          addMissingPerson();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(AppLocalizations.of(context)!.insert),
+                            Icon(Icons.add_circle_outlined),
+                          ],
+                        ))
+                  ],
+                ),
               ),
             ),
           ),
@@ -344,11 +356,9 @@ class _InsertLostPersonScreenState
         void thenFun = thenMessage();
         void errorFun = onErrorMessage();
         void timeOutFun = timeOutMessage();
-        String name = nameController.text
-            .trim()
-            .isEmpty
-            ? AppLocalizations.of(context)!.nameNotAvailable
-            : nameController.text,
+        String name = nameController.text.trim().isEmpty
+                ? AppLocalizations.of(context)!.nameNotAvailable
+                : nameController.text,
             gover = gov == 'gov'
                 ? AppLocalizations.of(context)!.govNotAvailable
                 : gov,
@@ -360,18 +370,8 @@ class _InsertLostPersonScreenState
 
         DateTime dateTime = DateTime.now();
 
-        onAddMissingPersonClicked(
-            name,
-            age,
-            desc,
-            gover,
-            userId,
-            address,
-            image,
-            !InsertLostPersonScreen.lost,
-            thenFun,
-            errorFun,
-            timeOutFun);
+        onAddMissingPersonClicked(name, age, desc, gover, userId, address,
+            image, !InsertLostPersonScreen.lost, thenFun, errorFun, timeOutFun);
       }
     } else
       return;
@@ -427,9 +427,11 @@ class _InsertLostPersonScreenState
         adress: address,
         image: _image ?? '',
         dateTime: dateOnly(DateTime.now()),
+        dateOfLoseOrFinding: dateOnly(selectedDate),
         reachedToFamily: false,
         posterId: SharedData.user?.id,
         posterName: SharedData.user?.userName,
+        posterImage: SharedData.user?.image,
         foundPerson: foundPerson);
     MyDataBase.insertMissingPerson(missingPerson).then((value) async {
       //called when future is completed
@@ -463,14 +465,8 @@ class _InsertLostPersonScreenState
           return ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
-                top: MediaQuery
-                    .of(context)
-                    .size
-                    .height * .02,
-                bottom: MediaQuery
-                    .of(context)
-                    .size
-                    .height * .05),
+                top: MediaQuery.of(context).size.height * .02,
+                bottom: MediaQuery.of(context).size.height * .05),
             children: [
               Text(
                 'Pick a picture',
@@ -478,10 +474,7 @@ class _InsertLostPersonScreenState
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * .02,
+                height: MediaQuery.of(context).size.height * .02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -491,14 +484,8 @@ class _InsertLostPersonScreenState
                           backgroundColor: Colors.white,
                           shape: CircleBorder(),
                           fixedSize: Size(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * .3,
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * .15)),
+                              MediaQuery.of(context).size.width * .3,
+                              MediaQuery.of(context).size.height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
                         // Pick an image
@@ -520,14 +507,8 @@ class _InsertLostPersonScreenState
                           backgroundColor: Colors.white,
                           shape: CircleBorder(),
                           fixedSize: Size(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * .3,
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * .15)),
+                              MediaQuery.of(context).size.width * .3,
+                              MediaQuery.of(context).size.height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
                         // Pick an image
@@ -550,5 +531,19 @@ class _InsertLostPersonScreenState
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20), topLeft: Radius.circular(20))));
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  void showDateDialoge() async {
+    DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime.now().subtract(Duration(days: 365 * 25 + 6)),
+        lastDate: DateTime.now());
+    if (date != null) {
+      selectedDate = date;
+      setState(() {});
+    }
   }
 }

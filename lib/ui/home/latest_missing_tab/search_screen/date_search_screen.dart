@@ -95,9 +95,17 @@ class _DateSearchScreenState extends State<DateSearchScreen> {
                 );
               },
               // future: MyDataBase.getAllMissingPersons(),
-              stream: MyDataBase
-                  .listenForMissingPersonsRealTimeUpdatesDependingOnDate(
-                      widget.selectedDate),
+              stream: whichDate == 'post'
+                  ? MyDataBase
+                      .listenForMissingPersonsRealTimeUpdatesDependingOnPostDate(
+                          widget.selectedDate)
+                  : whichDate == 'lose'
+                      ? MyDataBase
+                          .listenForMissingPersonsRealTimeUpdatesDependingOnDateOfLose(
+                              widget.selectedDate)
+                      : MyDataBase
+                          .listenForMissingPersonsRealTimeUpdatesDependingOnDateOfFinding(
+                              widget.selectedDate),
             ),
           ),
         )

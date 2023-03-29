@@ -8,10 +8,9 @@ class MissingPerson {
       gov,
       posterId,
       posterName,
-      image,
-      loseDate,
-      findingDate;
-  DateTime? dateTime;
+      posterImage,
+      image;
+  DateTime? dateTime, dateOfLoseOrFinding;
   bool? reachedToFamily, foundPerson;
 
   MissingPerson(
@@ -22,12 +21,12 @@ class MissingPerson {
       this.age,
       this.gov,
       this.dateTime,
+      this.dateOfLoseOrFinding,
       this.reachedToFamily,
       this.image,
-      this.loseDate,
-      this.findingDate,
       this.posterId,
       this.posterName,
+      this.posterImage,
       this.foundPerson});
 
   MissingPerson.fromFirestore(Map<String, dynamic> data)
@@ -39,12 +38,13 @@ class MissingPerson {
             age: data['age'],
             gov: data['gov'],
             dateTime: DateTime.fromMillisecondsSinceEpoch(data['dateTime']),
+            dateOfLoseOrFinding: DateTime.fromMillisecondsSinceEpoch(
+                data['dateOfLoseOrFinding']),
             reachedToFamily: data['reachedToFamily'],
             image: data['image'],
-            loseDate: data['loseDate'],
-            findingDate: data['findingDate'],
             posterId: data['posterId'],
             posterName: data['posterName'],
+            posterImage: data['posterImage'],
             foundPerson: data['foundPerson']);
 
   Map<String, dynamic> toFirestore() {
@@ -56,12 +56,12 @@ class MissingPerson {
       'age': age,
       'gov': gov,
       'dateTime': dateTime?.millisecondsSinceEpoch,
+      'dateOfLoseOrFinding': dateOfLoseOrFinding?.millisecondsSinceEpoch,
       'reachedToFamily': reachedToFamily,
       'image': image,
-      'loseDate': loseDate,
-      'findingDate': findingDate,
       'posterId': posterId,
       'posterName': posterName,
+      'posterImage': posterImage,
       'foundPerson': foundPerson
     };
   }

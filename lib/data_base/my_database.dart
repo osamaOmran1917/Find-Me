@@ -114,11 +114,33 @@ class MyDataBase {
   }
 
   static Stream<QuerySnapshot<MissingPerson>>
-      listenForMissingPersonsRealTimeUpdatesDependingOnDate(
+      listenForMissingPersonsRealTimeUpdatesDependingOnPostDate(
           DateTime selectedDate) {
     // Listen for realtime update
     return getMissingPersonsCollection()
         .where('dateTime',
+            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot<MissingPerson>>
+      listenForMissingPersonsRealTimeUpdatesDependingOnDateOfLose(
+          DateTime selectedDate) {
+    // Listen for realtime update
+    return getMissingPersonsCollection()
+        .where('foundPerson', isEqualTo: false)
+        .where('dateOfLoseOrFinding',
+            isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot<MissingPerson>>
+      listenForMissingPersonsRealTimeUpdatesDependingOnDateOfFinding(
+          DateTime selectedDate) {
+    // Listen for realtime update
+    return getMissingPersonsCollection()
+        .where('foundPerson', isEqualTo: true)
+        .where('dateOfLoseOrFinding',
             isEqualTo: dateOnly(selectedDate).millisecondsSinceEpoch)
         .snapshots();
   }
@@ -284,11 +306,18 @@ class MyDataBase {
         .update({'userName': me.userName, 'phoneNumber': me.phoneNumber});
   }
 
-  static Future<void> customUpdateUserInfo({String? address}) async {
+  static Future<void> updateUserAddress({String? address}) async {
     await firestore
         .collection('Users')
         .doc(SharedData.user?.id ?? me.id)
         .update({'gov': address});
+  }
+
+  static Future<void> updateUserFB({String? fbLink}) async {
+    await firestore
+        .collection('Users')
+        .doc(SharedData.user?.id ?? me.id)
+        .update({'facebook': fbLink});
   }
 
   static Future<void> updateProfilePicture(File file) async {

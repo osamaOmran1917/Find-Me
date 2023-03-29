@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
@@ -28,6 +29,8 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
+  String? _image;
+
   @override
   Widget build(BuildContext context) {
     var settingsProvider = Provider.of<SettingsProvider>(context);
@@ -73,7 +76,7 @@ class _PostWidgetState extends State<PostWidget> {
               onPressed: (_) async {
                 try {
                   await GallerySaver.saveImage(widget.missingPerson.image ?? '',
-                          albumName: 'Find Me')
+                      albumName: 'Find Me')
                       .then((success) {
                     if (success != null && success)
                       Dialogs.showSnackbar(context, 'Saved To Gallery!');
@@ -93,9 +96,9 @@ class _PostWidgetState extends State<PostWidget> {
                     AppLocalizations.of(context)!
                         .areYouSureYouWannaDeleteThisMissingPerson,
                     posAction: () async {
-                  await MyDataBase.deleteMissingPerson(
-                      missingPersonId: widget.missingPerson.id ?? '');
-                },
+                      await MyDataBase.deleteMissingPerson(
+                          missingPersonId: widget.missingPerson.id ?? '');
+                    },
                     posActionName: AppLocalizations.of(context)!.yes,
                     negAction: () {},
                     negActionName: AppLocalizations.of(context)!.no);
@@ -117,6 +120,41 @@ class _PostWidgetState extends State<PostWidget> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
+                          _image != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      MediaQuery.of(context).size.height * .1),
+                                  child: Image.file(
+                                    File(_image!),
+                                    width: MediaQuery.of(context).size.height *
+                                        .045,
+                                    height: MediaQuery.of(context).size.height *
+                                        .045,
+                                    fit: BoxFit.cover,
+                                    // placeholder: (context, url) => CircularProgressIndicator(),
+                                  ),
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      MediaQuery.of(context).size.height * .1),
+                                  child: CachedNetworkImage(
+                                    width: MediaQuery.of(context).size.height *
+                                        .045,
+                                    height: MediaQuery.of(context).size.height *
+                                        .045,
+                                    fit: BoxFit.cover,
+                                    imageUrl:
+                                        widget.missingPerson.posterImage ?? '',
+                                    // placeholder: (context, url) => CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        const CircleAvatar(
+                                            child: Icon(
+                                                CupertinoIcons.person_alt)),
+                                  ),
+                                ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * .03,
+                          ),
                           Text(
                             widget.missingPerson.posterName ?? '',
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -135,30 +173,30 @@ class _PostWidgetState extends State<PostWidget> {
                       MediaQuery.of(context).size.height * .1),
                   child: widget.missingPerson.image == null
                       ? ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.height * .1),
-                          child: Image.asset(
-                            'assets/images/missing.jpg',
-                            width: MediaQuery.of(context).size.height * .2,
-                            height: MediaQuery.of(context).size.height * .2,
-                            fit: BoxFit.cover,
-                          ),
-                        )
+                    borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.height * .1),
+                    child: Image.asset(
+                      'assets/images/missing.jpg',
+                      width: MediaQuery.of(context).size.height * .2,
+                      height: MediaQuery.of(context).size.height * .2,
+                      fit: BoxFit.cover,
+                    ),
+                  )
                       : ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.height * .1),
-                          child: CachedNetworkImage(
-                            width: MediaQuery.of(context).size.height * .2,
-                            height: MediaQuery.of(context).size.height * .2,
-                            fit: BoxFit.cover,
-                            imageUrl: widget.missingPerson.image ?? '',
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const CircleAvatar(
-                                    child: Icon(CupertinoIcons.person_alt)),
-                          ),
-                        ),
+                    borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.height * .1),
+                    child: CachedNetworkImage(
+                      width: MediaQuery.of(context).size.height * .2,
+                      height: MediaQuery.of(context).size.height * .2,
+                      fit: BoxFit.cover,
+                      imageUrl: widget.missingPerson.image ?? '',
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                      const CircleAvatar(
+                          child: Icon(CupertinoIcons.person_alt)),
+                    ),
+                  ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
