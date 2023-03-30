@@ -331,6 +331,25 @@ class MyDataBase {
         .update({'image': me.image});
   }
 
+  static Future<void> updateMissingPersonPicture(
+      File file, MissingPerson missingPerson) async {
+    final ext = file.path.split('.').last;
+    final ref =
+        storage.ref().child('lost_people_pictures/${missingPerson.id}.$ext');
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext'));
+    await firestore
+        .collection(MissingPerson.collectionName)
+        .doc(missingPerson.id)
+        .update({'image': await ref.getDownloadURL()});
+  }
+
+  static Future<void> deleteMissingPersonPicture(
+      String missingPersonPicture) async {
+    final ref =
+        storage.ref().child('lost_people_pictures/$missingPersonPicture.jpg');
+    await ref.delete();
+  }
+
   static Stream<QuerySnapshot<Map<String, dynamic>>> getUserInfo(
       MyUser myUser) {
     return firestore
@@ -417,6 +436,7 @@ class MyDataBase {
   static Future<void> deleteMissingPerson(
       {required String missingPersonId}) async {
     await firestore.collection('Missing Person').doc(missingPersonId).delete();
+    deleteMissingPersonPicture(missingPersonId);
   }
 
   static Future<void> deleteMessage(Message message) async {

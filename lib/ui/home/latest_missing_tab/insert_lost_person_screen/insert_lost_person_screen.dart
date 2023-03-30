@@ -153,6 +153,9 @@ class _InsertLostPersonScreenState
                             labelText: AppLocalizations.of(context)!.name),
                       ),
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                           color: MyTheme.basicWhite,
@@ -172,6 +175,9 @@ class _InsertLostPersonScreenState
                         decoration: InputDecoration(
                             labelText: AppLocalizations.of(context)!.age),
                       ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -197,6 +203,9 @@ class _InsertLostPersonScreenState
                                 : AppLocalizations.of(context)!
                                     .describeThePersonYouVeFound),
                       ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
                     ),
                     Container(
                       width: double.infinity,
@@ -233,6 +242,9 @@ class _InsertLostPersonScreenState
                               },
                             ),
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
                     Container(
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.width * .03),
@@ -254,6 +266,9 @@ class _InsertLostPersonScreenState
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -280,6 +295,9 @@ class _InsertLostPersonScreenState
                                     .whereIsThiesPersonRightNow),
                       ),
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
                     ElevatedButton.icon(
                       onPressed: () {
                         _showBottomSheet();
@@ -298,6 +316,9 @@ class _InsertLostPersonScreenState
                               MediaQuery.of(context).size.width * .5,
                               MediaQuery.of(context).size.height * .06)),
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .03,
+                    ),
                     _image != null
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(
@@ -313,6 +334,10 @@ class _InsertLostPersonScreenState
                             height: 0,
                             width: 0,
                           ),
+                    if (_image != null)
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .03,
+                      ),
                     ElevatedButton(
                         style: ButtonStyle(
                           shape:

@@ -295,7 +295,8 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
                           setState(() {
                             _image = image.path;
                           });
-                          MyDataBase.updateProfilePicture(File(_image!));
+                          MyDataBase.updateMissingPersonPicture(
+                              File(_image!), widget.missingPerson);
                           Navigator.pop(context);
                         }
                       },
@@ -316,7 +317,8 @@ class _EditMissingPersonScreenState extends State<EditMissingPersonScreen> {
                           setState(() {
                             _image = image.path;
                           });
-                          MyDataBase.updateProfilePicture(File(_image!));
+                          MyDataBase.updateMissingPersonPicture(
+                              File(_image!), widget.missingPerson);
                           Navigator.pop(context);
                         }
                       },

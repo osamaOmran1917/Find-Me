@@ -54,6 +54,7 @@ class _ProfileTabState extends State<ProfileTab> {
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * .05),
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
                   SizedBox(
@@ -65,29 +66,29 @@ class _ProfileTabState extends State<ProfileTab> {
                       _image != null
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.height * .1),
-                              child: Image.file(
-                                File(_image!),
-                                width: MediaQuery.of(context).size.height * .2,
-                                height: MediaQuery.of(context).size.height * .2,
-                                fit: BoxFit.cover,
-                                // placeholder: (context, url) => CircularProgressIndicator(),
-                              ),
-                            )
+                            MediaQuery.of(context).size.height * .1),
+                        child: Image.file(
+                          File(_image!),
+                          width: MediaQuery.of(context).size.height * .2,
+                          height: MediaQuery.of(context).size.height * .2,
+                          fit: BoxFit.cover,
+                          // placeholder: (context, url) => CircularProgressIndicator(),
+                        ),
+                      )
                           : ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.height * .1),
-                              child: CachedNetworkImage(
-                                width: MediaQuery.of(context).size.height * .2,
-                                height: MediaQuery.of(context).size.height * .2,
-                                fit: BoxFit.cover,
-                                imageUrl: widget.user.image ?? '',
-                                // placeholder: (context, url) => CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                        child: Icon(CupertinoIcons.person_alt)),
-                              ),
-                            ),
+                        borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.height * .1),
+                        child: CachedNetworkImage(
+                          width: MediaQuery.of(context).size.height * .2,
+                          height: MediaQuery.of(context).size.height * .2,
+                          fit: BoxFit.cover,
+                          imageUrl: widget.user.image ?? '',
+                          // placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                          const CircleAvatar(
+                              child: Icon(CupertinoIcons.person_alt)),
+                        ),
+                      ),
                       Positioned(
                         bottom: 0,
                         right: 0,
@@ -141,7 +142,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     validator: (val) =>
                     val!.length > 0 && val.length < 11
                         ? AppLocalizations.of(context)!
-                            .pleasEnterAValidPhoneNumber
+                        .pleasEnterAValidPhoneNumber
                         : null,
                     initialValue: MyDataBase.me.phoneNumber,
                     onSaved: (val) => MyDataBase.me.phoneNumber = val ?? '',
@@ -199,36 +200,36 @@ class _ProfileTabState extends State<ProfileTab> {
                         );
                       }
                       var data =
-                          snapshot.data?.docs.map((e) => e.data()).toList();
+                      snapshot.data?.docs.map((e) => e.data()).toList();
                       return ListView.builder(
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (buildContext, index) {
                           return data.isEmpty
                               ? Center(
-                                  child: Text(
-                                    AppLocalizations.of(context)!.noLostPeople,
-                                    style: TextStyle(
-                                        color: MyTheme.coloredSecondary,
-                                        fontSize: 30),
-                                  ),
-                                )
+                            child: Text(
+                              AppLocalizations.of(context)!.noLostPeople,
+                              style: TextStyle(
+                                  color: MyTheme.coloredSecondary,
+                                  fontSize: 30),
+                            ),
+                          )
                               : InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, PostDetails.routeName,
-                                        arguments: SharedData.missingPerson =
-                                            data[index]);
-                                    print(data[index].id);
-                                  },
-                                  child: PostWidget(data[index]));
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, PostDetails.routeName,
+                                    arguments: SharedData.missingPerson =
+                                    data[index]);
+                                print(data[index].id);
+                              },
+                              child: PostWidget(data[index]));
                         },
                         itemCount: data!.length,
                       );
                     },
                     stream: MyDataBase
                         .listenForMissingPersonsRealTimeUpdatesDependingOnUser(
-                            SharedData.user!),
+                        SharedData.user!),
                   )
                 ],
               ),
