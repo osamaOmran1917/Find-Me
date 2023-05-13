@@ -1,3 +1,4 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
 import 'package:find_me_ii/helpers/my_theme.dart';
@@ -68,143 +69,143 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
         return shouldPop ?? false;
       },
       child: Scaffold(
-          drawer: Drawer(
-            child: HomeSideMenu(),
-          ),
-          appBar: AppBar(
-            centerTitle: HomeScreen.selectedIndex == 0 ? false : true,
-            title: Text(AppLocalizations.of(context)!.app_title),
-            actions: [
-              HomeScreen.selectedIndex == 0
-                  ? CircleAvatar(
-                      backgroundColor: MyTheme.basicWhite.withOpacity(.2),
-                      child: PopupMenuButton(
-                          onSelected: (value) {
-                            value == AppLocalizations.of(context)!.foundPerson
-                                ? Navigator.pushNamed(
-                                    context, InsertLostPersonScreen.routeName,
-                                    arguments: InsertLostPersonScreen.lost =
-                                        false)
-                                : Navigator.pushNamed(
-                                    context, InsertLostPersonScreen.routeName,
-                                    arguments: InsertLostPersonScreen.lost =
-                                        true);
-                          },
-                          icon: ImageIcon(
-                              AssetImage('assets/images/add-user.png')),
-                          shape: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  child: Text(AppLocalizations.of(context)!
-                                      .foundPerson),
-                                  value:
-                                      AppLocalizations.of(context)!.foundPerson,
-                                ),
-                                PopupMenuItem(
-                                  child: Text(
-                                      AppLocalizations.of(context)!.lostPerson),
-                                  value:
-                                      AppLocalizations.of(context)!.lostPerson,
-                                )
-                              ]),
+        drawer: Drawer(
+          child: HomeSideMenu(),
+        ),
+        appBar: AppBar(
+          centerTitle: HomeScreen.selectedIndex == 0 ? false : true,
+          title: Text(AppLocalizations.of(context)!.app_title),
+          actions: [
+            HomeScreen.selectedIndex == 0
+                ? CircleAvatar(
+              backgroundColor: MyTheme.basicWhite.withOpacity(.2),
+              child: PopupMenuButton(
+                  onSelected: (value) {
+                    value == AppLocalizations.of(context)!.foundPerson
+                        ? Navigator.pushNamed(
+                        context, InsertLostPersonScreen.routeName,
+                        arguments: InsertLostPersonScreen.lost =
+                        false)
+                        : Navigator.pushNamed(
+                        context, InsertLostPersonScreen.routeName,
+                        arguments: InsertLostPersonScreen.lost =
+                        true);
+                  },
+                  icon: ImageIcon(
+                      AssetImage('assets/images/add-user.png')),
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text(AppLocalizations.of(context)!
+                          .foundPerson),
+                      value:
+                      AppLocalizations.of(context)!.foundPerson,
+                    ),
+                    PopupMenuItem(
+                      child: Text(
+                          AppLocalizations.of(context)!.lostPerson),
+                      value:
+                      AppLocalizations.of(context)!.lostPerson,
                     )
-                  : Container(),
-              HomeScreen.selectedIndex == 0
-                  ? SizedBox(
-                      width: MediaQuery.of(context).size.width * .03,
-                    )
-                  : Container(),
-              HomeScreen.selectedIndex == 0
-                  ? CircleAvatar(
-                      backgroundColor: MyTheme.basicWhite.withOpacity(.2),
-                      child: IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                                context, SearchScreen.routeName);
-                          },
-                          icon: Icon(CupertinoIcons.search)))
-                  : Container(),
-              HomeScreen.selectedIndex == 0
-                  ? SizedBox(
-                      width: MediaQuery.of(context).size.width * .03,
-                    )
-                  : Container(),
-              HomeScreen.selectedIndex == 0
-                  ? CircleAvatar(
-                      backgroundColor: MyTheme.basicWhite.withOpacity(.2),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, ChatsScreen.routeName);
-                        },
-                        icon: Stack(
-                          children: [
-                            Icon(CupertinoIcons.chat_bubble_2),
-                            if (HomeScreen.hasMessage)
-                              Positioned(
-                                bottom: MediaQuery.of(context).size.height * 0,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(
-                                          MediaQuery.of(context).size.height *
-                                              500)),
-                                  width:
-                                      MediaQuery.of(context).size.width * .03,
-                                  height:
-                                      MediaQuery.of(context).size.width * .03,
-                                ),
-                              )
-                          ],
-                        ),
-                      ))
-                  : Container(),
-              HomeScreen.selectedIndex == 0
-                  ? SizedBox(
-                      width: MediaQuery.of(context).size.width * .03,
-                    )
-                  : Container(),
-            ],
-          ),
-          body: tabs[HomeScreen.selectedIndex],
-          bottomNavigationBar: BottomNavigationBar(
-              currentIndex: HomeScreen.selectedIndex,
-              onTap: (index) {
-                onTabClicked(index);
-                setState(() {});
-              },
-              items: [
-                BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .backgroundColor,
-                    icon: Icon(CupertinoIcons.home),
-                    label: AppLocalizations.of(context)!.home),
-                BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .backgroundColor,
-                    icon: ImageIcon(AssetImage('assets/images/dashboard.png')),
-                    label: AppLocalizations.of(context)!.dashboard),
-                BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .backgroundColor,
-                    icon: Icon(CupertinoIcons.person_alt),
-                    label: AppLocalizations.of(context)!.profile),
-                BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .backgroundColor,
-                    icon: Icon(CupertinoIcons.bell_fill),
-                    label: AppLocalizations.of(context)!.notifications),
-                BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .backgroundColor,
-                    icon: Icon(CupertinoIcons.settings),
-                    label: AppLocalizations.of(context)!.settings)
-              ])),
+                  ]),
+            )
+                : Container(),
+            HomeScreen.selectedIndex == 0
+                ? SizedBox(
+              width: MediaQuery.of(context).size.width * .03,
+            )
+                : Container(),
+            HomeScreen.selectedIndex == 0
+                ? CircleAvatar(
+                backgroundColor: MyTheme.basicWhite.withOpacity(.2),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, SearchScreen.routeName);
+                    },
+                    icon: Icon(CupertinoIcons.search)))
+                : Container(),
+            HomeScreen.selectedIndex == 0
+                ? SizedBox(
+              width: MediaQuery.of(context).size.width * .03,
+            )
+                : Container(),
+            HomeScreen.selectedIndex == 0
+                ? CircleAvatar(
+                backgroundColor: MyTheme.basicWhite.withOpacity(.2),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, ChatsScreen.routeName);
+                  },
+                  icon: Stack(
+                    children: [
+                      Icon(CupertinoIcons.chat_bubble_2),
+                      if (HomeScreen.hasMessage)
+                        Positioned(
+                          bottom: MediaQuery.of(context).size.height * 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.height *
+                                        500)),
+                            width:
+                            MediaQuery.of(context).size.width * .03,
+                            height:
+                            MediaQuery.of(context).size.width * .03,
+                          ),
+                        )
+                    ],
+                  ),
+                    ))
+                : Container(),
+            HomeScreen.selectedIndex == 0
+                ? SizedBox(
+                    width: MediaQuery.of(context).size.width * .03,
+                  )
+                : Container(),
+          ],
+        ),
+        body: tabs[HomeScreen.selectedIndex],
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: HomeScreen.selectedIndex,
+          onItemSelected: (index) =>
+              setState(() => HomeScreen.selectedIndex = index),
+          items: [
+            BottomNavyBarItem(
+              icon: Icon(CupertinoIcons.home),
+              title: Text(AppLocalizations.of(context)!.home),
+              activeColor: MyTheme.basicBlack,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: ImageIcon(AssetImage('assets/images/dashboard.png')),
+              title: Text(AppLocalizations.of(context)!.dashboard),
+              activeColor: MyTheme.basicBlack,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(CupertinoIcons.person_alt),
+              title: Text(AppLocalizations.of(context)!.profile),
+              activeColor: MyTheme.basicBlack,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(CupertinoIcons.bell_fill),
+              title: Text(AppLocalizations.of(context)!.notifications),
+              activeColor: MyTheme.basicBlack,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(CupertinoIcons.settings),
+              title: Text(AppLocalizations.of(context)!.settings),
+              activeColor: MyTheme.basicBlack,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -221,15 +222,15 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeViewModel>
       return showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-                title: Text('Are you sure, you want to leave?'),
-                actions: [
-                  TextButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: Text('cancel')),
-                  TextButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      child: Text('yes'))
-                ],
-              ));
+            title: Text('Are you sure, you want to leave?'),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Text('cancel')),
+              TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: Text('yes'))
+            ],
+          ));
   }
 }
