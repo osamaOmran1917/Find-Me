@@ -74,9 +74,11 @@ class _LatestLostState extends State<LatestLost> {
                       )
                     : InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, PostDetails.routeName,
-                              arguments: SharedData.missingPerson =
-                                  data[index]);
+                          SharedData.missingPerson = data[index];
+                          Navigator.push(
+                            context,
+                            ScalePageRoute(page: PostDetails()),
+                          );
                           print(data[index].id);
                         },
                         child: PostWidget(data[index]));
@@ -100,3 +102,66 @@ class _LatestLostState extends State<LatestLost> {
 }
 
 late List<MissingPerson> all;
+
+class ScalePageRoute<T> extends PageRouteBuilder<T> {
+  final Widget page;
+
+  ScalePageRoute({required this.page})
+      : super(
+          transitionDuration: Duration(milliseconds: 500),
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              ScaleTransition(
+            scale: Tween<double>(begin: 0.0, end: 1.0).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeOut,
+                reverseCurve: Curves.easeOut,
+              ),
+            ),
+            child: child,
+          ),
+        );
+}
+
+class FlipPageRoute<T> extends PageRouteBuilder<T> {
+  final Widget page;
+
+  FlipPageRoute({required this.page})
+      : super(
+          transitionDuration: Duration(milliseconds: 500),
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              RotationTransition(
+            turns: Tween<double>(begin: 0.0, end: 1.0).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeOut,
+                reverseCurve: Curves.easeOut,
+              ),
+            ),
+            child: child,
+          ),
+        );
+}
+
+class FadePageRoute<T> extends PageRouteBuilder<T> {
+  final Widget page;
+
+  FadePageRoute({required this.page})
+      : super(
+          transitionDuration: Duration(milliseconds: 500),
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(
+            opacity: Tween<double>(begin: 0.0, end: 1.0).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeOut,
+                reverseCurve: Curves.easeOut,
+              ),
+            ),
+            child: child,
+          ),
+        );
+}
