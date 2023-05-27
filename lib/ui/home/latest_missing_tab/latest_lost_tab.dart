@@ -81,7 +81,7 @@ class _LatestLostState extends State<LatestLost> {
                           );
                           print(data[index].id);
                         },
-                        child: PostWidget(data[index]));
+                        child: PostWidgetII(data[index]));
               },
               itemCount: data!.length,
             ),
