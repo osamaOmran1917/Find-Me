@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,50 +11,89 @@ class ImageSearchScreen extends StatefulWidget {
 
 class _ImageSearchScreenState extends State<ImageSearchScreen> {
   String? _image;
+  bool _isFaceDateChecked = false,
+      _uploadToDB = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * .05),
+            horizontal: MediaQuery
+                .of(context)
+                .size
+                .width * .05),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * .03,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .03,
               ),
-              Stack(
-                children: [
-                  _image != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(
-                              MediaQuery.of(context).size.height * .01),
-                          child: Image.file(
-                            File(_image!),
-                            width: MediaQuery.of(context).size.height * .3,
-                            height: MediaQuery.of(context).size.height * .3,
-                            fit: BoxFit.cover,
-                            // placeholder: (context, url) => CircularProgressIndicator(),
-                          ),
-                        )
-                      : ElevatedButton(
-                          onPressed: () => _showBottomSheet(),
-                          child: Text('حط صورة')),
-                ],
-              ),
+              _image != null
+                  ? ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    MediaQuery
+                        .of(context)
+                        .size
+                        .height * .01),
+                child: Image.file(
+                  File(_image!),
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .height * .3,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * .3,
+                  fit: BoxFit.cover,
+                  // placeholder: (context, url) => CircularProgressIndicator(),
+                ),
+              )
+                  : ElevatedButton(
+                  onPressed: () => _showBottomSheet(), child: Text('أضف صورة')),
               if (_image != null)
-                ElevatedButton(
-                    onPressed: () => _showBottomSheet(),
+                ElevatedButton(onPressed: () => _showBottomSheet(),
                     child: Text('غير الصورة')),
+              if (_image != null)
+                CheckboxListTile(
+                  title: Text("الحصول على بيانات الوجه"),
+                  value: _isFaceDateChecked,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _isFaceDateChecked = newValue!;
+                    });
+                  },
+                  controlAffinity:
+                  ListTileControlAffinity.leading, //  <-- leading Checkbox
+                ),
+              if (_image != null)
+                CheckboxListTile(
+                  title: Text("رفع الصورة لقواعد البيانات"),
+                  value: _uploadToDB,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _uploadToDB = newValue!;
+                      print(_image);
+                    });
+                  },
+                  controlAffinity:
+                  ListTileControlAffinity.leading, //  <-- leading Checkbox
+                ),
               if (_image != null)
                 ElevatedButton(
                     onPressed: () {
                       //شغل الموديل بقا. خد الصورة كإنبوت و احسب السيميلاريتي بينها و بين كل الصور اللي في الداتا بيز، بعد كدا خد أعلى 3 سيميلاريتي بشرط يكونوا أكبر من أو يساووا 0.5
                     },
-                    child: Text('ابحث'))
+                    child: Text('حساب التشابه'))
             ],
           ),
         ),
@@ -70,8 +108,14 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
           return ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * .02,
-                bottom: MediaQuery.of(context).size.height * .05),
+                top: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
+                bottom: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .05),
             children: [
               Text(
                 AppLocalizations.of(context)!.pickAPicture,
@@ -79,7 +123,10 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * .02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -89,14 +136,21 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                           backgroundColor: Colors.white,
                           shape: CircleBorder(),
                           fixedSize: Size(
-                              MediaQuery.of(context).size.width * .3,
-                              MediaQuery.of(context).size.height * .15)),
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * .3,
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
                         final XFile? image = await picker.pickImage(
                             source: ImageSource.gallery, imageQuality: 80);
                         if (image != null) {
-                          log('Image path: ${image.path} -- MimeType ${image.mimeType}');
+                          log('Image path: ${image.path} -- MimeType ${image
+                              .mimeType}');
                           setState(() {
                             _image = image.path;
                           });
@@ -109,8 +163,14 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                           backgroundColor: Colors.white,
                           shape: CircleBorder(),
                           fixedSize: Size(
-                              MediaQuery.of(context).size.width * .3,
-                              MediaQuery.of(context).size.height * .15)),
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * .3,
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * .15)),
                       onPressed: () async {
                         final ImagePicker picker = ImagePicker();
                         final XFile? image = await picker.pickImage(

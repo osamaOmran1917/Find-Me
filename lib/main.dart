@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:find_me_ii/firebase_options.dart';
 import 'package:find_me_ii/helpers/my_theme.dart';
 import 'package:find_me_ii/ui/home/home_screen.dart';

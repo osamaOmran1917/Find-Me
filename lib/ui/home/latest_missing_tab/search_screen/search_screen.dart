@@ -4,7 +4,7 @@ import 'package:find_me_ii/ui/home/latest_missing_tab/search_screen/text_search_
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'image_search_screen.dart';
+import 'image_search/image_search_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   static const String routeName = 'Search Screen';
