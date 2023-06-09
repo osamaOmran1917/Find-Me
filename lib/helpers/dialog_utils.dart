@@ -14,7 +14,7 @@ void showMessage(BuildContext context, String message,
           Navigator.pop(context);
           if (posAction != null) posAction();
         },
-        child: Text(posActionName)));
+        child: Text(posActionName, style: TextStyle(fontFamily: 'Arabic'))));
   }
 
   if (negActionName != null) {
@@ -23,7 +23,7 @@ void showMessage(BuildContext context, String message,
           Navigator.pop(context);
           if (negAction != null) negAction();
         },
-        child: Text(negActionName)));
+        child: Text(negActionName, style: TextStyle(fontFamily: 'Arabic'))));
   }
 
   showDialog(
@@ -32,7 +32,10 @@ void showMessage(BuildContext context, String message,
         return AlertDialog(
             content: Text(
               message,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(fontFamily: 'Arabic'),
             ),
             actions: actions);
       },
@@ -52,7 +55,7 @@ void showWidget(BuildContext context, Widget widget,
           Navigator.pop(context);
           if (posAction != null) posAction();
         },
-        child: Text(posActionName)));
+        child: Text(posActionName, style: TextStyle(fontFamily: 'Arabic'))));
   }
 
   if (negActionName != null) {
@@ -61,7 +64,7 @@ void showWidget(BuildContext context, Widget widget,
           Navigator.pop(context);
           if (negAction != null) negAction();
         },
-        child: Text(negActionName)));
+        child: Text(negActionName, style: TextStyle(fontFamily: 'Arabic'))));
   }
 
   showDialog(
@@ -88,7 +91,10 @@ void showLoading(BuildContext context, String loadingMessage,
               ),
               Text(
                 loadingMessage,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(fontFamily: 'Arabic'),
               )
             ],
           ),
@@ -105,7 +111,7 @@ class Dialogs {
   static void showSnackbar(BuildContext context, String msg) {
     // var settingsProvider = Provider.of<SettingsProvider>(context);
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(msg),
+      content: Text(msg, style: TextStyle(fontFamily: 'Arabic')),
       behavior: SnackBarBehavior.floating,
     ));
   }

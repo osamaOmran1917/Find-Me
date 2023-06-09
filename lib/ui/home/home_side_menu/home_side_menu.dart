@@ -68,7 +68,8 @@ class _HomeSideMenuState extends State<HomeSideMenu>
                   Text(
                     AppLocalizations.of(context)!.app_title,
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * .07),
+                        fontSize: MediaQuery.of(context).size.width * .07,
+                        fontFamily: 'Arabic'),
                   )
                 ]),
             TextButton.icon(
@@ -76,25 +77,37 @@ class _HomeSideMenuState extends State<HomeSideMenu>
                   viewModel.onManageAccPrsd();
                 },
                 icon: Icon(CupertinoIcons.profile_circled),
-                label: Text(AppLocalizations.of(context)!.manageAcc)),
+                label: Text(
+                  AppLocalizations.of(context)!.manageAcc,
+                  style: TextStyle(fontFamily: 'Arabic'),
+                )),
             TextButton.icon(
                 onPressed: () {
                   viewModel.onAboutUsPrsd();
                 },
                 icon: ImageIcon(AssetImage('assets/images/team.png')),
-                label: Text(AppLocalizations.of(context)!.aboutUs)),
+                label: Text(
+                  AppLocalizations.of(context)!.aboutUs,
+                  style: TextStyle(fontFamily: 'Arabic'),
+                )),
             TextButton.icon(
                 onPressed: () {
                   viewModel.onContactUsPrsd();
                 },
                 icon: Icon(CupertinoIcons.phone),
-                label: Text(AppLocalizations.of(context)!.contactUs)),
+                label: Text(
+                  AppLocalizations.of(context)!.contactUs,
+                  style: TextStyle(fontFamily: 'Arabic'),
+                )),
             TextButton.icon(
                 onPressed: () {
                   logOut(context);
                 },
                 icon: Icon(Icons.logout_outlined),
-                label: Text(AppLocalizations.of(context)!.logOut)),
+                label: Text(
+                  AppLocalizations.of(context)!.logOut,
+                  style: TextStyle(fontFamily: 'Arabic'),
+                )),
           ],
         ),
       ),

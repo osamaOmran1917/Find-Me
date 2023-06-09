@@ -39,19 +39,25 @@ class _ChatsScreenState extends State<ChatsScreen> {
             title: _isSearching
                 ? TextField(
               decoration: InputDecoration(
-                border: InputBorder.none,
+                      border: InputBorder.none,
                       hintText: AppLocalizations.of(context)!.nameEmailEtc,
-                      hintStyle: TextStyle(color: Colors.white),
+                      hintStyle:
+                          TextStyle(color: Colors.white, fontFamily: 'Arabic'),
                     ),
-              autofocus: true,
-              style: TextStyle(
-                  color: Colors.white, fontSize: 17, letterSpacing: .5),
-              onChanged: (val) {
-                _searchList.clear();
-                for (var i in _list) {
-                  if (i.userName!.toLowerCase().contains(val.toLowerCase()) ||
-                      i.phoneNumber!
-                          .toLowerCase()
+                    autofocus: true,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        letterSpacing: .5,
+                        fontFamily: 'Arabic'),
+                    onChanged: (val) {
+                      _searchList.clear();
+                      for (var i in _list) {
+                        if (i.userName!
+                                .toLowerCase()
+                                .contains(val.toLowerCase()) ||
+                            i.phoneNumber!
+                                .toLowerCase()
                                 .contains(val.toLowerCase()) ||
                             i.email!
                                 .toLowerCase()
@@ -64,7 +70,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                       }
                     },
                   )
-                : Text(AppLocalizations.of(context)!.chat),
+                : Text(
+                    AppLocalizations.of(context)!.chat,
+                    style: TextStyle(fontFamily: 'Arabic'),
+                  ),
             actions: [
               IconButton(
                   onPressed: () {
@@ -129,9 +138,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                             } else {
                               return Center(
                                   child: Text(
-                                AppLocalizations.of(context)!
+                                    AppLocalizations.of(context)!
                                     .noConnectionsFound,
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: 20, fontFamily: 'Arabic'),
                               ));
                             }
                         }
@@ -156,13 +166,18 @@ class _ChatsScreenState extends State<ChatsScreen> {
               title: Row(children: [
                 Icon(CupertinoIcons.person_add_solid,
                     color: Colors.blue, size: 28),
-                Text('  add user')
+                Text(
+                  '  add user',
+                  style: TextStyle(fontFamily: 'Arabic'),
+                )
               ]),
               content: TextFormField(
+                  style: TextStyle(fontFamily: 'Arabic'),
                   maxLines: null,
                   onChanged: (value) => email = value,
                   decoration: InputDecoration(
                       hintText: 'Email ID',
+                      hintStyle: TextStyle(fontFamily: 'Arabic'),
                       prefixIcon: Icon(
                         CupertinoIcons.mail_solid,
                         color: Colors.blue,
@@ -175,7 +190,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                       Navigator.pop(context);
                     },
                     child: Text('cancel',
-                        style: TextStyle(color: Colors.blue, fontSize: 16))),
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                            fontFamily: 'Arabic'))),
                 MaterialButton(
                     onPressed: () async {
                       if (email.isNotEmpty)
@@ -188,7 +206,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                       Navigator.pop(context);
                     },
                     child: Text('add',
-                        style: TextStyle(color: Colors.blue, fontSize: 16)))
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 16,
+                            fontFamily: 'Arabic')))
               ],
             ));
   }

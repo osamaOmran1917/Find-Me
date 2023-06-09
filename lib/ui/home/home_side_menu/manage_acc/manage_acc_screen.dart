@@ -30,7 +30,10 @@ class _ManageAccState extends State<ManageAcc> {
     var settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.editProfile),
+        title: Text(
+          AppLocalizations.of(context)!.editProfile,
+          style: TextStyle(fontFamily: 'Arabic'),
+        ),
         centerTitle: false,
         shape: InputBorder.none,
       ),
@@ -46,49 +49,45 @@ class _ManageAccState extends State<ManageAcc> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.profilePic,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                        fontWeight: FontWeight.bold, fontFamily: 'Arabic'),
                   ),
                   TextButton(
                       onPressed: () => _showBottomSheet(),
                       child: Text(
                         AppLocalizations.of(context)!.edit,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(color: Colors.blue),
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            color: Colors.blue, fontFamily: 'Arabic'),
                       ))
                 ],
               ),
               _image != null
                   ? ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.height * .1),
-                child: Image.file(
-                  File(_image!),
-                  width: MediaQuery.of(context).size.height * .2,
-                  height: MediaQuery.of(context).size.height * .2,
-                  fit: BoxFit.cover,
-                  // placeholder: (context, url) => CircularProgressIndicator(),
-                ),
-              )
+                      borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.height * .1),
+                      child: Image.file(
+                        File(_image!),
+                        width: MediaQuery.of(context).size.height * .2,
+                        height: MediaQuery.of(context).size.height * .2,
+                        fit: BoxFit.cover,
+                        // placeholder: (context, url) => CircularProgressIndicator(),
+                      ),
+                    )
                   : ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.height * .1),
-                child: CachedNetworkImage(
-                  width: MediaQuery.of(context).size.height * .2,
-                  height: MediaQuery.of(context).size.height * .2,
-                  fit: BoxFit.cover,
-                  imageUrl:
-                  MyDataBase.me.image ?? SharedData.user?.image ?? '',
-                  // placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) =>
-                  const CircleAvatar(
-                      child: Icon(CupertinoIcons.person_alt)),
-                ),
-              ),
+                      borderRadius: BorderRadius.circular(
+                          MediaQuery.of(context).size.height * .1),
+                      child: CachedNetworkImage(
+                        width: MediaQuery.of(context).size.height * .2,
+                        height: MediaQuery.of(context).size.height * .2,
+                        fit: BoxFit.cover,
+                        imageUrl:
+                            MyDataBase.me.image ?? SharedData.user?.image ?? '',
+                        // placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const CircleAvatar(
+                                child: Icon(CupertinoIcons.person_alt)),
+                      ),
+                    ),
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * .03,
@@ -103,10 +102,8 @@ class _ManageAccState extends State<ManageAcc> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.details,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                        fontWeight: FontWeight.bold, fontFamily: 'Arabic'),
                   ),
                   TextButton(
                       onPressed: () {
@@ -115,8 +112,11 @@ class _ManageAccState extends State<ManageAcc> {
                             TextField(
                               controller: addressController,
                               decoration: InputDecoration(
-                                  labelText: 'Address',
-                                  hintText: 'eg. Benha-Al-Qalubia'),
+                                labelText: 'Address',
+                                labelStyle: TextStyle(fontFamily: 'Arabic'),
+                                hintStyle: TextStyle(fontFamily: 'Arabic'),
+                                hintText: 'eg. Benha-Al-Qalubia',
+                              ),
                             ), posAction: () {
                           if (addressController.text.trim().toString() ==
                                   null ||
@@ -135,10 +135,8 @@ class _ManageAccState extends State<ManageAcc> {
                       },
                       child: Text(
                         AppLocalizations.of(context)!.edit,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(color: Colors.blue),
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            color: Colors.blue, fontFamily: 'Arabic'),
                       ))
                 ],
               ),
@@ -153,9 +151,12 @@ class _ManageAccState extends State<ManageAcc> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .045,
                   ),
-                  Text(SharedData.user?.gov ??
-                      MyDataBase.me.gov ??
-                      AppLocalizations.of(context)!.whereDoYouLive)
+                  Text(
+                    SharedData.user?.gov ??
+                        MyDataBase.me.gov ??
+                        AppLocalizations.of(context)!.whereDoYouLive,
+                    style: TextStyle(fontFamily: 'Arabic'),
+                  )
                 ],
               ),
               Container(
@@ -172,19 +173,15 @@ class _ManageAccState extends State<ManageAcc> {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.links,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                        fontWeight: FontWeight.bold, fontFamily: 'Arabic'),
                   ),
                   TextButton(
                       onPressed: () {},
                       child: Text(
                         AppLocalizations.of(context)!.edit,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(color: Colors.blue),
+                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            color: Colors.blue, fontFamily: 'Arabic'),
                       ))
                 ],
               ),
@@ -203,16 +200,19 @@ class _ManageAccState extends State<ManageAcc> {
                     width: MediaQuery.of(context).size.width * .045,
                   ),
                   TextButton(
-                    child: Text(SharedData.user?.facebook ??
-                        AppLocalizations.of(context)!.addYourFaceBook),
+                    child: Text(
+                      SharedData.user?.facebook ??
+                          AppLocalizations.of(context)!.addYourFaceBook,
+                      style: TextStyle(fontFamily: 'Arabic'),
+                    ),
                     onPressed: () {
                       showWidget(
                           context,
                           TextField(
                             controller: fbController,
                             decoration: InputDecoration(
-                              labelText: 'Facebook',
-                            ),
+                                labelText: 'Facebook',
+                                labelStyle: TextStyle(fontFamily: 'Arabic')),
                           ), posAction: () {
                         if (fbController.text.trim().toString() == null ||
                             addressController.text.trim().toString().isEmpty)
@@ -246,8 +246,11 @@ class _ManageAccState extends State<ManageAcc> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .045,
                   ),
-                  Text(SharedData.user?.instagram ??
-                      AppLocalizations.of(context)!.addYourInstagram)
+                  Text(
+                    SharedData.user?.instagram ??
+                        AppLocalizations.of(context)!.addYourInstagram,
+                    style: TextStyle(fontFamily: 'Arabic'),
+                  )
                 ],
               ),
               SizedBox(
@@ -265,8 +268,11 @@ class _ManageAccState extends State<ManageAcc> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .045,
                   ),
-                  Text(SharedData.user?.phoneNumber ??
-                      AppLocalizations.of(context)!.addYourWhatsApp)
+                  Text(
+                    SharedData.user?.phoneNumber ??
+                        AppLocalizations.of(context)!.addYourWhatsApp,
+                    style: TextStyle(fontFamily: 'Arabic'),
+                  )
                 ],
               )
             ],
@@ -288,7 +294,10 @@ class _ManageAccState extends State<ManageAcc> {
             children: [
               Text(
                 AppLocalizations.of(context)!.pickAPicture,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Arabic'),
                 textAlign: TextAlign.center,
               ),
               SizedBox(

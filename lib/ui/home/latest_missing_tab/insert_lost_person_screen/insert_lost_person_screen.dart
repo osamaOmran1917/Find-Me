@@ -113,7 +113,9 @@ class _InsertLostPersonScreenState
           AppLocalizations.of(context)!
               .allOfThisDataIsOptionalButTryToFillInAllOfThemSoThatWeCanConnectTheMissingWithTheirFamiliesAndIfYouCannotThenFillOutAtLeastOneStatement,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: MediaQuery.of(context).size.width * .0261),
+          style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * .0261,
+              fontFamily: 'Arabic'),
         ),
       ),
       body: Center(
@@ -139,6 +141,7 @@ class _InsertLostPersonScreenState
                           color: MyTheme.basicWhite,
                           borderRadius: BorderRadius.circular(12)),
                       child: TextFormField(
+                        style: TextStyle(fontFamily: 'Arabic'),
                         validator: (text) {
                           if (text == null || text.trim().isEmpty) {
                             b1 = true;
@@ -150,7 +153,8 @@ class _InsertLostPersonScreenState
                         },
                         controller: nameController,
                         decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.name),
+                            labelText: AppLocalizations.of(context)!.name,
+                            labelStyle: TextStyle(fontFamily: 'Arabic')),
                       ),
                     ),
                     SizedBox(
@@ -161,6 +165,7 @@ class _InsertLostPersonScreenState
                           color: MyTheme.basicWhite,
                           borderRadius: BorderRadius.circular(12)),
                       child: TextFormField(
+                        style: TextStyle(fontFamily: 'Arabic'),
                         validator: (text) {
                           if (text == null || text.trim().isEmpty) {
                             b2 = true;
@@ -173,7 +178,8 @@ class _InsertLostPersonScreenState
                         controller: ageController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!.age),
+                            labelText: AppLocalizations.of(context)!.age,
+                            labelStyle: TextStyle(fontFamily: 'Arabic')),
                       ),
                     ),
                     SizedBox(
@@ -184,6 +190,7 @@ class _InsertLostPersonScreenState
                           color: MyTheme.basicWhite,
                           borderRadius: BorderRadius.circular(12)),
                       child: TextFormField(
+                        style: TextStyle(fontFamily: 'Arabic'),
                         validator: (text) {
                           if (text == null || text.trim().isEmpty) {
                             b3 = true;
@@ -201,7 +208,8 @@ class _InsertLostPersonScreenState
                                 ? AppLocalizations.of(context)!
                                     .describeThePersonYouAreSearchingFor
                                 : AppLocalizations.of(context)!
-                                    .describeThePersonYouVeFound),
+                                    .describeThePersonYouVeFound,
+                            labelStyle: TextStyle(fontFamily: 'Arabic')),
                       ),
                     ),
                     SizedBox(
@@ -214,13 +222,18 @@ class _InsertLostPersonScreenState
                           borderRadius: BorderRadius.circular(12)),
                       child: settingsProvider.currentLang == 'en'
                           ? DropdownButton<String>(
+                        style: TextStyle(
+                                  fontFamily: 'Arabic', color: Colors.black),
                               items: govs.map((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
                                 );
                               }).toList(),
-                              hint: Text(gov),
+                              hint: Text(
+                                gov,
+                                style: TextStyle(fontFamily: 'Arabic'),
+                              ),
                               onChanged: (value) {
                                 setState(() {
                                   gov = value.toString();
@@ -228,13 +241,18 @@ class _InsertLostPersonScreenState
                               },
                             )
                           : DropdownButton<String>(
+                        style: TextStyle(
+                                  fontFamily: 'Arabic', color: Colors.black),
                               items: govsAR.map((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
                                 );
                               }).toList(),
-                              hint: Text(gov),
+                              hint: Text(
+                                gov,
+                                style: TextStyle(fontFamily: 'Arabic'),
+                              ),
                               onChanged: (value) {
                                 setState(() {
                                   gov = value.toString();
@@ -262,7 +280,10 @@ class _InsertLostPersonScreenState
                             InsertLostPersonScreen.lost
                                 ? 'lose date: ${selectedDate.year}/${selectedDate.month}/${selectedDate.day}'
                                 : 'finding date: ${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
-                            style: Theme.of(context).textTheme.titleSmall,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontFamily: 'Arabic'),
                           ),
                         ),
                       ),
@@ -292,7 +313,8 @@ class _InsertLostPersonScreenState
                                 ? AppLocalizations.of(context)!
                                     .whereIsThisPersonFrom
                                 : AppLocalizations.of(context)!
-                                    .whereIsThiesPersonRightNow),
+                                    .whereIsThiesPersonRightNow,
+                            labelStyle: TextStyle(fontFamily: 'Arabic')),
                       ),
                     ),
                     SizedBox(
@@ -308,7 +330,7 @@ class _InsertLostPersonScreenState
                       ),
                       label: Text(
                         AppLocalizations.of(context)!.addPicToThisPerson,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16, fontFamily: 'Arabic'),
                       ),
                       style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
@@ -357,7 +379,10 @@ class _InsertLostPersonScreenState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(AppLocalizations.of(context)!.insert),
+                            Text(
+                              AppLocalizations.of(context)!.insert,
+                              style: TextStyle(fontFamily: 'Arabic'),
+                            ),
                             Icon(Icons.add_circle_outlined),
                           ],
                         ))
@@ -495,7 +520,10 @@ class _InsertLostPersonScreenState
             children: [
               Text(
                 'Pick a picture',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Arabic'),
                 textAlign: TextAlign.center,
               ),
               SizedBox(

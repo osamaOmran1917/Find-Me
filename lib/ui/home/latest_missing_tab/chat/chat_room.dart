@@ -88,7 +88,8 @@ class _ChatRoomState extends State<ChatRoom> {
                               return Center(
                                   child: Text(
                                 AppLocalizations.of(context)!.sayHi,
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: 20, fontFamily: 'Arabic'),
                               ));
                             }
                         }
@@ -181,7 +182,8 @@ class _ChatRoomState extends State<ChatRoom> {
                     style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Arabic'),
                   ),
                   SizedBox(height: 2),
                   Text(
@@ -196,7 +198,9 @@ class _ChatRoomState extends State<ChatRoom> {
                                 lastActive: widget.user.last_active ?? '')) ??
                         AppLocalizations.of(context)!.lastSeenNotAvailable,
                     style: TextStyle(
-                        fontSize: 13, color: Theme.of(context).primaryColor),
+                        fontSize: 13,
+                        color: Theme.of(context).primaryColor,
+                        fontFamily: 'Arabic'),
                   )
                 ],
               )
@@ -242,6 +246,7 @@ class _ChatRoomState extends State<ChatRoom> {
                   },
                   decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.typeAMessage,
+                      hintStyle: TextStyle(fontFamily: 'Arabic'),
                       border: InputBorder.none),
                 )),
                 IconButton(

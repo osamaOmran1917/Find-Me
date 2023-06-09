@@ -44,7 +44,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.searchForAMissingPerson,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -72,7 +73,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.postAMissingPerson,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -99,7 +101,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.postFoundPerson,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -124,7 +127,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.chatWithSomeone,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -148,7 +152,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.manageAcc,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -173,7 +178,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       settingsProvider.isArabic() ? 'English' : 'عربي',
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -199,7 +205,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.changeAppTheme,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -224,7 +231,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.howToUseFindMe,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -248,7 +256,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.whoAreWe,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -273,7 +282,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.needHelp,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )
@@ -298,7 +308,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     child: Text(
                       AppLocalizations.of(context)!.wannaLogOut,
                       style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * .055),
+                          fontSize: MediaQuery.of(context).size.width * .055,
+                          fontFamily: 'Arabic'),
                     ),
                   ),
                 )

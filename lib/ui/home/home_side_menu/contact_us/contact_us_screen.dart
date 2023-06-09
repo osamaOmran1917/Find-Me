@@ -14,7 +14,9 @@ class ContactUs extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text(
-            '${AppLocalizations.of(context)!.whats} ${and} ${AppLocalizations.of(context)!.calls}: ${number}'),
+          '${AppLocalizations.of(context)!.whats} ${and} ${AppLocalizations.of(context)!.calls}: ${number}',
+          style: TextStyle(fontFamily: 'Arabic'),
+        ),
       ),
     );
   }
