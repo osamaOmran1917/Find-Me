@@ -3,8 +3,7 @@ import 'package:find_me_ii/ui/home/latest_missing_tab/search_screen/date_search_
 import 'package:find_me_ii/ui/home/latest_missing_tab/search_screen/text_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'image_search/image_search_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SearchScreen extends StatelessWidget {
   static const String routeName = 'Search Screen';
@@ -146,8 +145,9 @@ class SearchScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => ImageSearchScreen()));
+                  _launchInBrowser(Uri.parse('http://127.0.0.1:5000'));
+                  /*Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ImageSearchScreen()));*/
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -176,5 +176,14 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

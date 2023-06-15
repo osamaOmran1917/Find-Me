@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:find_me_ii/base/base.dart';
 import 'package:find_me_ii/data_base/missing_person.dart';
 import 'package:find_me_ii/data_base/my_database.dart';
@@ -15,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../helpers/my_theme.dart';
 import 'insert_lost_person_viewModel.dart';
 
